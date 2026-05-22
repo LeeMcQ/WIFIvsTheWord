@@ -1,6 +1,6 @@
 /* Wi-Fi vs The Word — service worker
    Offline-first caching so the site works in low-connectivity areas. */
-const CACHE = "wvtw-v1";
+const CACHE = "wvtw-v2";
 const ASSETS = [
   "./",
   "./index.html",
