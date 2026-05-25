@@ -37,263 +37,7 @@
   ]
 }
 </script>
-<style>
-@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Spline+Sans:wght@400;500;600&display=swap');
-:root{
-  --navy-deep:#0a111e;--navy:#0e1726;--navy-soft:#16213a;--navy-card:#152037;--line:#26314d;
-  --gold:#d4a843;--gold-soft:#e8c878;--amber:#c98b3c;
-  --warm-white:#f4f0e6;--warm-mute:#b9b8ae;--text-dim:#8b93a7;--good:#7fae8c;--wa:#1faa55;
-  --font-display:'Fraunces',Georgia,serif;--font-body:'Spline Sans',system-ui,sans-serif;
-  --maxw:1080px;--r:14px;--r-lg:22px;--ease:cubic-bezier(.22,.61,.36,1);
-}
-:root.light{
-  --navy-deep:#efe9da;--navy:#f4f0e6;--navy-soft:#e9e2cf;--navy-card:#fbf8ef;--line:#ddd3ba;
-  --gold:#a9802a;--gold-soft:#8c6a22;--amber:#a9802a;
-  --warm-white:#1f2433;--warm-mute:#4a4f5e;--text-dim:#6c7080;--good:#3f7a52;
-}
-*{margin:0;padding:0;box-sizing:border-box}
-html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
-body{font-family:var(--font-body);background:var(--navy);color:var(--warm-white);line-height:1.65;overflow-x:hidden;transition:background .4s var(--ease),color .4s var(--ease)}
-@media (prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
-img{max-width:100%;display:block}
-a{color:inherit}
-button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
-input,textarea,select{font-family:inherit}
-::selection{background:var(--gold);color:var(--navy-deep)}
-h1,h2,h3{font-family:var(--font-display);font-weight:500;line-height:1.15;letter-spacing:-.01em}
-.eyebrow{font-family:var(--font-body);font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);font-weight:600}
-body::before{content:"";position:fixed;inset:0;z-index:1;pointer-events:none;opacity:.025;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
-.wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px;position:relative;z-index:2}
-section{padding:96px 0;position:relative}
-@media(max-width:640px){section{padding:64px 0}}
-.section-head{max-width:640px;margin-bottom:48px}
-.section-head h2{font-size:clamp(1.9rem,5vw,2.9rem);margin:14px 0 14px}
-.section-head p{color:var(--warm-mute);font-size:1.05rem}
-header{position:sticky;top:0;z-index:50;background:color-mix(in srgb,var(--navy) 88%,transparent);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
-.nav{display:flex;align-items:center;justify-content:space-between;height:68px}
-.brand{display:flex;align-items:center;gap:11px;text-decoration:none;font-weight:600;margin-right:20px;flex-shrink:0}
-.brand-mark{width:34px;height:34px;border-radius:9px;flex-shrink:0;background:linear-gradient(150deg,var(--navy-soft),var(--navy-deep));border:1px solid var(--line);display:grid;place-items:center}
-.brand-mark svg{width:20px;height:20px}
-.brand-name{font-family:var(--font-display);font-size:1.08rem;letter-spacing:-.01em;white-space:nowrap}
-.brand-name b{color:var(--gold);font-weight:500}
-.nav-links{display:flex;gap:20px;align-items:center}
-.nav-links a{text-decoration:none;font-size:.86rem;color:var(--warm-mute);transition:color .2s;font-weight:500;white-space:nowrap}
-.nav-links a:hover{color:var(--warm-white)}
-.nav-tools{display:flex;align-items:center;gap:10px}
-.icon-btn{width:38px;height:38px;border-radius:10px;border:1px solid var(--line);background:var(--navy-card);display:grid;place-items:center;transition:border-color .2s,transform .2s}
-.icon-btn:hover{border-color:var(--gold);transform:translateY(-1px)}
-.icon-btn svg{width:18px;height:18px}
-.menu-toggle{display:none}
-@media(max-width:1080px){
-  .nav-links{position:fixed;inset:68px 0 auto 0;flex-direction:column;gap:0;background:var(--navy);border-bottom:1px solid var(--line);padding:8px 0;transform:translateY(-130%);transition:transform .35s var(--ease);max-height:85vh;overflow-y:auto}
-  .nav-links.open{transform:translateY(0)}
-  .nav-links a{padding:14px 24px;width:100%;border-bottom:1px solid var(--line)}
-  .menu-toggle{display:grid}
-}
-.btn{display:inline-flex;align-items:center;gap:9px;padding:14px 24px;border-radius:var(--r);font-size:.95rem;font-weight:600;text-decoration:none;transition:transform .2s var(--ease),box-shadow .2s,background .2s,border-color .2s}
-.btn svg{width:17px;height:17px}
-.btn-primary{background:linear-gradient(135deg,var(--gold),var(--amber));color:var(--navy-deep);box-shadow:0 8px 26px -10px color-mix(in srgb,var(--gold) 70%,transparent)}
-.btn-primary:hover{transform:translateY(-2px);box-shadow:0 14px 34px -12px color-mix(in srgb,var(--gold) 80%,transparent)}
-.btn-ghost{border:1px solid var(--line);background:var(--navy-card);color:var(--warm-white)}
-.btn-ghost:hover{border-color:var(--gold);transform:translateY(-2px)}
-.btn-sm{padding:11px 18px;font-size:.88rem}
-.hero{padding:clamp(64px,11vw,120px) 0 clamp(72px,9vw,108px);position:relative;overflow:hidden}
-.hero::after{content:"";position:absolute;top:-160px;right:-140px;width:560px;height:560px;pointer-events:none;background:radial-gradient(circle,transparent 0 28%,color-mix(in srgb,var(--gold) 20%,transparent) 28.5% 29.5%,transparent 30%),radial-gradient(circle,transparent 0 42%,color-mix(in srgb,var(--gold) 13%,transparent) 42.5% 43.3%,transparent 44%),radial-gradient(circle,transparent 0 56%,color-mix(in srgb,var(--gold) 8%,transparent) 56.5% 57.2%,transparent 58%)}
-.hero-glow{position:absolute;left:50%;top:38%;width:680px;height:680px;transform:translate(-50%,-50%);pointer-events:none;background:radial-gradient(circle,color-mix(in srgb,var(--amber) 22%,transparent),transparent 62%);filter:blur(40px);opacity:.6}
-.hero .wrap{display:grid;gap:28px;max-width:860px}
-.hero h1{font-size:clamp(2.3rem,7vw,4.5rem);font-weight:500}
-.hero h1 .em{font-style:italic;color:var(--gold);display:inline-block}
-.hero-sub{font-size:clamp(1.02rem,2.4vw,1.25rem);color:var(--warm-mute);max-width:560px}
-.hero-verse{font-family:var(--font-display);font-style:italic;color:var(--gold-soft);font-size:1.02rem;border-left:2px solid var(--gold);padding-left:18px;max-width:520px}
-.cta-row{display:flex;flex-wrap:wrap;gap:14px;margin-top:4px}
-.hero-stats{display:flex;flex-wrap:wrap;gap:14px 38px;margin-top:18px;padding-top:26px;border-top:1px solid var(--line)}
-.hero-stat b{font-family:var(--font-display);font-size:1.8rem;color:var(--gold);display:block;line-height:1}
-.hero-stat span{font-size:.82rem;color:var(--text-dim)}
-.reveal{opacity:0;transform:translateY(26px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
-.reveal.in{opacity:1;transform:none}
-.tint{background:var(--navy-soft);border-block:1px solid var(--line)}
-.problem-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:18px}
-.pcard{background:var(--navy-card);border:1px solid var(--line);border-radius:var(--r);padding:24px;transition:transform .25s var(--ease),border-color .25s}
-.pcard:hover{transform:translateY(-4px);border-color:color-mix(in srgb,var(--gold) 55%,var(--line))}
-.pcard .ico{width:42px;height:42px;border-radius:11px;margin-bottom:14px;background:color-mix(in srgb,var(--amber) 16%,transparent);display:grid;place-items:center}
-.pcard .ico svg{width:21px;height:21px;color:var(--gold)}
-.pcard h3{font-size:1.12rem;margin-bottom:6px}
-.pcard p{font-size:.92rem;color:var(--warm-mute)}
-.stones-list{display:grid;gap:0;border-top:1px solid var(--line)}
-.stone{display:grid;grid-template-columns:auto 1fr;gap:22px;padding:26px 4px;border-bottom:1px solid var(--line);align-items:start}
-.stone-num{font-family:var(--font-display);font-size:1.5rem;color:var(--gold);font-style:italic;width:46px;height:46px;border-radius:50%;border:1px solid var(--line);display:grid;place-items:center;flex-shrink:0}
-.stone h3{font-size:1.18rem;margin-bottom:4px}
-.stone p{font-size:.95rem;color:var(--warm-mute)}
-.stone .ref{display:inline-block;margin-top:8px;font-size:.78rem;color:var(--gold);font-weight:600;letter-spacing:.04em}
-.sabbath{background:linear-gradient(180deg,var(--navy-deep),var(--navy));border-block:1px solid var(--line);text-align:center}
-.sabbath .wrap{max-width:680px}
-.sabbath h2{font-size:clamp(2rem,6vw,3.2rem);margin:14px 0 16px}
-.sabbath p.lead{color:var(--warm-mute);font-size:1.08rem;margin-bottom:34px}
-.sabbath-card{background:var(--navy-card);border:1px solid var(--line);border-radius:var(--r-lg);padding:38px 30px;position:relative;overflow:hidden}
-.sabbath-card::before{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(circle at 50% 0%,color-mix(in srgb,var(--gold) 12%,transparent),transparent 60%)}
-.sabbath-card h3{font-size:1.4rem;margin-bottom:8px}
-.sabbath-steps{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin:22px 0 28px}
-.sabbath-step{font-size:.84rem;padding:8px 14px;border-radius:50px;background:var(--navy-soft);border:1px solid var(--line);color:var(--warm-mute)}
-.sabbath-step b{color:var(--gold-soft);font-weight:600}
-.quiz-card{background:var(--navy-card);border:1px solid var(--line);border-radius:var(--r-lg);padding:clamp(26px,4vw,42px);max-width:680px}
-.quiz-progress{height:5px;border-radius:50px;background:var(--navy-soft);overflow:hidden;margin-bottom:26px}
-.quiz-progress i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--gold),var(--amber));transition:width .4s var(--ease)}
-.quiz-qnum{font-size:.78rem;color:var(--text-dim);letter-spacing:.1em;text-transform:uppercase}
-.quiz-q{font-family:var(--font-display);font-size:1.3rem;margin:8px 0 22px;line-height:1.3}
-.quiz-opts{display:grid;gap:10px}
-.quiz-opt{text-align:left;padding:15px 18px;border-radius:var(--r);border:1px solid var(--line);background:var(--navy-soft);font-size:.95rem;transition:border-color .2s,background .2s,transform .15s;display:flex;align-items:center;gap:12px}
-.quiz-opt:hover{border-color:var(--gold);transform:translateX(3px)}
-.quiz-opt .dot{width:18px;height:18px;border-radius:50%;border:2px solid var(--line);flex-shrink:0;transition:border-color .2s}
-.quiz-opt:hover .dot{border-color:var(--gold)}
-.quiz-result{display:none}
-.quiz-result.show{display:block}
-.quiz-score{font-family:var(--font-display);font-size:3.4rem;color:var(--gold);line-height:1;font-style:italic}
-.quiz-result h3{font-size:1.5rem;margin:10px 0 10px}
-.quiz-result p{color:var(--warm-mute);margin-bottom:8px}
-.quiz-meter{height:10px;border-radius:50px;background:var(--navy-soft);margin:18px 0;overflow:hidden}
-.quiz-meter i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--good),var(--gold),var(--amber))}
-.quiz-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:22px}
-.ai-step{margin-top:20px;padding:18px 20px;border-radius:var(--r);background:var(--navy-soft);border:1px solid var(--line);border-left:3px solid var(--gold)}
-.ai-step .ai-tag{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);font-weight:600;display:flex;align-items:center;gap:7px}
-.ai-step .ai-tag svg{width:13px;height:13px}
-.ai-step p{font-size:.95rem;color:var(--warm-white);margin:8px 0 0}
-.ai-loading{display:flex;gap:5px;align-items:center;padding:4px 0}
-.ai-loading span{width:7px;height:7px;border-radius:50%;background:var(--gold);animation:bounce 1.2s infinite ease-in-out}
-.ai-loading span:nth-child(2){animation-delay:.15s}
-.ai-loading span:nth-child(3){animation-delay:.3s}
-@keyframes bounce{0%,80%,100%{opacity:.3;transform:translateY(0)}40%{opacity:1;transform:translateY(-5px)}}
-.ai-section{background:var(--navy-soft);border-block:1px solid var(--line)}
-.ai-wrap{max-width:760px;margin:0 auto}
-.ai-chat{background:var(--navy-card);border:1px solid var(--line);border-radius:var(--r-lg);overflow:hidden}
-.ai-head{padding:18px 22px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:12px}
-.ai-head .ai-orb{width:38px;height:38px;border-radius:50%;flex-shrink:0;background:linear-gradient(135deg,var(--gold),var(--amber));display:grid;place-items:center}
-.ai-head .ai-orb svg{width:20px;height:20px;color:var(--navy-deep)}
-.ai-head h3{font-size:1.05rem;font-family:var(--font-body);font-weight:600}
-.ai-head span{font-size:.78rem;color:var(--text-dim)}
-.ai-log{padding:22px;display:flex;flex-direction:column;gap:14px;min-height:220px;max-height:440px;overflow-y:auto}
-.ai-msg{max-width:86%;padding:13px 16px;border-radius:14px;font-size:.93rem;line-height:1.6;white-space:pre-wrap}
-.ai-msg.bot{background:var(--navy-soft);border:1px solid var(--line);align-self:flex-start;border-bottom-left-radius:4px}
-.ai-msg.user{background:linear-gradient(135deg,var(--gold),var(--amber));color:var(--navy-deep);align-self:flex-end;border-bottom-right-radius:4px;font-weight:500}
-.ai-suggest{display:flex;flex-wrap:wrap;gap:8px;padding:0 22px 14px}
-.ai-chip{font-size:.82rem;padding:8px 13px;border-radius:50px;background:var(--navy-soft);border:1px solid var(--line);color:var(--warm-mute);transition:border-color .2s,color .2s}
-.ai-chip:hover{border-color:var(--gold);color:var(--warm-white)}
-.ai-input{display:flex;gap:10px;padding:16px 22px;border-top:1px solid var(--line)}
-.ai-input input{flex:1;padding:13px 16px;border-radius:var(--r);background:var(--navy-soft);border:1px solid var(--line);color:var(--warm-white);font-size:.93rem}
-.ai-input input:focus{outline:none;border-color:var(--gold)}
-.ai-send{width:46px;height:46px;border-radius:var(--r);flex-shrink:0;background:linear-gradient(135deg,var(--gold),var(--amber));display:grid;place-items:center}
-.ai-send svg{width:19px;height:19px;color:var(--navy-deep)}
-.ai-send:disabled{opacity:.5;cursor:not-allowed}
-.ai-disclaimer{font-size:.74rem;color:var(--text-dim);text-align:center;margin-top:14px}
-.devo-card{background:var(--navy-card);border:1px solid var(--line);border-radius:var(--r-lg);padding:clamp(26px,4vw,40px);max-width:680px;position:relative;overflow:hidden}
-.devo-card::before{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(circle at 100% 0%,color-mix(in srgb,var(--gold) 10%,transparent),transparent 55%)}
-.devo-body{font-size:1rem;color:var(--warm-white);line-height:1.75;white-space:pre-wrap;position:relative}
-.devo-body .devo-verse{font-family:var(--font-display);font-style:italic;color:var(--gold-soft);display:block;margin:6px 0 14px}
-.devo-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:22px}
-.media-embed{position:relative;border-radius:var(--r-lg);overflow:hidden;border:1px solid var(--line);background:var(--navy-card);aspect-ratio:16/9;display:grid;place-items:center;text-align:center}
-.media-embed iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
-.media-placeholder{padding:30px}
-.media-placeholder .play{width:66px;height:66px;border-radius:50%;margin:0 auto 16px;background:linear-gradient(135deg,var(--gold),var(--amber));display:grid;place-items:center}
-.media-placeholder .play svg{width:26px;height:26px;color:var(--navy-deep);margin-left:3px}
-.media-placeholder p{color:var(--warm-mute);font-size:.9rem}
-.pillars{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin-top:24px}
-.pillar{padding:18px;border:1px solid var(--line);border-radius:var(--r);background:var(--navy-card)}
-.pillar h4{font-family:var(--font-display);font-size:1.05rem;color:var(--gold-soft);margin-bottom:4px}
-.pillar p{font-size:.85rem;color:var(--text-dim)}
-.res-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px}
-.res-card{background:var(--navy-card);border:1px solid var(--line);border-radius:var(--r);padding:24px;display:flex;flex-direction:column;gap:10px;transition:transform .25s var(--ease),border-color .25s}
-.res-card:hover{transform:translateY(-4px);border-color:color-mix(in srgb,var(--gold) 50%,var(--line))}
-.res-card .tag{font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);font-weight:600}
-.res-card h3{font-size:1.1rem}
-.res-card p{font-size:.88rem;color:var(--warm-mute);flex:1}
-.res-link{font-size:.86rem;font-weight:600;color:var(--gold);display:inline-flex;align-items:center;gap:6px;text-decoration:none}
-.res-link svg{width:14px;height:14px;transition:transform .2s}
-.res-card:hover .res-link svg{transform:translateX(3px)}
-.covwall{text-align:center}
-.covwall .wrap{max-width:720px}
-.cov-counter{font-family:var(--font-display);font-size:clamp(3rem,11vw,5.5rem);color:var(--gold);line-height:1;font-style:italic}
-.cov-counter-label{font-size:.9rem;color:var(--warm-mute);margin-bottom:30px}
-.cov-form{background:var(--navy-card);border:1px solid var(--line);border-radius:var(--r-lg);padding:30px;margin-top:6px}
-.cov-form h3{font-size:1.3rem;margin-bottom:6px}
-.cov-form p{font-size:.9rem;color:var(--warm-mute);margin-bottom:18px}
-.cov-row{display:flex;gap:10px;flex-wrap:wrap}
-.cov-row input{flex:1;min-width:160px;padding:13px 16px;border-radius:var(--r);background:var(--navy-soft);border:1px solid var(--line);color:var(--warm-white);font-size:.95rem}
-.cov-row input:focus{outline:none;border-color:var(--gold)}
-.cov-feed{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:24px}
-.cov-pill{font-size:.8rem;padding:7px 13px;border-radius:50px;background:var(--navy-soft);border:1px solid var(--line);color:var(--warm-mute)}
-.cov-pill b{color:var(--gold-soft);font-weight:600}
-.cov-success{display:none;color:var(--good);font-size:.92rem;margin-top:14px}
-.cov-success.show{display:block}
-.church-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:30px;align-items:start}
-@media(max-width:800px){.church-grid{grid-template-columns:1fr}}
-.church-list{display:grid;gap:12px}
-.church-item{display:flex;gap:14px;align-items:flex-start;background:var(--navy-card);border:1px solid var(--line);border-radius:var(--r);padding:18px}
-.church-item .ci-num{font-family:var(--font-display);font-style:italic;color:var(--gold);font-size:1.2rem;flex-shrink:0}
-.church-item h4{font-size:1rem;font-family:var(--font-body);font-weight:600;margin-bottom:2px}
-.church-item p{font-size:.86rem;color:var(--warm-mute)}
-.invite-box{background:var(--navy-card);border:1px solid var(--line);border-radius:var(--r-lg);padding:28px}
-.invite-box h3{font-size:1.25rem;margin-bottom:6px}
-.invite-box p{font-size:.88rem;color:var(--warm-mute);margin-bottom:16px}
-.invite-box textarea{width:100%;padding:14px 16px;border-radius:var(--r);background:var(--navy-soft);border:1px solid var(--line);color:var(--warm-white);font-size:.9rem;min-height:140px;resize:vertical;line-height:1.6}
-.invite-box textarea:focus{outline:none;border-color:var(--gold)}
-.invite-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}
-.sharebar{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
-.sharebar .sb-label{font-size:.82rem;color:var(--text-dim);margin-right:4px}
-.sb-btn{width:42px;height:42px;border-radius:11px;border:1px solid var(--line);background:var(--navy-card);display:grid;place-items:center;transition:transform .2s,border-color .2s}
-.sb-btn:hover{transform:translateY(-2px);border-color:var(--gold)}
-.sb-btn svg{width:19px;height:19px;color:var(--warm-white)}
-.sb-btn.wa svg{color:var(--wa)}
-.sb-toast{position:fixed;left:50%;bottom:90px;transform:translateX(-50%) translateY(20px);background:var(--navy-card);border:1px solid var(--gold);border-radius:50px;padding:10px 20px;font-size:.85rem;opacity:0;pointer-events:none;transition:opacity .3s,transform .3s;z-index:70}
-.sb-toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
-.faq-list{display:grid;gap:10px;max-width:720px}
-.faq-item{background:var(--navy-card);border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
-.faq-q{width:100%;text-align:left;padding:18px 20px;font-weight:600;font-size:.98rem;display:flex;justify-content:space-between;align-items:center;gap:14px}
-.faq-q .fq-ico{flex-shrink:0;transition:transform .3s var(--ease);color:var(--gold)}
-.faq-q .fq-ico svg{width:18px;height:18px}
-.faq-item.open .fq-ico{transform:rotate(45deg)}
-.faq-a{max-height:0;overflow:hidden;transition:max-height .35s var(--ease)}
-.faq-a p{padding:0 20px 18px;font-size:.92rem;color:var(--warm-mute)}
-.involved-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:34px}
-@media(max-width:780px){.involved-grid{grid-template-columns:1fr}}
-.contact-methods{display:grid;gap:14px}
-.cmethod{display:flex;gap:16px;align-items:center;background:var(--navy-card);border:1px solid var(--line);border-radius:var(--r);padding:18px 20px;text-decoration:none;transition:transform .2s,border-color .2s}
-.cmethod:hover{transform:translateX(4px);border-color:var(--gold)}
-.cmethod .cm-ico{width:46px;height:46px;border-radius:12px;flex-shrink:0;display:grid;place-items:center;background:color-mix(in srgb,var(--gold) 14%,transparent)}
-.cmethod .cm-ico svg{width:23px;height:23px;color:var(--gold)}
-.cmethod h4{font-size:1rem;font-family:var(--font-body);font-weight:600}
-.cmethod span{font-size:.85rem;color:var(--text-dim)}
-.newsletter{background:var(--navy-card);border:1px solid var(--line);border-radius:var(--r-lg);padding:30px}
-.newsletter h3{font-size:1.3rem;margin-bottom:6px}
-.newsletter p{font-size:.9rem;color:var(--warm-mute);margin-bottom:18px}
-.nl-field{display:flex;flex-direction:column;gap:10px}
-.nl-field input{padding:14px 16px;border-radius:var(--r);background:var(--navy-soft);border:1px solid var(--line);color:var(--warm-white);font-size:.95rem}
-.nl-field input:focus{outline:none;border-color:var(--gold)}
-.nl-note{font-size:.76rem;color:var(--text-dim);margin-top:10px}
-.nl-success{display:none;font-size:.9rem;color:var(--good);background:color-mix(in srgb,var(--good) 12%,transparent);border:1px solid color-mix(in srgb,var(--good) 35%,transparent);border-radius:var(--r);padding:14px 16px;margin-top:6px}
-.nl-success.show{display:block}
-.covenant{text-align:center;background:linear-gradient(160deg,var(--navy-deep),var(--navy-soft))}
-.covenant .wrap{max-width:620px}
-.covenant blockquote{font-family:var(--font-display);font-style:italic;font-size:clamp(1.4rem,4vw,2.1rem);line-height:1.4;color:var(--warm-white);margin-bottom:14px}
-.covenant cite{font-size:.85rem;color:var(--gold);font-style:normal;letter-spacing:.05em}
-footer{background:var(--navy-deep);border-top:1px solid var(--line);padding:54px 0 30px}
-.foot-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:34px;margin-bottom:38px}
-@media(max-width:680px){.foot-grid{grid-template-columns:1fr}}
-.foot-about p{font-size:.88rem;color:var(--warm-mute);margin-top:12px;max-width:320px}
-.foot-col h5{font-size:.75rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin-bottom:14px}
-.foot-col a{display:block;font-size:.9rem;color:var(--warm-mute);text-decoration:none;margin-bottom:9px;transition:color .2s}
-.foot-col a:hover{color:var(--warm-white)}
-.foot-bottom{border-top:1px solid var(--line);padding-top:24px;display:flex;flex-wrap:wrap;gap:10px;justify-content:space-between;font-size:.8rem;color:var(--text-dim)}
-.wa-fab{position:fixed;right:20px;bottom:20px;z-index:60;width:54px;height:54px;border-radius:50%;background:var(--wa);display:grid;place-items:center;box-shadow:0 10px 30px -8px rgba(0,0,0,.6);transition:transform .2s;text-decoration:none}
-.wa-fab:hover{transform:scale(1.08)}
-.wa-fab svg{width:28px;height:28px;color:#fff}
-.install-toast{position:fixed;left:50%;bottom:22px;translate:-50% 140%;z-index:65;background:var(--navy-card);border:1px solid var(--line);border-radius:var(--r);padding:14px 18px;display:flex;gap:14px;align-items:center;box-shadow:0 14px 40px -12px rgba(0,0,0,.7);transition:translate .4s var(--ease);max-width:92vw}
-.install-toast.show{translate:-50% 0}
-.install-toast p{font-size:.86rem}
-.install-toast b{color:var(--gold)}
-.install-toast .it-btns{display:flex;gap:8px}
-.install-toast button{font-size:.82rem;font-weight:600;padding:8px 13px;border-radius:9px}
-.it-yes{background:var(--gold);color:var(--navy-deep)}
-.it-no{border:1px solid var(--line);color:var(--warm-mute)}
-</style>
+<link rel="stylesheet" href="theme.css">
 </head>
 <body>
 <header>
@@ -303,16 +47,13 @@ footer{background:var(--navy-deep);border-top:1px solid var(--line);padding:54px
       <span class="brand-name">Wi-Fi <b>vs</b> The Word</span>
     </a>
     <nav class="nav-links" id="navLinks">
-      <a href="#problem">The Problem</a>
-      <a href="#altar">Family Altar</a>
-      <a href="#sabbath">Digital Sabbath</a>
-      <a href="#assess">Self-Check</a>
-      <a href="#companion">Ask</a>
-      <a href="#devotional">Devotional</a>
-      <a href="#media">Sermon</a>
-      <a href="#covenant-wall">Covenant</a>
-      <a href="#church">For Churches</a>
-      <a href="#involved">Get Involved</a>
+      <a href="index.html" class="active">Home</a>
+      <a href="articles.html">Articles</a>
+      <a href="tools.html">Tools</a>
+      <a href="resources.html">Resources</a>
+      <a href="events.html">Events</a>
+      <a href="about.html">Our Story</a>
+      <a href="contact.html">Contact</a>
     </nav>
     <div class="nav-tools">
       <button class="icon-btn" id="themeBtn" aria-label="Toggle light and dark mode" title="Toggle theme">
@@ -335,7 +76,7 @@ footer{background:var(--navy-deep);border-top:1px solid var(--line);padding:54px
     <div class="cta-row reveal">
       <a href="#media" class="btn btn-primary"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>Watch the Sermon</a>
       <a href="#sabbath" class="btn btn-ghost">Start the Digital Sabbath</a>
-      <a href="#covenant-wall" class="btn btn-ghost">Take the Covenant</a>
+      <a href="start-here.html" class="btn btn-ghost">New here? Start Here</a>
     </div>
     <div class="hero-stats reveal">
       <div class="hero-stat"><b>96&ndash;186&times;</b><span>times a phone is checked daily</span></div>
@@ -498,6 +239,36 @@ footer{background:var(--navy-deep);border-top:1px solid var(--line);padding:54px
     </div>
   </div>
 </section>
+<section class="tint">
+  <div class="wrap">
+    <div class="section-head reveal"><span class="eyebrow">Interactive Tools</span>
+      <h2>Take stock, then take a step</h2>
+      <p>Four short, honest tools to help your family see clearly and begin well — built from the heart of the sermon.</p>
+    </div>
+    <div class="grid grid-2">
+      <a class="card reveal" href="tools.html" style="text-decoration:none">
+        <span class="tag">Tool</span><h3>Family Altar Builder</h3>
+        <p>Answer four questions and receive a personalised, ordered plan — the right stones to lay first.</p>
+        <span class="card-link">Open the tools <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg></span>
+      </a>
+      <a class="card reveal" href="tools.html" style="text-decoration:none">
+        <span class="tag">Tool</span><h3>The Algorithm Cleanse</h3>
+        <p>Walk through the Philippians 4:8 filter and learn how to retrain your feed.</p>
+        <span class="card-link">Open the tools <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg></span>
+      </a>
+      <a class="card reveal" href="tools.html" style="text-decoration:none">
+        <span class="tag">Tool</span><h3>Smartphone Readiness Check</h3>
+        <p>"Is my child ready for a phone?" A calm, honest set of questions for parents.</p>
+        <span class="card-link">Open the tools <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg></span>
+      </a>
+      <a class="card reveal" href="tools.html" style="text-decoration:none">
+        <span class="tag">Tool</span><h3>Distraction Profile</h3>
+        <p>Discover which digital pull tugs hardest at you — and the one step that helps most.</p>
+        <span class="card-link">Open the tools <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg></span>
+      </a>
+    </div>
+  </div>
+</section>
 <section id="resources">
   <div class="wrap">
     <div class="section-head reveal">
@@ -630,11 +401,11 @@ footer{background:var(--navy-deep);border-top:1px solid var(--line);padding:54px
       </div>
       <div class="foot-col">
         <h5>Explore</h5>
-        <a href="#problem">The Problem</a><a href="#altar">Family Altar</a><a href="#sabbath">Digital Sabbath</a><a href="#assess">Self-Check</a><a href="#faq">FAQ</a>
+        <a href="articles.html">Articles</a><a href="resources.html">Resources</a><a href="events.html">Events &amp; Workshops</a><a href="testimonies.html">Testimonies</a><a href="about.html">Our Story</a>
       </div>
       <div class="foot-col">
         <h5>Connect</h5>
-        <a href="#companion">Ask the Ministry</a><a href="#media">Watch the Sermon</a><a href="#covenant-wall">Take the Covenant</a><a href="#church">For Churches</a><a href="#involved">Newsletter</a>
+        <a href="#companion">Ask the Ministry</a><a href="#media">Watch the Sermon</a><a href="#covenant-wall">Take the Covenant</a><a href="#church">For Churches</a><a href="contact.html">Contact</a>
       </div>
     </div>
     <div class="foot-bottom">
@@ -647,94 +418,9 @@ footer{background:var(--navy-deep);border-top:1px solid var(--line);padding:54px
   <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.87 9.87 0 0 0 4.74 1.21c5.46 0 9.91-4.45 9.91-9.91S17.5 2 12.04 2zm5.8 14.04c-.24.68-1.42 1.3-1.95 1.34-.5.05-1.13.24-3.66-.77-3.08-1.24-5.06-4.41-5.21-4.62-.15-.2-1.25-1.66-1.25-3.17 0-1.5.79-2.24 1.07-2.55.28-.3.61-.38.81-.38.2 0 .41 0 .58.01.19.01.44-.07.69.53.24.6.84 2.07.91 2.22.07.15.12.32.02.52-.1.2-.15.32-.3.49-.15.17-.31.39-.45.52-.15.15-.3.31-.13.6.17.3.76 1.25 1.63 2.02 1.12 1 2.07 1.31 2.36 1.46.3.15.47.13.64-.08.17-.2.74-.86.94-1.16.2-.3.4-.25.67-.15.27.1 1.71.81 2 .96.3.15.5.22.57.34.07.13.07.73-.17 1.42z"/></svg>
 </a>
 <div class="sb-toast" id="sbToast">Link copied to clipboard</div>
-<div class="install-toast" id="installToast">
-  <p><b>Install Wi-Fi vs The Word</b><br>Add to your home screen for offline access.</p>
-  <div class="it-btns"><button class="it-yes" id="installYes">Install</button><button class="it-no" id="installNo">Later</button></div>
-</div>
+
+<script src="shared.js"></script>
 <script>
-/* ============================================================
-   CONFIG — edit these values, the whole site updates.
-   ============================================================ */
-const CONFIG = {
-  whatsappNumber: "27000000000",
-  whatsappMessage: "Hi! I'd love to know more about the Wi-Fi vs The Word ministry.",
-  email: "hello@wifivstheword.org",
-  siteUrl: "https://wifivstheword.org",
-  /* AI: leave aiEndpoint as "" to use the secure proxy at /api/ai (recommended).
-     See README for the 5-minute Cloudflare setup. The site works fully
-     without AI configured — it falls back to thoughtful pre-written content. */
-  aiEndpoint: "/api/ai"
-};
-
-/* ---- wire contact links ---- */
-(function(){
-  const waHref="https://wa.me/"+CONFIG.whatsappNumber+"?text="+encodeURIComponent(CONFIG.whatsappMessage);
-  ["waLink","waFab"].forEach(id=>{const el=document.getElementById(id);if(el)el.href=waHref;});
-  const em=document.getElementById("emailLink");
-  if(em)em.href="mailto:"+CONFIG.email+"?subject="+encodeURIComponent("Wi-Fi vs The Word — Enquiry");
-  document.getElementById("year").textContent=new Date().getFullYear();
-})();
-
-/* ---- theme toggle ---- */
-(function(){
-  const root=document.documentElement,btn=document.getElementById("themeBtn"),icon=document.getElementById("themeIcon");
-  const sun='<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>';
-  const moon='<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>';
-  let light=false;
-  btn.addEventListener("click",()=>{
-    light=!light;root.classList.toggle("light",light);
-    icon.innerHTML=light?moon:sun;
-    document.querySelector('meta[name=theme-color]')?.setAttribute('content',light?'#f4f0e6':'#0e1726');
-  });
-})();
-
-/* ---- mobile menu ---- */
-(function(){
-  const btn=document.getElementById("menuBtn"),nav=document.getElementById("navLinks");
-  btn.addEventListener("click",()=>nav.classList.toggle("open"));
-  nav.querySelectorAll("a").forEach(a=>a.addEventListener("click",()=>nav.classList.remove("open")));
-})();
-
-/* ---- scroll reveal ---- */
-(function(){
-  const els=document.querySelectorAll(".reveal");
-  if(!("IntersectionObserver" in window)){els.forEach(e=>e.classList.add("in"));return;}
-  const io=new IntersectionObserver((ents)=>{
-    ents.forEach((en,i)=>{if(en.isIntersecting){
-      setTimeout(()=>en.target.classList.add("in"),(i%4)*70);io.unobserve(en.target);}});
-  },{threshold:.12});
-  els.forEach(e=>io.observe(e));
-})();
-
-/* ============================================================
-   AI CORE — calls your endpoint. If unavailable, falls back
-   gracefully so the site is never broken.
-   ============================================================ */
-async function askAI(messages, system){
-  try{
-    const res=await fetch(CONFIG.aiEndpoint,{
-      method:"POST",
-      headers:{"Content-Type":"application/json"},
-      body:JSON.stringify({system:system,messages:messages})
-    });
-    if(!res.ok) throw new Error("AI endpoint "+res.status);
-    const data=await res.json();
-    /* expects { reply: "..." } from the proxy, or raw Anthropic shape */
-    if(data.reply) return data.reply.trim();
-    if(data.content) return data.content.map(c=>c.text||"").join("").trim();
-    throw new Error("Unexpected AI response");
-  }catch(e){
-    return null; /* signal: use fallback */
-  }
-}
-
-const AI_SYSTEM="You are the Digital Discipleship Companion for 'Wi-Fi vs The Word', a Christian "+
-"family ministry. You give warm, practical, Bible-grounded guidance on family life and technology. "+
-"Core themes: technology is a tool not an enemy; guard the mind (Romans 12:2, Philippians 4:8); "+
-"rebuild the family altar; the Digital Sabbath; delay smartphones for children; replace screen "+
-"time with relationship. Tone: warm, hopeful, never condemning, never fear-driven. Keep replies "+
-"under 130 words. Cite Scripture naturally. For serious personal crises, gently point to a pastor "+
-"or professional. Never give medical, legal or counselling advice.";
 
 /* ============================================================
    SELF-ASSESSMENT QUIZ + AI-personalised next step
@@ -904,39 +590,22 @@ const AI_SYSTEM="You are the Digital Discipleship Companion for 'Wi-Fi vs The Wo
 })();
 
 /* ============================================================
-   SHARE ENGINE — WhatsApp / Facebook / native / copy
+   SERMON SHARE BAR (uses shared copyToClip)
    ============================================================ */
-function shareText(text){
-  if(navigator.share){
-    navigator.share({text:text}).catch(()=>copyToClip(text));
-  }else{copyToClip(text);}
-}
-function copyToClip(text){
-  const done=()=>{
-    const t=document.getElementById("sbToast");
-    t.classList.add("show");setTimeout(()=>t.classList.remove("show"),2200);
-  };
-  if(navigator.clipboard){navigator.clipboard.writeText(text).then(done).catch(done);}
-  else{
-    const ta=document.createElement("textarea");ta.value=text;document.body.appendChild(ta);
-    ta.select();try{document.execCommand("copy");}catch(e){}ta.remove();done();
-  }
-}
 (function(){
-  /* build the sermon share bar */
-  const bar=document.getElementById("sermonShare");
-  const url=CONFIG.siteUrl+"#media";
-  const msg="Watch \u201CThe Wi-Fi vs The Word\u201D \u2014 a sermon for families in the digital age: "+url;
-  const waSvg='<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.87 9.87 0 0 0 4.74 1.21c5.46 0 9.91-4.45 9.91-9.91S17.5 2 12.04 2z"/></svg>';
-  const fbSvg='<svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 12a10 10 0 1 0-11.56 9.88v-6.99H7.9V12h2.54V9.8c0-2.5 1.49-3.89 3.78-3.89 1.09 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56V12h2.78l-.44 2.89h-2.34v6.99A10 10 0 0 0 22 12z"/></svg>';
-  const cpSvg='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>';
-  bar.innerHTML='<span class="sb-label">Share this sermon:</span>'+
-    '<a class="sb-btn wa" target="_blank" rel="noopener" href="https://wa.me/?text='+encodeURIComponent(msg)+'" aria-label="Share on WhatsApp">'+waSvg+'</a>'+
-    '<a class="sb-btn" target="_blank" rel="noopener" href="https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(url)+'" aria-label="Share on Facebook">'+fbSvg+'</a>'+
-    '<button class="sb-btn" id="sbCopy" aria-label="Copy link">'+cpSvg+'</button>';
-  document.getElementById("sbCopy").addEventListener("click",()=>copyToClip(msg));
+  var bar=document.getElementById("sermonShare");
+  if(!bar)return;
+  var url=CONFIG.siteUrl+"#media";
+  var msg="Watch \u201CThe Wi-Fi vs The Word\u201D \u2014 a sermon for families in the digital age: "+url;
+  var wa='<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.87 9.87 0 0 0 4.74 1.21c5.46 0 9.91-4.45 9.91-9.91S17.5 2 12.04 2z"/></svg>';
+  var fb='<svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 12a10 10 0 1 0-11.56 9.88v-6.99H7.9V12h2.54V9.8c0-2.5 1.49-3.89 3.78-3.89 1.09 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56V12h2.78l-.44 2.89h-2.34v6.99A10 10 0 0 0 22 12z"/></svg>';
+  var cp='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>';
+  bar.innerHTML='<span class="sb-label" style="font-size:.82rem;color:var(--text-dim);margin-right:4px">Share this sermon:</span>'+
+    '<a class="icon-btn" style="color:var(--wa)" target="_blank" rel="noopener" href="https://wa.me/?text='+encodeURIComponent(msg)+'">'+wa+'</a>'+
+    '<a class="icon-btn" target="_blank" rel="noopener" href="https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(url)+'">'+fb+'</a>'+
+    '<button class="icon-btn" id="sbCopy">'+cp+'</button>';
+  document.getElementById("sbCopy").addEventListener("click",function(){copyToClip(msg);});
 })();
-
 /* ============================================================
    CHURCH INVITE
    ============================================================ */
@@ -1060,27 +729,6 @@ function copyToClip(text){
     btn.textContent="Joined \u2713";btn.disabled=true;
   });
 })();
-
-/* ============================================================
-   PWA — service worker + install prompt
-   ============================================================ */
-let deferredPrompt=null;
-window.addEventListener("beforeinstallprompt",e=>{
-  e.preventDefault();deferredPrompt=e;
-  setTimeout(()=>document.getElementById("installToast").classList.add("show"),3500);
-});
-document.getElementById("installYes").addEventListener("click",async()=>{
-  document.getElementById("installToast").classList.remove("show");
-  if(deferredPrompt){deferredPrompt.prompt();deferredPrompt=null;}
-});
-document.getElementById("installNo").addEventListener("click",()=>{
-  document.getElementById("installToast").classList.remove("show");
-});
-if("serviceWorker" in navigator){
-  window.addEventListener("load",()=>{
-    navigator.serviceWorker.register("sw.js").catch(()=>{});
-  });
-}
 </script>
 </body>
 </html>

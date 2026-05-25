@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Prayer Wall — Wi-Fi vs The Word</title>
+<meta name="description" content="Share a prayer request and pray for other families on the Wi-Fi vs The Word prayer wall.">
+<meta name="theme-color" content="#0e1726">
+<meta property="og:title" content="Prayer Wall — Wi-Fi vs The Word">
+<meta property="og:description" content="Share a prayer request and pray for other families on the Wi-Fi vs The Word prayer wall.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://wifivstheword.org/social-card.png">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%230e1726'/%3E%3Cpath d='M50 24v52M34 40h32' stroke='%23d4a843' stroke-width='7' stroke-linecap='round'/%3E%3C/svg%3E">
+<link rel="manifest" href="manifest.json">
+<link rel="stylesheet" href="theme.css">
+</head>
+<body>
+<header>
+  <div class="wrap nav">
+    <a href="index.html" class="brand" aria-label="Wi-Fi vs The Word home">
+      <span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3v18M5 9h14" stroke="#d4a843" stroke-width="2.4" stroke-linecap="round"/></svg></span>
+      <span class="brand-name">Wi-Fi <b>vs</b> The Word</span>
+    </a>
+    <nav class="nav-links" id="navLinks">
+      <a href="index.html">Home</a>
+      <a href="articles.html">Articles</a>
+      <a href="tools.html">Tools</a>
+      <a href="resources.html">Resources</a>
+      <a href="events.html">Events</a>
+      <a href="about.html">Our Story</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <div class="nav-tools">
+      <button class="icon-btn" id="themeBtn" aria-label="Toggle theme">
+        <svg id="themeIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+      <button class="icon-btn menu-toggle" id="menuBtn" aria-label="Open menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+<main>
+<section class="page-hero">
+  <div class="wrap">
+    <p class="crumb"><a href="index.html">Home</a> / Prayer Wall</p>
+    <span class="eyebrow">The Prayer Wall</span>
+    <h1>Carry One Another's <span class="em">Burdens</span></h1>
+    <p>Share what weighs on your heart, and pray for the families who shared before you. No one walks this road alone.</p>
+  </div>
+</section>
+<section>
+  <div class="wrap">
+    <div class="prayer-form reveal">
+      <h3>Share a prayer request</h3>
+      <p>Your request will be added to the wall for others to pray over. Share only what you're comfortable making public — you may post without your name.</p>
+      <div class="field">
+        <textarea id="prText" rows="3" maxlength="280" placeholder="What can the family of believers pray with you about?"></textarea>
+        <input type="text" id="prName" maxlength="30" placeholder="Your first name (optional — leave blank to post anonymously)">
+        <button class="btn btn-primary" id="prSubmit" style="justify-content:center">Add to the Prayer Wall</button>
+      </div>
+      <div class="form-success" id="prOk" style="margin-top:12px">Thank you — your request is on the wall. May the Lord meet you.</div>
+      <p class="note">Requests are gently reviewed. Please don't share others' private details or anything that should go to a pastor directly.</p>
+    </div>
+    <div class="prayer-grid" id="prayerGrid"></div>
+    <p class="note" style="text-align:center;margin-top:24px">When the AI server and storage are connected (see README, Part 4), requests are saved and shared live. Until then, the wall shows example requests so visitors see how it works.</p>
+  </div>
+</section>
+<section class="cta-banner">
+  <div class="wrap">
+    <h2>"Pray for one another, that you may be healed."</h2>
+    <p>James 5:16 — the prayer of a righteous person has great power.</p>
+    <div class="cta-row">
+      <a href="tools.html" class="btn btn-primary">Try the Family Tools</a>
+      <a href="contact.html" class="btn btn-ghost">Contact the Ministry</a>
+    </div>
+  </div>
+</section>
+
+</main>
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-about">
+        <a href="index.html" class="brand">
+          <span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3v18M5 9h14" stroke="#d4a843" stroke-width="2.4" stroke-linecap="round"/></svg></span>
+          <span class="brand-name">Wi-Fi <b>vs</b> The Word</span>
+        </a>
+        <p>A Christian digital discipleship and family restoration ministry. Reclaiming minds, restoring families, and rebuilding the family altar in a distracted digital world.</p>
+      </div>
+      <div class="foot-col"><h5>Explore</h5>
+        <a href="articles.html">Articles</a><a href="tools.html">Interactive Tools</a>
+        <a href="resources.html">Resources</a><a href="events.html">Events</a>
+        <a href="testimonies.html">Testimonies</a></div>
+      <div class="foot-col"><h5>Connect</h5>
+        <a href="prayer.html">Prayer Wall</a><a href="start-here.html">Start Here</a>
+        <a href="about.html">Our Story</a><a href="faq.html">FAQ</a>
+        <a href="contact.html">Contact</a></div>
+    </div>
+    <div class="foot-bottom">
+      <span>&copy; <span id="year"></span> Wi-Fi vs The Word Ministry. All rights reserved.</span>
+      <span>"The issue is not merely screens. The issue is discipleship."</span>
+    </div>
+  </div>
+</footer>
+<a class="wa-fab" data-wa href="#" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
+  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.87 9.87 0 0 0 4.74 1.21c5.46 0 9.91-4.45 9.91-9.91S17.5 2 12.04 2zm5.8 14.04c-.24.68-1.42 1.3-1.95 1.34-.5.05-1.13.24-3.66-.77-3.08-1.24-5.06-4.41-5.21-4.62-.15-.2-1.25-1.66-1.25-3.17 0-1.5.79-2.24 1.07-2.55.28-.3.61-.38.81-.38.2 0 .41 0 .58.01.19.01.44-.07.69.53.24.6.84 2.07.91 2.22.07.15.12.32.02.52-.1.2-.15.32-.3.49-.15.17-.31.39-.45.52-.15.15-.3.31-.13.6.17.3.76 1.25 1.63 2.02 1.12 1 2.07 1.31 2.36 1.46.3.15.47.13.64-.08.17-.2.74-.86.94-1.16.2-.3.4-.25.67-.15.27.1 1.71.81 2 .96.3.15.5.22.57.34.07.13.07.73-.17 1.42z"/></svg>
+</a>
+<script src="shared.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded",function(){
+  var SEED=[
+    {t:"Please pray for our family — we are trying to start evening worship again after a long time away. Pray for gentleness and consistency.",n:"The Davids Family"},
+    {t:"Pray for my teenage son. He spends so much time gaming and we struggle to connect. I want to reach his heart, not just his screen time.",n:"A praying mother"},
+    {t:"My husband and I want to do a digital Sabbath but keep failing by Saturday afternoon. Pray for our resolve.",n:""},
+    {t:"Pray for wisdom — our daughter is asking for a smartphone and we don't know what is right. We want to protect her without pushing her away.",n:"Anna"},
+    {t:"Give thanks with us — we removed phones from the bedroom a month ago and our home feels calmer already. Pray it lasts.",n:"The Petersen Family"},
+    {t:"Pray for our small group as we begin the 7-day reset together. Pray it draws our church closer to Christ and each other.",n:"A group leader"}
+  ];
+  var grid=document.getElementById("prayerGrid");
+  function esc(s){return (s||"").replace(/[&<>\"]/g,function(c){return ({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"})[c];});}
+  function card(item){
+    var d=document.createElement("div");d.className="prayer-card";
+    var name=item.n?esc(item.n):"A friend in Christ";
+    d.innerHTML='<div class="pc-text">'+esc(item.t)+'</div>'+
+      '<div class="pc-foot"><span class="pc-name">'+name+'</span>'+
+      '<button class="pray-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v6M12 22a7 7 0 0 0 7-7c0-3-2-5-7-13C7 10 5 12 5 15a7 7 0 0 0 7 7z"/></svg><span class="pc-count">Pray</span></button></div>';
+    var btn=d.querySelector(".pray-btn"),cnt=d.querySelector(".pc-count");
+    var prayed=false,base=Math.floor(Math.random()*8);
+    if(base>0)cnt.textContent=base+" praying";
+    btn.addEventListener("click",function(){
+      if(prayed)return;prayed=true;btn.classList.add("prayed");
+      cnt.textContent=(base+1)+" praying \u2713";
+    });
+    return d;
+  }
+  SEED.forEach(function(it){grid.appendChild(card(it));});
+  document.getElementById("prSubmit").addEventListener("click",function(){
+    var t=document.getElementById("prText").value.trim();
+    if(!t){document.getElementById("prText").style.borderColor="var(--amber)";return;}
+    var entry={t:t,n:document.getElementById("prName").value.trim()};
+    grid.insertBefore(card(entry),grid.firstChild);
+    try{fetch("/api/prayer",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(entry)});}catch(e){}
+    document.getElementById("prText").value="";document.getElementById("prName").value="";
+    document.getElementById("prOk").classList.add("show");
+    var btn=document.getElementById("prSubmit");btn.textContent="Added \u2713";btn.disabled=true;
+  });
+});
+</script>
+
+</body>
+</html>

@@ -93,6 +93,40 @@ export default {
       }
     }
 
+    // ---- Testimonies ---------------------------------------------------
+    // Stores submitted testimonies in KV for the ministry to review.
+    if (url.pathname === "/api/testimony" && request.method === "POST") {
+      if (!env.COVENANT) {
+        return new Response(JSON.stringify({ ok: true }), { headers: cors() });
+      }
+      const t = await request.json();
+      const key = "testimony:" + Date.now();
+      await env.COVENANT.put(key, JSON.stringify({
+        name: String(t.name || "").slice(0, 60),
+        loc: String(t.loc || "").slice(0, 40),
+        story: String(t.story || "").slice(0, 1000),
+        at: new Date().toISOString(),
+        approved: false,
+      }));
+      return new Response(JSON.stringify({ ok: true }), { headers: cors() });
+    }
+
+    // ---- Prayer Wall ---------------------------------------------------
+    if (url.pathname === "/api/prayer" && request.method === "POST") {
+      if (!env.COVENANT) {
+        return new Response(JSON.stringify({ ok: true }), { headers: cors() });
+      }
+      const pr = await request.json();
+      const key = "prayer:" + Date.now();
+      await env.COVENANT.put(key, JSON.stringify({
+        text: String(pr.t || "").slice(0, 280),
+        name: String(pr.n || "").slice(0, 30),
+        at: new Date().toISOString(),
+        approved: false,
+      }));
+      return new Response(JSON.stringify({ ok: true }), { headers: cors() });
+    }
+
     // ---- Newsletter ----------------------------------------------------
     // Stores signups in KV. To send actual emails, connect Beehiiv or
     // Mailchimp here (see README) — or just export this list periodically.

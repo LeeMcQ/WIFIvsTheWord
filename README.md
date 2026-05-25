@@ -1,185 +1,245 @@
-# Wi-Fi vs The Word — Website Guide
+# Wi-Fi vs The Word — Complete Website & Launch Guide
 
-Everything you need to launch, run, and grow the ministry site. No jargon. Where a step needs a real person (not AI), it says so plainly.
-
----
-
-## 1. What you received
-
-| File | What it is | Do you edit it? |
-|---|---|---|
-| `index.html` | The entire website | Yes — small config block only |
-| `manifest.json` | Makes the site installable as an app | No |
-| `sw.js` | Makes the site work offline | No |
-| `worker.js` | The secure AI "middleman" (see §4) | No — just deploy it |
-| `sitemap.xml` / `robots.txt` | Helps Google find the site | Change the domain once |
-| `README.md` | This guide | — |
+Your website is finished. This guide is everything you do by hand to get it live and growing. Work through it top to bottom — nothing here needs a developer.
 
 ---
 
-## 2. The 5-minute launch (do this first)
+## PART 1 — What you have
 
-The site works the moment you deploy it. AI features show thoughtful pre-written content until you connect the AI in §4 — so you can go live today and add AI later.
-
-**Step 1 — Edit your details.**
-Open `index.html` in any text editor. Near the bottom, find the block that starts with `const CONFIG`. Change three things:
+A complete **8-page website**, plus a content engine:
 
 ```
-whatsappNumber: "27000000000",   <- your WhatsApp number, no + or spaces
-email: "hello@wifivstheword.org", <- your real email
-siteUrl: "https://wifivstheword.org" <- your real domain
+index.html         Home — hero, AI companion, self-check, devotional, tools, Covenant Wall
+start-here.html    Gentle on-ramp for new visitors
+tools.html         4 interactive tools (Altar Builder, Algorithm Cleanse, etc.)
+articles.html      Blog listing
+articles/the-digital-wall.html   A complete example article
+resources.html     Downloads hub
+sermon-notes.html  Full sermon outline + study questions
+events.html        Events & workshops
+testimonies.html   Testimonies + submission form
+prayer.html        Prayer Wall — share and pray over requests
+about.html         The ministry's story
+faq.html           Frequently asked questions
+recommended.html   Recommended books, tools & links
+contact.html       Contact page
+404.html           Friendly "page not found" page
+
+theme.css         Shared styling — every page uses this
+shared.js         Shared behaviour — every page uses this
+worker.js         The secure AI server (deployed separately, Part 4)
+manifest.json     Makes the site installable as an app
+sw.js             Makes the site work offline
+social-card.png   The image shown when the site is shared
+sitemap.xml       Helps Google find every page
+robots.txt        Tells search engines they may index the site
+.nojekyll         Makes GitHub Pages serve files correctly — DO NOT delete
+CNAME.txt         Only needed for a custom domain (Part 3)
+scripts/          ⭐ Four DeepSeek scripts to fill out the site cheaply
+README.md         This guide
 ```
 
-Save. That is the only edit the site requires.
+---
 
-**Step 2 — Put it online (GitHub Pages, free).**
-1. Create a free account at github.com.
-2. Make a new repository (the "+" top right → New repository). Name it anything.
-3. Upload all the files (Add file → Upload files → drag them in → Commit).
-4. Go to the repo's **Settings → Pages**. Under "Branch", pick `main`, folder `/ (root)`, Save.
-5. Wait ~1 minute. GitHub gives you a live link like `yourname.github.io/repo`.
+## PART 2 — THE LAUNCH CHECKLIST (do these in order)
 
-That link is your live website. To use your own domain (e.g. `wifivstheword.org`), buy it from any registrar and follow GitHub's "Custom domain" instructions on that same Pages settings screen.
+### ☐ Step 1 — Put in your contact details (5 minutes)
 
-> **Important:** the offline/install features only switch on over a real `https://` link (which GitHub Pages gives you automatically). Opening the file by double-clicking it on your computer will not show those features — that is normal.
+Open **`shared.js`** in any text editor (Notepad works). At the very top is a block
+called `CONFIG`. Change these:
+
+```
+whatsappNumber: "27000000000",     → your WhatsApp number, full international
+                                     format, NO + and NO spaces.
+                                     South African example: 27821234567
+whatsappMessage: "Hi! I'd love..." → leave as-is, or word it your way
+email: "hello@wifivstheword.org",  → your real ministry email address
+siteUrl: "https://wifivstheword.org", → your real web address (see Step 3)
+aiEndpoint: "/api/ai"              → leave this for now; you set it in Part 4
+```
+
+Save the file. **This one edit updates every page** — every WhatsApp button, every
+email link, all sharing. You do not edit any other file for this.
+
+### ☐ Step 2 — Create a GitHub account and upload the site (15 minutes)
+
+1. Go to **github.com** and sign up (free).
+2. Click the **+** (top right) → **New repository**.
+3. Name it `wifivstheword` (or anything). Set it to **Public**. Click **Create**.
+4. On the new repository page, click **uploading an existing file**.
+5. Open your website folder. Select **everything inside it** — all the `.html` files,
+   `theme.css`, `shared.js`, the `articles` folder, the `scripts` folder, all of it —
+   and drag it into the browser.
+   - **Important:** also upload the file called **`.nojekyll`** (it may look invisible
+     or empty — it is meant to be empty; it still matters).
+6. Click **Commit changes**.
+
+### ☐ Step 3 — Turn the website on (2 minutes)
+
+1. In your repository, click **Settings** (top menu).
+2. Click **Pages** (left menu).
+3. Under "Branch", choose **`main`**, folder **`/ (root)`**. Click **Save**.
+4. Wait about one minute, then refresh. GitHub shows your live link near the top —
+   something like `https://yourname.github.io/wifivstheword`.
+
+**That link is your live website.** Open it on your phone — it works.
+
+Go back to `shared.js`, set `siteUrl` to this exact link, and re-upload `shared.js`
+(repository → click the file → pencil icon → paste → Commit). This makes sharing
+links correct.
+
+### ☐ Step 4 — Test it (5 minutes)
+
+On your phone, open the live link and check:
+- ☐ Every menu item opens its page.
+- ☐ The WhatsApp button (green circle, bottom right) opens a chat to your number.
+- ☐ The self-check quiz on the home page works start to finish.
+- ☐ On the Contact page, filling the form and tapping "Open in my email app" opens
+  your email with the message ready.
+- ☐ Try "Add to Home Screen" from your phone browser menu — it installs like an app.
+
+If all five work, **you are live.** The AI features show good pre-written answers
+until Part 4 is done — that is expected, and you can launch without it.
 
 ---
 
-## 3. The features, and which ones use AI
+## PART 3 — Using your own domain (optional)
 
-Your site has two kinds of features. Here is the honest breakdown.
+To use `wifivstheword.org` instead of the long github.io address:
 
-### Works on its own — no AI, no setup
-- **Self-check quiz** — the 5 questions and results are built in.
-- **Covenant Wall** — counts families, shows the wall. (Counter starts at a number you set; see §5.)
-- **Share buttons** — WhatsApp, Facebook, copy-link on the sermon and quiz result.
-- **Invite-your-pastor tool** — pre-written message, sends via WhatsApp.
-- **Newsletter signup, FAQ, dark mode, offline install** — all built in.
+1. Buy the domain from any registrar (e.g. domains.co.za, GoDaddy).
+2. In your website files, rename **`CNAME.txt`** to exactly **`CNAME`** (no `.txt`).
+   Open it, follow the short instructions inside, then upload it to GitHub.
+3. In GitHub → Settings → Pages, enter your domain in the "Custom domain" box.
+4. At your registrar, add the DNS records GitHub shows you. (GitHub gives exact
+   instructions on that same Pages screen.)
+5. Tick "Enforce HTTPS" once it becomes available.
 
-### Powered by AI — needs the §4 setup to go "live"
-| Feature | What the AI does | Without AI connected |
+If you skip this, the free github.io link works perfectly — many ministries never
+buy a domain.
+
+---
+
+## PART 4 — Switching on the AI features (≈15 minutes, do when ready)
+
+The site works without this. When you want the **live** AI companion, devotional,
+and personalised quiz steps, do this.
+
+**Why it needs a separate step:** an API key is like a credit card. It must never
+sit inside a website file that visitors can read. So `worker.js` is a tiny, free
+server that holds the key safely; the website talks to it.
+
+### Step A — Get an AI key
+1. Go to **console.anthropic.com**, create an account.
+2. Add a small amount of credit — **$5 is plenty to start.**
+3. Create an API key. Copy it somewhere safe. This is your only secret.
+
+### Step B — Deploy the secure server
+1. Go to **dash.cloudflare.com**, create a free account.
+2. Left menu → **Workers & Pages** → **Create** → **Create Worker**.
+3. Delete the sample code. Open **`worker.js`**, copy ALL of it, paste it in.
+4. Click **Deploy**.
+5. Open the Worker → **Settings** → **Variables and Secrets** → **Add**:
+   - Type: **Secret**  ·  Name: `ANTHROPIC_API_KEY`  ·  Value: *(paste your key)*
+   - Save.
+
+### Step C — Connect the website to it
+1. Your Worker has an address like `wvtw-ai.yourname.workers.dev`.
+2. In **`shared.js`**, change:
+   `aiEndpoint: "/api/ai"`  →  `aiEndpoint: "https://wvtw-ai.yourname.workers.dev/api/ai"`
+3. Re-upload `shared.js` to GitHub.
+
+The AI is now live. **Cost:** a few US dollars in a busy month; you set the ceiling,
+so it can never surprise you.
+
+### Step D — (Optional) Save Covenant Wall signups and testimonies permanently
+1. In Cloudflare → **Workers & Pages** → **KV** → **Create namespace**, name it
+   `covenant-data`.
+2. Open your Worker → **Settings** → **Variables** → **KV Namespace Bindings** →
+   **Add**: Variable name `COVENANT`, namespace `covenant-data`. Save.
+
+Now every family on the Covenant Wall, every newsletter signup, every testimony, and
+every prayer request submitted is stored permanently. You can read them in the Cloudflare KV dashboard.
+
+Without this step, those still work for the visitor — they just aren't saved.
+
+---
+
+## PART 5 — The newsletter (collecting emails properly)
+
+The signup form works, but to actually *send* emails you need a mailing service
+(sending bulk email yourself gets blocked as spam). All have free tiers:
+
+- **MailerLite** or **Beehiiv** — easiest, generous free plans.
+- **Mailchimp** — well known.
+
+Simplest path: each gives you a hosted signup page. Link the "Join the Newsletter"
+button to that page. Or, if you did Part 4 Step D, signups are already saved in
+Cloudflare and you can export them.
+
+---
+
+## PART 6 — Filling out the site with DeepSeek (saves money)
+
+The site is built; now it grows with **content**. The `scripts/` folder has four
+copy-paste prompts for **DeepSeek** (chat.deepseek.com) — far cheaper than Claude
+for repetitive work.
+
+| Script | Generates | Run it when |
 |---|---|---|
-| **Ask the Ministry** chat | Answers visitors' real questions in your ministry's voice | Shows one solid pre-written answer |
-| **Today's Devotional** | Generates a fresh short devotional each tap | Rotates 3 hand-written devotionals |
-| **Quiz "next step"** | Writes a personal next step based on their score | Shows a strong pre-written step per result |
+| `01_generate_articles.md` | Full article pages from your sermon | To build the blog (8 topics suggested) |
+| `02_add_testimonies.md`   | Real testimonies formatted into cards | A real story comes in |
+| `03_draft_resources.md`   | Text for the printable resources | Before making each PDF |
+| `04_new_pages_and_events.md` | New events, or whole new pages | Adding events or a new page |
+| `05_devotional_and_series.md` | The 28-day devotional + content series | To fill out the articles section |
+| `06_glossary.md` | The complete Glossary page | Once, to add the glossary |
 
-**You do not have to do anything manually for these.** Once §4 is done, they generate content automatically, forever. The "manual" question only applies to the *content library* — see §7.
+**How to use one:** open the script file → copy the grey box → paste into DeepSeek →
+it returns a finished file → upload it to GitHub. No Claude credits used.
 
----
+**Leave to Claude (worth the credits, rarely):** turning approved resource text into
+polished PDFs; any change to `theme.css` (it affects every page); new interactive
+features. *DeepSeek writes and copies patterns; Claude designs and builds logic.*
 
-## 4. Connecting the AI (the secure way, ~10 minutes)
-
-**Why this step exists:** an API key is like a credit card. It must never sit inside `index.html`, because anyone visiting your site can read that file. So we put the key on a tiny free server ("a Worker") that your site talks to. The key stays hidden there.
-
-You already chose "I'll add an API key later" — here is exactly how, when you are ready.
-
-**Step 1 — Get an Anthropic API key.**
-- Go to `console.anthropic.com`, create an account.
-- Add a small amount of credit (see costs below).
-- Create an API key. Copy it somewhere safe. *This is the only secret.*
-
-**Step 2 — Deploy the Worker (free).**
-- Go to `dash.cloudflare.com`, create a free account.
-- Left menu → **Workers & Pages** → **Create** → **Create Worker**.
-- It opens a code editor. Delete what's there, paste in the entire contents of `worker.js`. Click **Deploy**.
-- Open the new Worker → **Settings → Variables** → under "Environment Variables" add:
-  - Name: `ANTHROPIC_API_KEY`  Value: *(paste your key)*  → tick **Encrypt** → Save.
-
-**Step 3 — Point the website at the Worker.**
-- Your Worker has a URL like `wvtw-ai.yourname.workers.dev`.
-- In `index.html`, in the `CONFIG` block, change:
-  ```
-  aiEndpoint: "/api/ai"
-  ```
-  to your Worker URL:
-  ```
-  aiEndpoint: "https://wvtw-ai.yourname.workers.dev/api/ai"
-  ```
-- Re-upload `index.html` to GitHub. Done — the AI is now live.
-
-**What it costs.** Anthropic charges per use, not monthly. The model used here (Claude Sonnet) is roughly **US$3 per million words in, $15 per million out**. In plain terms: a typical chat answer or devotional costs a fraction of a cent. A busy month of hundreds of visitors using the AI is usually a **few US dollars**. You set the credit ceiling — it can never surprise-bill you. Start with $5 and watch how it goes.
-
-**A note on the model name.** `worker.js` uses `claude-sonnet-4-20250514`. Model names change over time. If the AI ever stops working after months, check `docs.claude.com` for the current model name and update that one line in `worker.js`.
+**A sensible order:** launch first → generate 3–4 articles → draft the Family Digital
+Covenant and have Claude make the PDF → swap in real testimonies as they arrive →
+add real event dates. One article a week, shared on WhatsApp, compounds over a year.
 
 ---
 
-## 5. The Covenant Wall — keeping the number real
+## PART 7 — Honesty notes (please read)
 
-Out of the box, the counter starts at **127** with six example families, so the wall never looks empty at launch. That number is a placeholder. Two honest options:
-
-**Option A — simple, manual.** In `index.html` find `baseCount=127` and set it to the *true* number of families who have committed (start at the real number, even if it's small — honesty builds trust). Update it by hand as the ministry grows. Real visitor submissions add to it live during their session but reset on reload.
-
-**Option B — automatic, permanent.** If you deployed the Worker in §4, add free storage so submissions are saved forever:
-- In Cloudflare: **Workers & Pages → KV → Create namespace**, name it `covenant-data`.
-- Open your Worker → **Settings → Variables → KV Namespace Bindings** → add binding: Variable name `COVENANT`, namespace `covenant-data`. Save.
-- Now every family that takes the covenant is counted permanently, and `/api/subscribe` also stores newsletter signups there. You can read them in the KV dashboard.
-
-Set the honest starting number in the Worker's KV later, or just let it climb from real signups.
-
----
-
-## 6. The newsletter — collecting emails properly
-
-The signup form works immediately, but to *actually email people* you need a mailing service (sending bulk email yourself gets flagged as spam). All have free tiers:
-
-- **Beehiiv** or **MailerLite** — easiest, generous free tier.
-- **Mailchimp** — well known, free up to a point.
-
-**Simplest path (no code):** each of these gives you a hosted signup form or an "embed". Replace the newsletter box in the site with their embed code, or simply link the "Join the Newsletter" button to their hosted form. If you'd like, I can wire whichever one you pick directly into the site — just tell me which.
-
-Until then, signups are stored via the Worker (if you set up KV in §5) so no one is lost.
+- **The testimonies** on `testimonies.html` are clearly-labelled *examples* so the
+  page isn't empty at launch. Replace them with real stories (script 02) as soon as
+  you have them. Never present an invented story as real.
+- **The Covenant Wall counter** starts at a placeholder number. In `index.html`, find
+  `baseCount=127` and set it to the *true* number of committed families — even if
+  small. Honest and growing beats large and false.
+- **The sermon video** is a placeholder. When you have the YouTube link, open
+  `index.html`, find `Sermon video coming soon`, and follow the one-line comment
+  just above it to embed the real video.
+- **The AI** is a helper, not a pastor. It has guardrails and a visible disclaimer
+  pointing serious questions to a real person. Review what it produces.
 
 ---
 
-## 7. Growing the ministry — and where AI saves you weeks
+## PART 8 — Quick fixes
 
-This is the part you asked about most. Your site is the *engine*; here is the *fuel*, and how AI does the heavy lifting.
-
-### 7a. Things the site already does to grow itself
-- **WhatsApp-first sharing** — every share defaults to WhatsApp, the strongest channel in South Africa. One tap sends the sermon to a whole family group.
-- **The pastor-invite tool** — turns one visitor into a whole congregation. This is your single highest-leverage growth feature.
-- **Social proof** — the Covenant Wall counter makes commitment feel like a movement, which makes more people commit.
-- **SEO built in** — the page is tagged so Google understands it. Searches like "digital sabbath for families" or "delaying smartphones christian" can find you.
-
-### 7b. The content library — AI-assisted, you approve
-
-Your sermon already contains "50+ articles' worth" of material. You do **not** write these from scratch. Here is the workflow for each:
-
-**Blog articles / devotionals (AI drafts, you approve).**
-*How:* Open Claude (claude.ai). Paste your sermon, then ask: *"Write a 600-word article for a Christian family ministry on [the Digital Wall / Technoference / etc.], in a warm, hopeful, non-condemning tone, grounded in Scripture."* Claude drafts it; you read it, correct anything, and publish. **This must be human-approved** — you are responsible for the theology and tone. AI drafts; you are the pastor.
-*Time saved:* a 2-hour article becomes a 15-minute review.
-
-**Short social media posts (AI generates in bulk).**
-*How:* Ask Claude: *"From this sermon, write 20 short Facebook/WhatsApp-status posts, each under 40 words, each with one Scripture and one practical tip."* You get a month of posts in one sitting. Skim, pick the good ones, schedule them.
-*Done manually only:* the actual posting (or use a free scheduler like Buffer).
-
-**The downloadable resources (AI drafts, you finalise).**
-The site lists six resources marked "coming soon" (Family Digital Covenant, 7-Day Guide, etc.). For each: ask Claude to draft it, review it, and I can turn the final text into a polished PDF for you to upload. Tell me when you want to start — the Family Digital Covenant is the most-requested, so begin there.
-
-**Sermon clips / video (mostly manual).**
-Editing video is human work. But AI helps: paste your sermon transcript and ask Claude to *"identify the 8 most shareable 60-second moments and give each a caption."* Then an editor (or you) cuts those clips.
-
-### 7c. A simple 90-day growth rhythm
-- **Weeks 1–2:** Launch. Share the link in your own WhatsApp groups and church. Ask 5 families to take the covenant so the wall is genuine.
-- **Weeks 3–6:** Publish one AI-drafted, you-approved article per week. Post 3 short social posts per week.
-- **Weeks 7–12:** Use the pastor-invite tool yourself — send it to 10 pastors. Release the Family Digital Covenant PDF. Aim for one church to run a Digital Sabbath.
-
-Exponential growth is not one big push; it is one church teaching three churches. The site is built for exactly that hand-off.
+| Problem | Fix |
+|---|---|
+| A page looks plain/unstyled | Its link to `theme.css` is wrong. Pages in `articles/` need `../theme.css`. |
+| Menu or theme button dead | Page is missing `<script src="shared.js"></script>` before `</body>`. |
+| AI repeats the same answer | Worker not connected (Part 4), or `aiEndpoint` still says `/api/ai`. |
+| Changes not showing | Browser cache. Hard-refresh: Ctrl+Shift+R (or wait a day). |
+| Offline/install missing | You opened the file directly. It only works on the live `https://` link. |
 
 ---
 
-## 8. Quick troubleshooting
+## A closing word
 
-- **AI says the same thing every time** → the Worker isn't connected yet, or `aiEndpoint` still says `/api/ai`. Revisit §4.
-- **Install / offline not working** → you opened the file directly. It only works on the live `https://` link.
-- **Changes not showing** → your browser cached the old version. Hard-refresh (Ctrl+Shift+R), or it updates within a day on its own.
-- **The AI gave an odd answer** → it has guardrails, but AI is not a pastor. The chat shows a disclaimer pointing serious questions to a real person. Review it occasionally.
-
----
-
-## 9. A word on responsibility
-
-The AI features are a wonderful servant and a poor master — fittingly, the very lesson of your sermon. They draft, suggest, and tirelessly answer common questions. But the ministry's voice, theology, and care are *yours*. Read what the AI produces. Keep the human in the loop. The technology is a tool. The question, as you preached, is who is discipling whom.
+The site models its own message — calm, uncluttered, no manipulative tricks. As you
+fill it out, keep that spirit: warm, hopeful, grace-based, never fear-driven. The
+technology here is a good servant. You remain the steward.
 
 May the Lord bless the work of your hands.
 

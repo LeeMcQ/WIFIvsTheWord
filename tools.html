@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Interactive Tools — Wi-Fi vs The Word</title>
+<meta name="description" content="Four practical tools: the Family Altar Builder, Algorithm Cleanse, Smartphone Readiness Check and Distraction Profile.">
+<meta name="theme-color" content="#0e1726">
+<meta property="og:title" content="Interactive Tools — Wi-Fi vs The Word">
+<meta property="og:description" content="Four practical tools: the Family Altar Builder, Algorithm Cleanse, Smartphone Readiness Check and Distraction Profile.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://wifivstheword.org/social-card.png">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%230e1726'/%3E%3Cpath d='M50 24v52M34 40h32' stroke='%23d4a843' stroke-width='7' stroke-linecap='round'/%3E%3C/svg%3E">
+<link rel="manifest" href="manifest.json">
+<link rel="stylesheet" href="theme.css">
+</head>
+<body>
+<header>
+  <div class="wrap nav">
+    <a href="index.html" class="brand" aria-label="Wi-Fi vs The Word home">
+      <span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3v18M5 9h14" stroke="#d4a843" stroke-width="2.4" stroke-linecap="round"/></svg></span>
+      <span class="brand-name">Wi-Fi <b>vs</b> The Word</span>
+    </a>
+    <nav class="nav-links" id="navLinks">
+      <a href="index.html">Home</a>
+      <a href="articles.html">Articles</a>
+      <a href="tools.html" class="active">Tools</a>
+      <a href="resources.html">Resources</a>
+      <a href="events.html">Events</a>
+      <a href="about.html">Our Story</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <div class="nav-tools">
+      <button class="icon-btn" id="themeBtn" aria-label="Toggle theme">
+        <svg id="themeIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+      <button class="icon-btn menu-toggle" id="menuBtn" aria-label="Open menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+<main>
+<section class="page-hero">
+  <div class="wrap">
+    <p class="crumb"><a href="index.html">Home</a> / Tools</p>
+    <span class="eyebrow">Interactive Tools</span>
+    <h1>Practical Tools for a <span class="em">Tech-Wise Home</span></h1>
+    <p>Four short, honest tools to help your family take stock and take the next step. No score to fear here — only an invitation.</p>
+  </div>
+</section>
+<section>
+  <div class="wrap">
+    <div class="tool-nav" id="toolNav">
+      <button class="tool-tab active" data-tool="altar">Family Altar Builder</button>
+      <button class="tool-tab" data-tool="cleanse">The Algorithm Cleanse</button>
+      <button class="tool-tab" data-tool="phone">Smartphone Readiness</button>
+      <button class="tool-tab" data-tool="distraction">Distraction Profile</button>
+    </div>
+
+    <!-- ===== TOOL 1: FAMILY ALTAR BUILDER ===== -->
+    <div class="tool-panel active" id="tool-altar">
+      <div class="tool-intro">
+        <h2>Family Altar Builder</h2>
+        <p>Answer four quick questions and we'll build your family a personalised plan — the right stones to lay first, in the right order.</p>
+      </div>
+      <div class="tool-card">
+        <div id="altar-q">
+          <div class="tool-progress"><i id="altar-bar"></i></div>
+          <div class="tool-qnum" id="altar-num">Question 1 of 4</div>
+          <p class="tool-q" id="altar-text"></p>
+          <div class="opt-grid" id="altar-opts"></div>
+        </div>
+        <div class="tool-result" id="altar-result">
+          <div class="tr-head">Your Family Altar Plan</div>
+          <p id="altar-summary"></p>
+          <div class="tool-plan" id="altar-plan"></div>
+          <p class="tr-verse">"He repaired the altar of the Lord that was broken down." — 1 Kings 18:30</p>
+          <div class="tool-actions">
+            <a href="index.html#sabbath" class="btn btn-primary btn-sm">Start the 7-Day Reset</a>
+            <button class="btn btn-ghost btn-sm" id="altar-share">Share my plan</button>
+            <button class="btn btn-ghost btn-sm" id="altar-retry">Start over</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== TOOL 2: ALGORITHM CLEANSE ===== -->
+    <div class="tool-panel" id="tool-cleanse">
+      <div class="tool-intro">
+        <h2>The Algorithm Cleanse</h2>
+        <p>Open your social media feed and walk through this honest checklist. Tick what you find. Philippians 4:8 asks: is it true, noble, lovely, admirable?</p>
+      </div>
+      <div class="tool-card">
+        <div id="cleanse-list"></div>
+        <div class="tool-actions">
+          <button class="btn btn-primary btn-sm" id="cleanse-go">See my cleanse result</button>
+        </div>
+        <div class="tool-result" id="cleanse-result">
+          <div class="tr-head" id="cleanse-head"></div>
+          <div class="tr-meter"><i id="cleanse-meter"></i></div>
+          <p id="cleanse-msg"></p>
+          <div class="tool-plan" id="cleanse-plan"></div>
+          <p class="tr-verse">"Whatever is true, whatever is lovely... think about such things." — Philippians 4:8</p>
+          <div class="tool-actions">
+            <button class="btn btn-ghost btn-sm" id="cleanse-share">Share this</button>
+            <button class="btn btn-ghost btn-sm" id="cleanse-retry">Run it again</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== TOOL 3: SMARTPHONE READINESS ===== -->
+    <div class="tool-panel" id="tool-phone">
+      <div class="tool-intro">
+        <h2>Smartphone Readiness Check</h2>
+        <p>"Is my child ready for a smartphone?" A calm, honest set of questions for parents weighing this decision. There is no pass or fail — only clarity.</p>
+      </div>
+      <div class="tool-card">
+        <div id="phone-q">
+          <div class="tool-progress"><i id="phone-bar"></i></div>
+          <div class="tool-qnum" id="phone-num">Question 1 of 5</div>
+          <p class="tool-q" id="phone-text"></p>
+          <div class="opt-grid" id="phone-opts"></div>
+        </div>
+        <div class="tool-result" id="phone-result">
+          <div class="tr-head" id="phone-head"></div>
+          <div class="tr-meter"><i id="phone-meter"></i></div>
+          <p id="phone-msg"></p>
+          <div class="tool-plan" id="phone-plan"></div>
+          <p class="tr-verse">"Train up a child in the way he should go." — Proverbs 22:6</p>
+          <div class="tool-actions">
+            <button class="btn btn-ghost btn-sm" id="phone-share">Share this</button>
+            <button class="btn btn-ghost btn-sm" id="phone-retry">Start over</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== TOOL 4: DISTRACTION PROFILE ===== -->
+    <div class="tool-panel" id="tool-distraction">
+      <div class="tool-intro">
+        <h2>Distraction Profile</h2>
+        <p>The enemy rarely tempts a family with evil — only with busy. Six quick questions reveal which digital pull tugs hardest at you, and the one step that helps most.</p>
+      </div>
+      <div class="tool-card">
+        <div id="distraction-q">
+          <div class="tool-progress"><i id="distraction-bar"></i></div>
+          <div class="tool-qnum" id="distraction-num">Question 1 of 6</div>
+          <p class="tool-q" id="distraction-text"></p>
+          <div class="opt-grid" id="distraction-opts"></div>
+        </div>
+        <div class="tool-result" id="distraction-result">
+          <div class="tr-head" id="distraction-head"></div>
+          <p id="distraction-msg"></p>
+          <div class="tool-plan" id="distraction-plan"></div>
+          <p class="tr-verse" id="distraction-verse"></p>
+          <div class="tool-actions">
+            <a href="index.html#sabbath" class="btn btn-primary btn-sm">Start the 7-Day Reset</a>
+            <button class="btn btn-ghost btn-sm" id="distraction-share">Share my profile</button>
+            <button class="btn btn-ghost btn-sm" id="distraction-retry">Start over</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+<section class="cta-banner">
+  <div class="wrap">
+    <h2>One honest step is enough to begin</h2>
+    <p>Whatever these tools showed you, it is never too late to repair the altar.</p>
+    <div class="cta-row">
+      <a href="index.html#covenant-wall" class="btn btn-primary">Take the Covenant</a>
+      <a href="resources.html" class="btn btn-ghost">Browse Resources</a>
+    </div>
+  </div>
+</section>
+
+</main>
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-about">
+        <a href="index.html" class="brand">
+          <span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3v18M5 9h14" stroke="#d4a843" stroke-width="2.4" stroke-linecap="round"/></svg></span>
+          <span class="brand-name">Wi-Fi <b>vs</b> The Word</span>
+        </a>
+        <p>A Christian digital discipleship and family restoration ministry. Reclaiming minds, restoring families, and rebuilding the family altar in a distracted digital world.</p>
+      </div>
+      <div class="foot-col"><h5>Explore</h5>
+        <a href="articles.html">Articles</a><a href="tools.html">Interactive Tools</a>
+        <a href="resources.html">Resources</a><a href="events.html">Events</a>
+        <a href="testimonies.html">Testimonies</a></div>
+      <div class="foot-col"><h5>Connect</h5>
+        <a href="prayer.html">Prayer Wall</a><a href="start-here.html">Start Here</a>
+        <a href="about.html">Our Story</a><a href="faq.html">FAQ</a>
+        <a href="contact.html">Contact</a></div>
+    </div>
+    <div class="foot-bottom">
+      <span>&copy; <span id="year"></span> Wi-Fi vs The Word Ministry. All rights reserved.</span>
+      <span>"The issue is not merely screens. The issue is discipleship."</span>
+    </div>
+  </div>
+</footer>
+<a class="wa-fab" data-wa href="#" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
+  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.87 9.87 0 0 0 4.74 1.21c5.46 0 9.91-4.45 9.91-9.91S17.5 2 12.04 2zm5.8 14.04c-.24.68-1.42 1.3-1.95 1.34-.5.05-1.13.24-3.66-.77-3.08-1.24-5.06-4.41-5.21-4.62-.15-.2-1.25-1.66-1.25-3.17 0-1.5.79-2.24 1.07-2.55.28-.3.61-.38.81-.38.2 0 .41 0 .58.01.19.01.44-.07.69.53.24.6.84 2.07.91 2.22.07.15.12.32.02.52-.1.2-.15.32-.3.49-.15.17-.31.39-.45.52-.15.15-.3.31-.13.6.17.3.76 1.25 1.63 2.02 1.12 1 2.07 1.31 2.36 1.46.3.15.47.13.64-.08.17-.2.74-.86.94-1.16.2-.3.4-.25.67-.15.27.1 1.71.81 2 .96.3.15.5.22.57.34.07.13.07.73-.17 1.42z"/></svg>
+</a>
+<script src="shared.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded",function(){
+
+/* ===== TAB SWITCHING ===== */
+document.querySelectorAll(".tool-tab").forEach(function(tab){
+  tab.addEventListener("click",function(){
+    document.querySelectorAll(".tool-tab").forEach(function(t){t.classList.remove("active");});
+    document.querySelectorAll(".tool-panel").forEach(function(p){p.classList.remove("active");});
+    tab.classList.add("active");
+    document.getElementById("tool-"+tab.dataset.tool).classList.add("active");
+    window.scrollTo({top:document.querySelector(".tool-nav").offsetTop-80,behavior:"smooth"});
+  });
+});
+
+/* small helper for share */
+function toolShare(msg){ shareText(msg+" — Wi-Fi vs The Word: "+CONFIG.siteUrl+"/tools.html"); }
+
+/* ============================================================
+   TOOL 1 — FAMILY ALTAR BUILDER
+   Picks and orders the 7 stones into a 3-step starter plan.
+   ============================================================ */
+(function(){
+  var Q=[
+    {q:"When does your family feel most divided by screens?",
+     a:[{t:"At mealtimes",k:"table"},{t:"In the evenings",k:"evening"},
+        {t:"At bedtime",k:"bedroom"},{t:"All through the day",k:"all"}]},
+    {q:"How often does your family worship together?",
+     a:[{t:"Most days",k:"strong"},{t:"Now and then",k:"some"},
+        {t:"Rarely",k:"weak"},{t:"We'd like to start",k:"start"}]},
+    {q:"Do your children have their own devices?",
+     a:[{t:"No, not yet",k:"none"},{t:"Shared / supervised only",k:"shared"},
+        {t:"Yes, their own",k:"own"},{t:"Mixed by age",k:"mixed"}]},
+    {q:"What would help your family most right now?",
+     a:[{t:"Calmer, more present time together",k:"presence"},
+        {t:"A clear weekly rhythm",k:"rhythm"},
+        {t:"Better boundaries for the kids",k:"boundary"},
+        {t:"A spiritual reset",k:"spirit"}]}
+  ];
+  /* the 7 stones, each with a short action */
+  var STONES={
+    table:{b:"Lay Stone I — A Sacred Table",s:"Start a phone basket at mealtimes this week. One unhurried meal with no screens."},
+    evening:{b:"Lay Stone III — Replace, Don't Just Remove",s:"Choose one evening activity to replace screens: a walk, a game, a chapter read aloud."},
+    bedroom:{b:"Lay Stone I — Phone-Free Bedrooms",s:"Charge every device outside the bedroom tonight. Protect rest and intimacy."},
+    rhythm:{b:"Lay Stone II — The Digital Sabbath",s:"Pick one day, sundown to sundown, when devices are set aside completely."},
+    spirit:{b:"Lay Stone VI — The Renewing of the Mind",s:"Begin a short daily family worship — even ten minutes in the Word together."},
+    boundary:{b:"Lay Stone V — Wait, and Set Limits",s:"Agree clear device hours for the children, and delay the next smartphone as long as you can."},
+    filter:{b:"Lay Stone VII — The Algorithm Cleanse",s:"As a family, run the Philippians 4:8 filter over your feeds (see the Algorithm Cleanse tool)."},
+    presence:{b:"Lay Stone III — Feed the Relationship",s:"Replace one screen habit with one shared habit. Starve the escape; feed the bond."}
+  };
+  var idx=0,picks={};
+  var bar=document.getElementById("altar-bar"),num=document.getElementById("altar-num"),
+      txt=document.getElementById("altar-text"),opts=document.getElementById("altar-opts");
+  function render(){
+    bar.style.width=(idx/Q.length*100)+"%";
+    num.textContent="Question "+(idx+1)+" of "+Q.length;
+    txt.textContent=Q[idx].q;opts.innerHTML="";
+    Q[idx].a.forEach(function(o){
+      var b=document.createElement("button");
+      b.className="opt-btn";
+      b.innerHTML='<span class="od"></span><span>'+o.t+'</span>';
+      b.addEventListener("click",function(){picks[idx]=o.k;idx++;idx<Q.length?render():finish();});
+      opts.appendChild(b);
+    });
+  }
+  function finish(){
+    bar.style.width="100%";
+    /* build an ordered plan from answers */
+    var plan=[];
+    var p0=picks[0]; /* divided where */
+    if(p0==="table")plan.push(STONES.table);
+    else if(p0==="bedroom")plan.push(STONES.bedroom);
+    else if(p0==="evening")plan.push(STONES.evening);
+    else plan.push(STONES.table);
+    var p1=picks[1]; /* worship */
+    if(p1==="weak"||p1==="start")plan.push(STONES.spirit);
+    else plan.push(STONES.rhythm);
+    var p3=picks[3]; /* what helps most */
+    if(p3==="boundary"||picks[2]==="own")plan.push(STONES.boundary);
+    else if(p3==="spirit")plan.push(STONES.filter);
+    else plan.push(STONES.presence);
+    /* de-dup */
+    var seen={},final=[];
+    plan.forEach(function(s){if(!seen[s.b]){seen[s.b]=1;final.push(s);}});
+    while(final.length<3){
+      var extra=[STONES.rhythm,STONES.presence,STONES.filter];
+      for(var i=0;i<extra.length;i++){if(!seen[extra[i].b]){seen[extra[i].b]=1;final.push(extra[i]);break;}}
+    }
+    document.getElementById("altar-summary").textContent=
+      "Every altar is rebuilt one stone at a time. Based on your answers, here are the three stones to lay first — in order. Begin with the first, and only move on once it feels steady.";
+    var box=document.getElementById("altar-plan");box.innerHTML="";
+    final.slice(0,3).forEach(function(s,i){
+      var d=document.createElement("div");d.className="tp-step";
+      d.innerHTML='<span class="tp-num">'+(i+1)+'</span><div><b>'+s.b+'</b><span>'+s.s+'</span></div>';
+      box.appendChild(d);
+    });
+    document.getElementById("altar-q").style.display="none";
+    document.getElementById("altar-result").classList.add("show");
+  }
+  document.getElementById("altar-retry").addEventListener("click",function(){
+    idx=0;picks={};
+    document.getElementById("altar-result").classList.remove("show");
+    document.getElementById("altar-q").style.display="block";render();
+  });
+  document.getElementById("altar-share").addEventListener("click",function(){
+    toolShare("I just built our Family Altar Plan");
+  });
+  render();
+})();
+
+/* ============================================================
+   TOOL 2 — THE ALGORITHM CLEANSE
+   A checklist; more boxes ticked = more to cleanse.
+   ============================================================ */
+(function(){
+  var ITEMS=[
+    {b:"Content that stirs comparison or envy",s:"Filtered, perfect lives that leave you feeling less-than."},
+    {b:"Provocative or 'thirst trap' content",s:"Posts that pull at lust rather than love."},
+    {b:"Outrage, arguments and conspiracies",s:"Content that feeds anger or fear, not peace."},
+    {b:"Mindless content you scroll without thinking",s:"Hours that vanish with nothing to show for them."},
+    {b:"Accounts that pull you away from God",s:"Voices that quietly disciple you toward the world."},
+    {b:"Content that glamourises sin",s:"What once shocked you, now entertains you."},
+    {b:"Endless shopping and 'add to cart' temptation",s:"The dopamine hit of buying to fill a void."}
+  ];
+  var list=document.getElementById("cleanse-list");
+  ITEMS.forEach(function(it,i){
+    var d=document.createElement("div");d.className="check-item";d.dataset.i=i;
+    d.innerHTML='<span class="check-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg></span>'+
+      '<span class="ci-text"><b>'+it.b+'</b><span>'+it.s+'</span></span>';
+    d.addEventListener("click",function(){d.classList.toggle("checked");});
+    list.appendChild(d);
+  });
+  document.getElementById("cleanse-go").addEventListener("click",function(){
+    var n=document.querySelectorAll("#cleanse-list .check-item.checked").length;
+    var head,msg,plan;
+    if(n===0){
+      head="A Well-Tended Feed";
+      msg="You found little that fails the Philippians 4:8 test — that is a real grace. A feed this clean is itself a quiet act of worship. Keep guarding the gate.";
+      plan=[{b:"Keep watching",s:"Re-run this cleanse every month — algorithms drift back."},
+            {b:"Help another",s:"Share this tool with a family who is struggling."}];
+    }else if(n<=2){
+      head="A Few Weeds to Pull";
+      msg="Mostly healthy, with a couple of gates left open. A small cleanse now keeps a small problem small.";
+      plan=[{b:"Mark 'Not Interested'",s:"On each item you ticked, open the post, tap the three dots, choose 'Not Interested'."},
+            {b:"Unfollow two accounts",s:"Pick the two that pull you down most, and quietly let them go."}];
+    }else if(n<=4){
+      head="Time for a Real Cleanse";
+      msg="The algorithm has learned some of your weaknesses and is feeding them back to you. This is not condemnation — the feed can be retrained, and faster than you think.";
+      plan=[{b:"A 15-minute cleanse",s:"Go through each ticked item: 'Not Interested', unfollow, mute. Retrain the algorithm to respect your values."},
+            {b:"Add good input",s:"Follow three accounts that point you to Christ — give the algorithm something better to learn."},
+            {b:"Set a limit",s:"Pick one app and set a daily time limit in your phone's settings."}];
+    }else{
+      head="The Feed Is Discipling You";
+      msg="Right now your feed is shaping your desires more than the Word is. That is a hard thing to read — but you have just done the bravest part, which is to look honestly. It can all be rebuilt.";
+      plan=[{b:"Consider a fast",s:"Step away from the heaviest app for one week. Let the pull weaken before you cleanse."},
+            {b:"Cleanse thoroughly",s:"When you return, work through every ticked item: unfollow, mute, 'Not Interested'."},
+            {b:"Rebuild with care",s:"Re-follow slowly and prayerfully. Apply the Philippians 4:8 filter to each choice."},
+            {b:"Tell someone",s:"Ask a trusted friend or your spouse to check in with you each week."}];
+    }
+    document.getElementById("cleanse-head").textContent=head;
+    document.getElementById("cleanse-msg").textContent=msg;
+    var box=document.getElementById("cleanse-plan");box.innerHTML="";
+    plan.forEach(function(s,i){
+      var d=document.createElement("div");d.className="tp-step";
+      d.innerHTML='<span class="tp-num">'+(i+1)+'</span><div><b>'+s.b+'</b><span>'+s.s+'</span></div>';
+      box.appendChild(d);
+    });
+    document.getElementById("cleanse-meter").style.width=Math.round(n/ITEMS.length*100)+"%";
+    document.getElementById("cleanse-result").classList.add("show");
+    document.getElementById("cleanse-result").scrollIntoView({behavior:"smooth",block:"nearest"});
+  });
+  document.getElementById("cleanse-retry").addEventListener("click",function(){
+    document.querySelectorAll("#cleanse-list .check-item").forEach(function(c){c.classList.remove("checked");});
+    document.getElementById("cleanse-result").classList.remove("show");
+  });
+  document.getElementById("cleanse-share").addEventListener("click",function(){
+    toolShare("I just did the Algorithm Cleanse");
+  });
+})();
+
+/* ============================================================
+   TOOL 3 — SMARTPHONE READINESS CHECK
+   Lower score = more ready. Honest, never a hard yes/no.
+   ============================================================ */
+(function(){
+  var Q=[
+    {q:"How old is your child?",
+     a:[{t:"16 or older",s:0},{t:"13 to 15",s:1},{t:"10 to 12",s:2},{t:"Under 10",s:3}]},
+    {q:"Can they already manage limits on a shared device without conflict?",
+     a:[{t:"Yes, consistently",s:0},{t:"Usually",s:1},{t:"It's a struggle",s:2},{t:"We haven't tried",s:2}]},
+    {q:"Do they have a real need a phone would meet (safety, travel)?",
+     a:[{t:"Yes, a genuine need",s:0},{t:"Somewhat",s:1},{t:"Not really",s:2},{t:"It's mostly 'everyone has one'",s:3}]},
+    {q:"How is their sleep, mood and focus right now?",
+     a:[{t:"Settled and steady",s:0},{t:"Mostly fine",s:1},{t:"Up and down",s:2},{t:"Already a concern",s:3}]},
+    {q:"Are you ready to set up controls and stay involved?",
+     a:[{t:"Yes, fully prepared",s:0},{t:"Mostly",s:1},{t:"Not sure how",s:2},{t:"Honestly, no",s:3}]}
+  ];
+  var idx=0,score=0;
+  var bar=document.getElementById("phone-bar"),num=document.getElementById("phone-num"),
+      txt=document.getElementById("phone-text"),opts=document.getElementById("phone-opts");
+  function render(){
+    bar.style.width=(idx/Q.length*100)+"%";
+    num.textContent="Question "+(idx+1)+" of "+Q.length;
+    txt.textContent=Q[idx].q;opts.innerHTML="";
+    Q[idx].a.forEach(function(o){
+      var b=document.createElement("button");b.className="opt-btn";
+      b.innerHTML='<span class="od"></span><span>'+o.t+'</span>';
+      b.addEventListener("click",function(){score+=o.s;idx++;idx<Q.length?render():finish();});
+      opts.appendChild(b);
+    });
+  }
+  function finish(){
+    bar.style.width="100%";
+    var head,msg,plan;
+    if(score<=3){
+      head="There May Be Room to Consider It";
+      msg="Your answers suggest a measure of readiness. If you do proceed, do it slowly and deliberately — a phone is a doorway, not just a gift.";
+      plan=[{b:"Start limited",s:"Begin with calls and messages only. Add nothing else for the first month."},
+            {b:"Agree the covenant first",s:"Use the Family Digital Covenant so the rules are clear before the phone arrives."},
+            {b:"Keep the gate",s:"Charge it outside the bedroom, and keep social media off as long as you can."}];
+    }else if(score<=7){
+      head="Wait a Little Longer";
+      msg="There is no rush, and good reasons to wait. The developing brain is not yet ready for the full pull of a smartphone. Waiting is not unkindness — it is protection.";
+      plan=[{b:"Offer a simple phone",s:"If they need to reach you, a basic call-and-text phone meets that need with none of the risk."},
+            {b:"Build the skills first",s:"Practise managing limits on a shared, supervised device for a season."},
+            {b:"Revisit in six months",s:"This is not a no — it is a 'not yet'. Set a date to look again."}];
+    }else{
+      head="Now Is Not the Time";
+      msg="Your answers point clearly to waiting. This is good, loving parenting — the 'Wait Until 8th' movement exists precisely because so many families wish they had waited. You are guarding the avenues of the soul.";
+      plan=[{b:"Hold the line gently",s:"'Everyone has one' is real social pressure. Stand kindly but firmly — many families are choosing the same."},
+            {b:"A simple phone if needed",s:"For genuine safety, a basic phone calls and texts — nothing more."},
+            {b:"Fill the years well",s:"Boredom grows deep thinkers. Protect the unhurried childhood while you can."},
+            {b:"Find allies",s:"Connect with other parents delaying too — it is far easier together."}];
+    }
+    document.getElementById("phone-head").textContent=head;
+    document.getElementById("phone-msg").textContent=msg;
+    document.getElementById("phone-meter").style.width=Math.round((1-score/15)*100)+"%";
+    var box=document.getElementById("phone-plan");box.innerHTML="";
+    plan.forEach(function(s,i){
+      var d=document.createElement("div");d.className="tp-step";
+      d.innerHTML='<span class="tp-num">'+(i+1)+'</span><div><b>'+s.b+'</b><span>'+s.s+'</span></div>';
+      box.appendChild(d);
+    });
+    document.getElementById("phone-q").style.display="none";
+    document.getElementById("phone-result").classList.add("show");
+  }
+  document.getElementById("phone-retry").addEventListener("click",function(){
+    idx=0;score=0;
+    document.getElementById("phone-result").classList.remove("show");
+    document.getElementById("phone-q").style.display="block";render();
+  });
+  document.getElementById("phone-share").addEventListener("click",function(){
+    toolShare("A helpful tool for parents: the Smartphone Readiness Check");
+  });
+  render();
+})();
+
+/* ============================================================
+   TOOL 4 — DISTRACTION PROFILE
+   Tallies which trap pulls hardest; returns a profile.
+   ============================================================ */
+(function(){
+  /* each answer adds to one of five traps */
+  var Q=[
+    {q:"When you pick up your phone without thinking, you usually open...",
+     a:[{t:"Social media / feeds",k:"compare"},{t:"News or trending topics",k:"algorithm"},
+        {t:"A game",k:"gaming"},{t:"Shopping apps",k:"shopping"}]},
+    {q:"What most often steals your time?",
+     a:[{t:"Scrolling other people's lives",k:"compare"},{t:"Going down a 'rabbit hole'",k:"algorithm"},
+        {t:"One more level, one more match",k:"gaming"},{t:"Browsing things to buy",k:"shopping"}]},
+    {q:"Which feeling sounds most familiar?",
+     a:[{t:"I don't measure up",k:"compare"},{t:"The world is alarming",k:"algorithm"},
+        {t:"Real life feels dull by comparison",k:"gaming"},{t:"A new thing will help",k:"shopping"}]},
+    {q:"Where does your mind drift in a quiet moment?",
+     a:[{t:"What others are doing or thinking of me",k:"compare"},
+        {t:"A topic I've been reading about",k:"algorithm"},
+        {t:"A game or virtual world",k:"gaming"},
+        {t:"Something I want to buy",k:"shopping"}]},
+    {q:"What would be hardest to give up for a week?",
+     a:[{t:"Posting and checking likes",k:"compare"},{t:"My feeds and updates",k:"algorithm"},
+        {t:"Gaming",k:"gaming"},{t:"Online shopping",k:"shopping"}]},
+    {q:"Be honest — which has cost you most?",
+     a:[{t:"My peace and self-worth",k:"compare"},{t:"My focus and calm",k:"algorithm"},
+        {t:"My time and relationships",k:"gaming"},{t:"My money and contentment",k:"shopping"}]}
+  ];
+  var PROFILES={
+    compare:{h:"The Comparison Trap",
+      m:"Your strongest pull is comparison — measuring your life against the filtered highlight reels of others. Scripture calls us to seek validation from the love of our Creator, not from 'likes'. People stopped enjoying God's creation because they were too busy capturing the perfect picture of it.",
+      v:"\"They measure themselves by themselves... and are not wise.\" — 2 Corinthians 10:12",
+      p:[{b:"Curate ruthlessly",s:"Unfollow every account that leaves you feeling 'less than'. Today."},
+         {b:"Fast from posting",s:"For one week, consume nothing and post nothing. Notice what changes."},
+         {b:"Count real blessings",s:"Each evening, name three real things from your own life — not anyone else's."}]},
+    algorithm:{h:"The Algorithm Trap",
+      m:"Your strongest pull is the algorithm — viral content, rabbit holes, and the endless feed engineered to hold you. It is not neutral; it is a custom-built mirror of your weaknesses. The devil keeps you busy and alarmed so you have no time to fold your hands in prayer.",
+      v:"\"Do not be conformed to this world.\" — Romans 12:2",
+      p:[{b:"Run the Algorithm Cleanse",s:"Use the tool on this page to retrain your feed to Philippians 4:8."},
+         {b:"Set hard limits",s:"Put a daily time cap on your main app, in your phone's settings."},
+         {b:"Reclaim the first hour",s:"No feed before prayer. Let God have the first word of your day."}]},
+    gaming:{h:"The Escape Trap",
+      m:"Your strongest pull is escape — gaming and virtual worlds where you can be a hero, while real responsibilities wait. Games are not evil, but when the fantasy becomes more real than the family, the altar is being neglected.",
+      v:"\"When I became a man, I put away childish things.\" — 1 Corinthians 13:11",
+      p:[{b:"Set a clear stop",s:"Decide your daily limit before you start — and honour it like an appointment."},
+         {b:"Reinvest the time",s:"Put the reclaimed hours into one real relationship that needs you."},
+         {b:"Lead your home",s:"Be the parent who builds a real life so engaging no screen can compete."}]},
+    shopping:{h:"The Consumption Trap",
+      m:"Your strongest pull is consumption — the dopamine hit of 'add to cart', trying to fill with things a void only Christ can fill. Each purchase promises contentment and quietly delays it.",
+      v:"\"Godliness with contentment is great gain.\" — 1 Timothy 6:6",
+      p:[{b:"Add a pause",s:"Put wanted items in the cart and wait 48 hours. Most longings fade."},
+         {b:"Unsubscribe",s:"Remove shopping apps from your home screen and unsubscribe from sale emails."},
+         {b:"Practise gratitude",s:"Before buying, thank God for three things you already have."}]}
+  };
+  var idx=0,tally={compare:0,algorithm:0,gaming:0,shopping:0};
+  var bar=document.getElementById("distraction-bar"),num=document.getElementById("distraction-num"),
+      txt=document.getElementById("distraction-text"),opts=document.getElementById("distraction-opts");
+  function render(){
+    bar.style.width=(idx/Q.length*100)+"%";
+    num.textContent="Question "+(idx+1)+" of "+Q.length;
+    txt.textContent=Q[idx].q;opts.innerHTML="";
+    Q[idx].a.forEach(function(o){
+      var b=document.createElement("button");b.className="opt-btn";
+      b.innerHTML='<span class="od"></span><span>'+o.t+'</span>';
+      b.addEventListener("click",function(){tally[o.k]++;idx++;idx<Q.length?render():finish();});
+      opts.appendChild(b);
+    });
+  }
+  function finish(){
+    bar.style.width="100%";
+    var top="compare",max=-1;
+    for(var k in tally){if(tally[k]>max){max=tally[k];top=k;}}
+    var pr=PROFILES[top];
+    document.getElementById("distraction-head").textContent=pr.h;
+    document.getElementById("distraction-msg").textContent=pr.m;
+    document.getElementById("distraction-verse").textContent=pr.v;
+    var box=document.getElementById("distraction-plan");box.innerHTML="";
+    pr.p.forEach(function(s,i){
+      var d=document.createElement("div");d.className="tp-step";
+      d.innerHTML='<span class="tp-num">'+(i+1)+'</span><div><b>'+s.b+'</b><span>'+s.s+'</span></div>';
+      box.appendChild(d);
+    });
+    document.getElementById("distraction-q").style.display="none";
+    document.getElementById("distraction-result").classList.add("show");
+  }
+  document.getElementById("distraction-retry").addEventListener("click",function(){
+    idx=0;tally={compare:0,algorithm:0,gaming:0,shopping:0};
+    document.getElementById("distraction-result").classList.remove("show");
+    document.getElementById("distraction-q").style.display="block";render();
+  });
+  document.getElementById("distraction-share").addEventListener("click",function(){
+    toolShare("I just found my Distraction Profile");
+  });
+  render();
+})();
+
+}); /* end DOMContentLoaded */
+</script>
+
+</body>
+</html>

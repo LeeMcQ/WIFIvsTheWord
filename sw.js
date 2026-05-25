@@ -1,43 +1,20 @@
-/* Wi-Fi vs The Word — service worker
-   Offline-first caching so the site works in low-connectivity areas. */
-const CACHE = "wvtw-v2";
-const ASSETS = [
-  "./",
-  "./index.html",
-  "./manifest.json",
-  "https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Spline+Sans:wght@400;500;600&display=swap"
-];
-
-self.addEventListener("install", (e) => {
-  e.waitUntil(
-    caches.open(CACHE).then((c) => c.addAll(ASSETS)).catch(() => {})
-  );
+/* Wi-Fi vs The Word — service worker (multi-page, v4) */
+const CACHE="wvtw-v5";
+const ASSETS=["./","./index.html","./articles.html","./resources.html","./events.html",
+  "./testimonies.html","./about.html","./contact.html","./404.html",
+  "./theme.css","./shared.js","./manifest.json","./social-card.png",
+  "./tools.html","./prayer.html","./faq.html","./start-here.html","./recommended.html","./sermon-notes.html","./articles/the-digital-wall.html"];
+self.addEventListener("install",e=>{
+  e.waitUntil(caches.open(CACHE).then(c=>c.addAll(ASSETS)).catch(()=>{}));
   self.skipWaiting();
 });
-
-self.addEventListener("activate", (e) => {
-  e.waitUntil(
-    caches.keys().then((keys) =>
-      Promise.all(keys.filter((k) => k !== CACHE).map((k) => caches.delete(k)))
-    )
-  );
+self.addEventListener("activate",e=>{
+  e.waitUntil(caches.keys().then(ks=>Promise.all(ks.filter(k=>k!==CACHE).map(k=>caches.delete(k)))));
   self.clients.claim();
 });
-
-/* Cache-first for cached assets, network-first fallback for everything else.
-   Google Fonts files (fonts.gstatic.com) are cached on first fetch. */
-self.addEventListener("fetch", (e) => {
-  if (e.request.method !== "GET") return;
-  e.respondWith(
-    caches.match(e.request).then((cached) => {
-      if (cached) return cached;
-      return fetch(e.request)
-        .then((res) => {
-          const copy = res.clone();
-          caches.open(CACHE).then((c) => c.put(e.request, copy)).catch(() => {});
-          return res;
-        })
-        .catch(() => caches.match("./index.html"));
-    })
-  );
+self.addEventListener("fetch",e=>{
+  if(e.request.method!=="GET")return;
+  e.respondWith(caches.match(e.request).then(c=>c||fetch(e.request).then(r=>{
+    const cp=r.clone();caches.open(CACHE).then(c=>c.put(e.request,cp)).catch(()=>{});return r;
+  }).catch(()=>caches.match("./index.html"))));
 });
