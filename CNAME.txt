@@ -1,0 +1,12 @@
+HOW TO USE THIS FILE
+====================
+If you are using your own domain (e.g. wifivstheword.org):
+
+1. Rename this file from "CNAME.txt" to exactly "CNAME" (no extension).
+2. Open it and replace the line below with ONLY your domain — no https://, no slashes.
+3. Re-upload it to GitHub.
+
+If you are just using the free github.io address, DELETE this file — you don't need it.
+
+--- put your domain on the line below, then delete these instructions ---
+wifivstheword.org

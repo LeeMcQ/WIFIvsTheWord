@@ -6,7 +6,7 @@
 
 /* ---- CONFIG: edit these once, every page updates ---- */
 const CONFIG = {
-  whatsappNumber: "2782125771",
+  whatsappNumber: "27000000000",
   whatsappMessage: "Hi! I'd love to know more about the Wi-Fi vs The Word ministry.",
   email: "hello@wifivstheword.org",
   siteUrl: "https://wifivstheword.org",

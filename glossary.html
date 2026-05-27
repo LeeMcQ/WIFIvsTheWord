@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Glossary — Wi-Fi vs The Word</title>
+<meta name="description" content="Plain-language definitions of the key terms used in digital discipleship — technoference, dopamine loops, the algorithm and more.">
+<meta name="theme-color" content="#0e1726">
+<meta property="og:title" content="Glossary — Wi-Fi vs The Word">
+<meta property="og:description" content="Plain-language definitions for families navigating technology and faith.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://wifivstheword.org/social-card.png">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%230e1726'/%3E%3Cpath d='M50 24v52M34 40h32' stroke='%23d4a843' stroke-width='7' stroke-linecap='round'/%3E%3C/svg%3E">
+<link rel="manifest" href="manifest.json">
+<link rel="stylesheet" href="theme.css">
+<style>
+  /* Minimal inline fallback for safety — theme.css handles main styling */
+  .grid-2 { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.8rem; }
+  .card { background: var(--card-bg, #fff); border-radius: 1.5rem; padding: 1.5rem; box-shadow: 0 8px 20px rgba(0,0,0,0.05); transition: transform 0.2s ease, box-shadow 0.2s ease; }
+  .card:hover { transform: translateY(-3px); box-shadow: 0 16px 28px rgba(0,0,0,0.08); }
+  .card h3 { margin-top: 0; color: var(--heading, #0e1726); font-size: 1.5rem; border-left: 4px solid #d4a843; padding-left: 0.75rem; }
+  .reveal { animation: fadeUp 0.4s ease forwards; }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+  .page-hero .wrap { max-width: 1200px; margin: 0 auto; padding: 2rem 1.5rem; }
+  .wrap { max-width: 1200px; margin: 0 auto; padding: 0 1.5rem; }
+  .nav { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; padding: 1rem 1.5rem; }
+  .brand { display: flex; align-items: center; gap: 0.5rem; text-decoration: none; font-weight: 600; font-size: 1.35rem; color: #0e1726; }
+  .brand-mark svg { width: 28px; height: 28px; }
+  .brand-name b { color: #d4a843; }
+  .nav-links { display: flex; flex-wrap: wrap; gap: 1.2rem; align-items: center; }
+  .nav-links a { text-decoration: none; font-weight: 500; color: #2c3e4e; }
+  .nav-tools { display: flex; gap: 0.5rem; }
+  .icon-btn { background: transparent; border: none; cursor: pointer; padding: 0.4rem; display: inline-flex; align-items: center; }
+  .cta-banner { background: #eef2f5; border-radius: 2rem; margin: 3rem 1.5rem; padding: 2.5rem 1.5rem; text-align: center; }
+  .btn { display: inline-block; padding: 0.7rem 1.6rem; border-radius: 2rem; text-decoration: none; font-weight: 600; margin: 0.5rem; }
+  .btn-primary { background: #d4a843; color: #0e1726; border: none; }
+  .btn-ghost { background: transparent; border: 2px solid #d4a843; color: #0e1726; }
+  footer { background: #0e1726; color: #cbd5e1; padding: 2.5rem 0 1.5rem; margin-top: 2rem; }
+  .foot-grid { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 2rem; }
+  .foot-about { max-width: 260px; }
+  .foot-col { display: flex; flex-direction: column; gap: 0.6rem; }
+  .foot-col a { color: #cbd5e1; text-decoration: none; }
+  .foot-bottom { margin-top: 2rem; text-align: center; font-size: 0.85rem; border-top: 1px solid #2d3e4e; padding-top: 1.2rem; }
+  .wa-fab { position: fixed; bottom: 1.5rem; right: 1.5rem; background: #25D366; color: white; border-radius: 60px; padding: 12px; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(0,0,0,0.2); width: 56px; height: 56px; z-index: 1000; }
+  .wa-fab svg { width: 32px; height: 32px; }
+  @media (max-width: 720px) { .nav-links { display: none; } .menu-toggle { display: block; } .grid-2 { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap nav">
+    <a href="index.html" class="brand" aria-label="Wi-Fi vs The Word home">
+      <span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3v18M5 9h14" stroke="#d4a843" stroke-width="2.4" stroke-linecap="round"/></svg></span>
+      <span class="brand-name">Wi-Fi <b>vs</b> The Word</span>
+    </a>
+    <nav class="nav-links" id="navLinks">
+      <a href="index.html">Home</a>
+      <a href="articles.html">Articles</a>
+      <a href="tools.html">Tools</a>
+      <a href="resources.html">Resources</a>
+      <a href="events.html">Events</a>
+      <a href="about.html">Our Story</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <div class="nav-tools">
+      <button class="icon-btn" id="themeBtn" aria-label="Toggle theme">
+        <svg id="themeIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+      <button class="icon-btn menu-toggle" id="menuBtn" aria-label="Open menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+<main>
+<section class="page-hero">
+  <div class="wrap">
+    <p class="crumb"><a href="index.html">Home</a> / Glossary</p>
+    <span class="eyebrow">Plain Language</span>
+    <h1>The Words, <span class="em">Explained Simply</span></h1>
+    <p>You don't need to be a scientist to protect your family. Here are the key terms, in plain language.</p>
+  </div>
+</section>
+<section>
+  <div class="wrap">
+    <div class="grid grid-2">
+      <!-- Term 1: Technoference -->
+      <div class="card reveal">
+        <h3>Technoference</h3>
+        <p>When technology interrupts face-to-face relationships — like a phone buzz during dinner or a notification that pulls your eyes away from a child's question. These small moments add up, weakening connection. Noticing technoference helps us choose to put devices aside and be fully present with the people God gave us.</p>
+      </div>
+      <!-- Term 2: Dopamine loop -->
+      <div class="card reveal">
+        <h3>Dopamine loop</h3>
+        <p>A cycle in the brain where small rewards (likes, notifications, streaks) keep you wanting more. Each buzz gives a tiny feel-good hit, training you to check again and again. Understanding this loop helps us break free from compulsive scrolling and find deeper satisfaction in real connection and God’s presence.</p>
+      </div>
+      <!-- Term 3: The algorithm -->
+      <div class="card reveal">
+        <h3>The algorithm</h3>
+        <p>A set of instructions that decides what you see on social media and video apps. It learns what holds your attention and serves you more of it — whether uplifting or harmful. Algorithms don't care about your wellbeing; they only want your time. That's why we must intentionally choose what feeds our mind and heart.</p>
+      </div>
+      <!-- Term 4: Attention economy -->
+      <div class="card reveal">
+        <h3>Attention economy</h3>
+        <p>A system where apps compete fiercely for your focus because your attention makes money for them. Every swipe, click, and minute is a product sold to advertisers. Recognizing this helps you stop being the product and start guarding your time for what truly matters: family, rest, and worship.</p>
+      </div>
+      <!-- Term 5: Absent presence -->
+      <div class="card reveal">
+        <h3>Absent presence</h3>
+        <p>Being physically with someone but mentally somewhere else — staring at a screen while your family sits nearby. It’s a quiet form of neglect common in the digital age. The remedy is intentional, unhurried connection, especially around the family altar, where we give each other the gift of full attention.</p>
+      </div>
+      <!-- Term 6: Frontal lobe -->
+      <div class="card reveal">
+        <h3>Frontal lobe</h3>
+        <p>The part of the brain just behind your forehead that handles self-control, planning, and decision-making. It doesn't fully mature until your mid-twenties, which is why kids and teens struggle more with screen limits and impulse scrolling. Protecting its development means setting loving boundaries early.</p>
+      </div>
+      <!-- Term 7: Neuroplasticity -->
+      <div class="card reveal">
+        <h3>Neuroplasticity</h3>
+        <p>The brain’s amazing ability to rewire itself based on what you practice every day. The more you scroll, the better your brain gets at craving more scrolling. But the more you pray, read Scripture, and focus on meaningful tasks, the stronger those pathways become. This is good news: change is possible with God’s help.</p>
+      </div>
+      <!-- Term 8: Digital Sabbath -->
+      <div class="card reveal">
+        <h3>Digital Sabbath</h3>
+        <p>A regular period when you turn off all personal devices to rest and reconnect with God and family. Reflecting the biblical command to set apart unhurried time for renewal, it’s not about legalism but about reclaiming worship, conversation, and creation. Even one evening or a full day a week can restore your soul.</p>
+      </div>
+      <!-- Term 9: Digital hygiene -->
+      <div class="card reveal">
+        <h3>Digital hygiene</h3>
+        <p>Daily habits that keep your technology use clean and healthy, like brushing your teeth. Small consistent actions: deleting distracting apps, keeping phones out of the bedroom, using website blockers, and setting time limits. Good digital hygiene protects your mind, sleep, and relationships from unnecessary wear.</p>
+      </div>
+      <!-- Term 10: Doomscrolling -->
+      <div class="card reveal">
+        <h3>Doomscrolling</h3>
+        <p>The habit of endlessly scrolling through negative news, anxious updates, or upsetting content even when it makes you feel worse. It feeds fear and steals peace. Instead, we can practice turning toward prayer, limiting news intake to short intervals, and filling our eyes with truth and hope.</p>
+      </div>
+      <!-- Term 11: Deep work -->
+      <div class="card reveal">
+        <h3>Deep work</h3>
+        <p>Focused, distraction-free effort on a meaningful task for a set period — the opposite of constant notifications and task-switching. By creating space for deep work, we honor our minds as gifts from God, produce better work faster, and model discipline for our children.</p>
+      </div>
+      <!-- Term 12: AI companion -->
+      <div class="card reveal">
+        <h3>AI companion</h3>
+        <p>A chatbot or digital friend designed to simulate conversation and emotional connection. While interesting, these tools cannot replace real relationships, the comfort of the Holy Spirit, or the wisdom of godly counsel. Use with cautious discernment — they are tools, not confidants for the soul.</p>
+      </div>
+      <!-- Term 13: Algorithm cleanse -->
+      <div class="card reveal">
+        <h3>Algorithm cleanse</h3>
+        <p>Intentionally resetting what an app shows you by telling it “not interested,” muting certain topics, blocking distracting creators, or taking a break. Over time, the algorithm learns new patterns. This simple practice helps you clean out content that tempts, discourages, or distracts you from guarding your heart.</p>
+      </div>
+      <!-- Term 14: Digital Babylon -->
+      <div class="card reveal">
+        <h3>Digital Babylon</h3>
+        <p>A biblical metaphor for the confusing, noisy, idolatrous pull of modern digital culture. Just as ancient Babylon confused language, the digital world overwhelms us with competing voices, false promises, and endless distraction. Following God means learning to live in it without becoming like it, keeping our worship pure.</p>
+      </div>
+      <!-- Term 15: The family altar -->
+      <div class="card reveal">
+        <h3>The family altar</h3>
+        <p>A daily time when your household gathers to read Scripture, pray, and worship together. It’s not a physical altar but a sacred habit that builds spiritual strength and connection. In a distracted age, the family altar becomes the heartbeat of the home — a non-negotiable space where faith is caught and shared.</p>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="cta-banner">
+  <div class="wrap">
+    <h2>Now put it into practice</h2>
+    <p>Understanding the words is the first step. The tools help you take the next one.</p>
+    <div class="cta-row">
+      <a href="tools.html" class="btn btn-primary">Try the Family Tools</a>
+      <a href="start-here.html" class="btn btn-ghost">Start Here</a>
+    </div>
+  </div>
+</section>
+</main>
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-about">
+        <a href="index.html" class="brand">
+          <span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3v18M5 9h14" stroke="#d4a843" stroke-width="2.4" stroke-linecap="round"/></svg></span>
+          <span class="brand-name">Wi-Fi <b>vs</b> The Word</span>
+        </a>
+        <p>A Christian digital discipleship and family restoration ministry.</p>
+      </div>
+      <div class="foot-col"><h5>Explore</h5>
+        <a href="articles.html">Articles</a><a href="tools.html">Interactive Tools</a>
+        <a href="resources.html">Resources</a><a href="events.html">Events</a>
+        <a href="testimonies.html">Testimonies</a></div>
+      <div class="foot-col"><h5>Connect</h5>
+        <a href="prayer.html">Prayer Wall</a><a href="start-here.html">Start Here</a>
+        <a href="about.html">Our Story</a><a href="faq.html">FAQ</a>
+        <a href="glossary.html">Glossary</a>
+        <a href="contact.html">Contact</a></div>
+    </div>
+    <div class="foot-bottom">
+      <span>&copy; <span id="year"></span> Wi-Fi vs The Word Ministry.</span>
+      <span>"The issue is not merely screens. The issue is discipleship."</span>
+    </div>
+  </div>
+</footer>
+<a class="wa-fab" data-wa href="#" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
+  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.87 9.87 0 0 0 4.74 1.21c5.46 0 9.91-4.45 9.91-9.91S17.5 2 12.04 2z"/></svg>
+</a>
+<script>
+  // shared.js placeholder — theme toggle, mobile menu, dynamic year
+  (function() {
+    // Set current year
+    document.getElementById('year') && (document.getElementById('year').innerText = new Date().getFullYear());
+    
+    // Light/dark theme toggle with localStorage
+    const themeBtn = document.getElementById('themeBtn');
+    const htmlEl = document.documentElement;
+    function setTheme(theme) {
+      if (theme === 'dark') {
+        htmlEl.style.setProperty('--card-bg', '#1e2933');
+        htmlEl.style.setProperty('--heading', '#f1f5f9');
+        document.body.style.backgroundColor = '#0f1724';
+        document.body.style.color = '#e2e8f0';
+        localStorage.setItem('wvw-theme', 'dark');
+      } else {
+        htmlEl.style.setProperty('--card-bg', '#ffffff');
+        htmlEl.style.setProperty('--heading', '#0e1726');
+        document.body.style.backgroundColor = '';
+        document.body.style.color = '';
+        localStorage.setItem('wvw-theme', 'light');
+      }
+    }
+    const savedTheme = localStorage.getItem('wvw-theme');
+    if (savedTheme === 'dark') setTheme('dark');
+    if (themeBtn) {
+      themeBtn.addEventListener('click', () => {
+        const isDark = document.body.style.backgroundColor === 'rgb(15, 23, 36)' || localStorage.getItem('wvw-theme') === 'dark';
+        setTheme(isDark ? 'light' : 'dark');
+      });
+    }
+    
+    // Mobile menu toggle
+    const menuBtn = document.getElementById('menuBtn');
+    const navLinks = document.getElementById('navLinks');
+    if (menuBtn && navLinks) {
+      menuBtn.addEventListener('click', () => {
+        if (navLinks.style.display === 'flex') {
+          navLinks.style.display = 'none';
+        } else {
+          navLinks.style.display = 'flex';
+          navLinks.style.flexDirection = 'column';
+          navLinks.style.position = 'absolute';
+          navLinks.style.top = '70px';
+          navLinks.style.left = '1rem';
+          navLinks.style.right = '1rem';
+          navLinks.style.backgroundColor = '#fff';
+          navLinks.style.padding = '1rem';
+          navLinks.style.borderRadius = '1.5rem';
+          navLinks.style.boxShadow = '0 10px 25px rgba(0,0,0,0.1)';
+          navLinks.style.zIndex = '999';
+        }
+      });
+      window.addEventListener('resize', () => {
+        if (window.innerWidth > 720) {
+          navLinks.style.display = '';
+          navLinks.style.flexDirection = '';
+          navLinks.style.position = '';
+          navLinks.style.backgroundColor = '';
+          navLinks.style.padding = '';
+        } else if (navLinks.style.display === 'flex' && window.innerWidth > 720) {
+          navLinks.style.display = '';
+        }
+      });
+    }
+  })();
+</script>
+</body>
+</html>
