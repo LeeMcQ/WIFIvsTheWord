@@ -1,9 +1,9 @@
 /* Wi-Fi vs The Word — service worker (multi-page, v4) */
-const CACHE="wvtw-v5";
+const CACHE="wvtw-v9";
 const ASSETS=["./","./index.html","./articles.html","./resources.html","./events.html",
   "./testimonies.html","./about.html","./contact.html","./404.html",
   "./theme.css","./shared.js","./manifest.json","./social-card.png",
-  "./tools.html","./prayer.html","./faq.html","./start-here.html","./recommended.html","./sermon-notes.html","./articles/the-digital-wall.html"];
+  "./tools.html","./prayer.html","./faq.html","./start-here.html","./recommended.html","./sermon-notes.html","./the-story.html","./plans.html","./faith-engine.js","./plans-data.js","./articles/the-digital-wall.html"];
 self.addEventListener("install",e=>{
   e.waitUntil(caches.open(CACHE).then(c=>c.addAll(ASSETS)).catch(()=>{}));
   self.skipWaiting();

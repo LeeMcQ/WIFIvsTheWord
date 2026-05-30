@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Wi-Fi vs The Word — Reclaim Your Mind. Restore Your Family.</title>
 <meta name="description" content="A Christian digital discipleship and family restoration ministry. Helping families resist digital addiction, reclaim attention, and rebuild the family altar in the age of algorithms.">
-<meta name="theme-color" content="#0e1726">
+<meta name="theme-color" content="#0b1322">
 <meta name="author" content="Wi-Fi vs The Word Ministry">
 <meta name="keywords" content="digital discipleship, Christian family, screen addiction, digital sabbath, family devotion, technology and faith, raising children, digital wellbeing">
 <link rel="canonical" href="https://wifivstheword.org/">
@@ -40,6 +40,7 @@
 <link rel="stylesheet" href="theme.css">
 </head>
 <body>
+<a href="#main" class="skip-link">Skip to content</a>
 <header>
   <div class="wrap nav">
     <a href="#top" class="brand" aria-label="Wi-Fi vs The Word home">
@@ -48,10 +49,10 @@
     </a>
     <nav class="nav-links" id="navLinks">
       <a href="index.html" class="active">Home</a>
-      <a href="articles.html">Articles</a>
+      <a href="the-story.html">The Story</a>
+      <a href="plans.html">Reading Plans</a>
       <a href="tools.html">Tools</a>
-      <a href="resources.html">Resources</a>
-      <a href="events.html">Events</a>
+      <a href="articles.html">Articles</a>
       <a href="about.html">Our Story</a>
       <a href="contact.html">Contact</a>
     </nav>
@@ -201,6 +202,81 @@
     </div>
   </div>
 </section>
+<section class="tint" id="bible">
+  <div class="wrap">
+    <div class="section-head center reveal">
+      <span class="eyebrow">Daily Bread</span>
+      <h2>The Word, Always Within Reach</h2>
+      <p>A verse to carry into your day — and a way to search the Scriptures the moment a question stirs.</p>
+    </div>
+    <div class="bible-wrap">
+      <div class="bible-card bible-votd reveal-scale">
+        <div class="votd-label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v18M5 9h14"/></svg> Verse of the Day</div>
+        <p class="votd-text" id="votdText">Gathering today's verse…</p>
+        <div class="votd-ref" id="votdRef"></div>
+        <div class="votd-actions">
+          <button class="btn btn-primary btn-sm" id="votdExplain">Reflect on this</button>
+          <button class="btn btn-ghost btn-sm" id="votdShare">Share</button>
+          <button class="btn btn-ghost btn-sm" id="votdNew">Another verse</button>
+        </div>
+        <div class="bible-explain" id="votdExplainBox"></div>
+      </div>
+      <div class="bible-card bible-lookup reveal-scale">
+        <div class="bl-title">Search the Scriptures</div>
+        <p class="bl-sub">Type any reference — like <em>John 3:16</em> or <em>Psalm 23</em>.</p>
+        <div class="field" style="margin-bottom:12px">
+          <select id="blTranslation" aria-label="Bible translation"></select>
+        </div>
+        <div class="bl-form">
+          <input type="text" id="blInput" placeholder="e.g. Philippians 4:8" aria-label="Bible reference">
+          <button class="btn btn-primary btn-sm" id="blGo">Find</button>
+        </div>
+        <div class="bl-result" id="blResult"><span class="blr-empty">Your verse will appear here.</span></div>
+        <div class="bl-chips" id="blChips"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="altar-streak">
+  <div class="wrap">
+    <div class="section-head center reveal">
+      <span class="eyebrow">The Family Altar Streak</span>
+      <h2>One Faithful Day at a Time</h2>
+      <p>Not a streak that chains you to a screen — one that gently calls you off it. Check in each day you keep a phone-free moment with your family. Watch it grow. And if you miss a day? Grace. Simply begin again.</p>
+    </div>
+    <div class="streak-card reveal-scale">
+      <div class="altar-tree" id="altarTree" aria-hidden="true"></div>
+      <div class="streak-count" id="streakCount">0</div>
+      <div class="streak-label">days of presence</div>
+      <p class="streak-msg" id="streakMsg">Begin today. One phone-free moment with the people you love.</p>
+      <div id="streakAction">
+        <button class="btn btn-primary" id="streakBtn">I kept today's moment</button>
+      </div>
+      <div class="streak-best" id="streakBest"></div>
+    </div>
+  </div>
+</section>
+
+<section class="tint" id="sabbath-countdown">
+  <div class="wrap">
+    <div class="section-head center reveal">
+      <span class="eyebrow">The Digital Sabbath</span>
+      <h2>Rest Is Coming</h2>
+      <p>A weekly rhythm of putting the devices down — sundown Friday to sundown Saturday — to feast on what matters. Here's the countdown to the next one.</p>
+    </div>
+    <div class="sabbath-count reveal" id="sabbathCount" aria-live="polite">
+      <div class="sc-unit"><b id="scDays">–</b><span>Days</span></div>
+      <div class="sc-unit"><b id="scHours">–</b><span>Hours</span></div>
+      <div class="sc-unit"><b id="scMins">–</b><span>Minutes</span></div>
+    </div>
+    <div style="text-align:center" class="reveal">
+      <button class="btn btn-primary" id="unplugBtn">I'm unplugging — make my card</button>
+      <p class="note" id="unplugNote" style="margin-top:14px;display:none">Beautiful. Share your commitment and inspire another family.</p>
+    </div>
+  </div>
+</section>
+
 <section id="devotional">
   <div class="wrap">
     <div class="section-head reveal">
@@ -419,6 +495,7 @@
 </a>
 <div class="sb-toast" id="sbToast">Link copied to clipboard</div>
 
+<script src="faith-engine.js"></script>
 <script src="shared.js"></script>
 <script>
 
@@ -729,6 +806,225 @@
     btn.textContent="Joined \u2713";btn.disabled=true;
   });
 })();
+
+/* ============================================================
+   BIBLE FEATURE — Verse of the Day + lookup
+   Uses bible-api.com (free, public-domain WEB translation).
+   AI reflection uses the site's askAI() if connected.
+   ============================================================ */
+(function(){
+  var VOTD=["John 3:16","Philippians 4:8","Psalm 23:1","Romans 12:2","Proverbs 3:5-6",
+    "Joshua 1:9","Isaiah 40:31","Matthew 11:28","Philippians 4:13","Psalm 46:10",
+    "Jeremiah 29:11","2 Corinthians 5:17","Galatians 5:22-23","Psalm 119:105",
+    "Matthew 6:33","1 Corinthians 13:4-5","Ephesians 2:8","Proverbs 4:23",
+    "Colossians 3:2","Psalm 1:1-2","Romans 8:28","Deuteronomy 6:6-7"];
+  var votdText=document.getElementById("votdText"),
+      votdRef=document.getElementById("votdRef"),
+      explainBox=document.getElementById("votdExplainBox");
+  var currentVerse="";
+
+  function fetchVerse(ref,onText,onErr){
+    if(window.Faith && window.Faith.Bible){
+      window.Faith.Bible.get(ref).then(function(v){ onText(v.text, v.reference, v); })
+        .catch(function(){ onErr&&onErr(); });
+    } else {
+      fetch("https://bible-api.com/"+encodeURIComponent(ref)+"?translation=web")
+        .then(function(r){return r.json();})
+        .then(function(d){ if(d&&d.text){onText(d.text.trim().replace(/\s+/g," "),d.reference||ref);}else{onErr&&onErr();} })
+        .catch(function(){ onErr&&onErr(); });
+    }
+  }
+  /* translation selector */
+  (function(){
+    var sel=document.getElementById("blTranslation");
+    if(sel && window.Faith && window.Faith.Bible){
+      window.Faith.Bible.translations.forEach(function(t){
+        var o=document.createElement("option");o.value=t.id;o.textContent=t.name;
+        if(t.id===window.Faith.Bible.getTranslation())o.selected=true;
+        sel.appendChild(o);
+      });
+      sel.addEventListener("change",function(){
+        window.Faith.Bible.setTranslation(sel.value);
+      });
+    }
+  })();
+
+  function pickVerse(){
+    var ref=VOTD[Math.floor(Math.random()*VOTD.length)];
+    votdText.textContent="Gathering a verse…";
+    votdRef.textContent="";
+    explainBox.classList.remove("show");explainBox.innerHTML="";
+    fetchVerse(ref,function(text,reference,v){
+      currentVerse=reference+" — "+text;
+      votdText.textContent="\u201C"+text+"\u201D";
+      votdRef.textContent=reference+((v&&v.offline)?"  \u00b7  offline":"");
+    },function(){
+      votdText.textContent="\u201CWhatever is true, whatever is noble, whatever is lovely\u2026 think about such things.\u201D";
+      votdRef.textContent="Philippians 4:8";
+      currentVerse="Philippians 4:8";
+    });
+  }
+  pickVerse();
+
+  document.getElementById("votdNew").addEventListener("click",pickVerse);
+  document.getElementById("votdShare").addEventListener("click",function(){
+    var clean=votdText.textContent.replace(/[\u201C\u201D]/g,"");
+    if(window.Faith && window.Faith.Cards){
+      var url=window.Faith.Cards.make(clean, votdRef.textContent);
+      window.Faith.Cards.download(url, "verse-of-the-day.png");
+    }
+    if(typeof shareText==="function") shareText("\""+clean+"\" \u2014 "+votdRef.textContent);
+  });
+  document.getElementById("votdExplain").addEventListener("click",function(){
+    var btn=this;
+    explainBox.classList.add("show");
+    explainBox.innerHTML='<span class="spin"></span>Reflecting on '+votdRef.textContent+'…';
+    if(typeof askAI==="function"){
+      askAI([{role:"user",content:"In 3-4 warm, pastoral sentences, help a Christian family reflect on this verse and apply it to living present and focused in a digital age: "+currentVerse}],
+        "You are a warm, wise devotional writer for a Christian family ministry. Be encouraging, practical and Scripture-grounded. Never condemning.")
+        .then(function(reply){
+          if(reply){ explainBox.innerHTML="<b>A thought to carry:</b> "+reply; }
+          else { explainBox.innerHTML="<b>A thought to carry:</b> Sit quietly with these words for a moment. Read them once more, slowly. Ask the Lord what one small change they invite in your home today — and begin there."; }
+        });
+    } else {
+      explainBox.innerHTML="<b>A thought to carry:</b> Sit quietly with these words for a moment. Read them slowly, and ask what one small change they invite in your home today.";
+    }
+  });
+
+  /* ---- lookup ---- */
+  var blInput=document.getElementById("blInput"),
+      blResult=document.getElementById("blResult");
+  function lookup(ref){
+    if(!ref.trim())return;
+    blResult.innerHTML='<span class="spin"></span>Searching…';
+    fetchVerse(ref,function(text,reference){
+      blResult.innerHTML="\u201C"+text+"\u201D<span class=\"blr-ref\">"+reference+"</span>"+
+        "<div class=\"vc-actions\"><button class=\"btn btn-ghost btn-sm\" id=\"blCard\">\ud83d\uddbc\ufe0f Make shareable image</button></div>";
+      var cardBtn=document.getElementById("blCard");
+      if(cardBtn && window.Faith && window.Faith.Cards){
+        cardBtn.addEventListener("click",function(){
+          var url=window.Faith.Cards.make(text, reference);
+          window.Faith.Cards.download(url, "verse.png");
+        });
+      }
+    },function(){
+      blResult.innerHTML='<span class="blr-empty">Couldn\u2019t find that reference. Try a format like "John 3:16" or "Psalm 23".</span>';
+    });
+  }
+  document.getElementById("blGo").addEventListener("click",function(){lookup(blInput.value);});
+  blInput.addEventListener("keydown",function(e){if(e.key==="Enter")lookup(blInput.value);});
+  var chips=["Philippians 4:8","Psalm 23","Romans 12:2","Matthew 11:28","Proverbs 3:5-6"];
+  var chipBox=document.getElementById("blChips");
+  chips.forEach(function(c){
+    var b=document.createElement("button");b.className="bl-chip";b.textContent=c;
+    b.addEventListener("click",function(){blInput.value=c;lookup(c);});
+    chipBox.appendChild(b);
+  });
+})();
+
+
+/* ============================================================
+   FAMILY ALTAR STREAK (grace-based, local)
+   ============================================================ */
+(function(){
+  if(!window.Faith) return;
+  var tree=document.getElementById("altarTree"),
+      countEl=document.getElementById("streakCount"),
+      msgEl=document.getElementById("streakMsg"),
+      bestEl=document.getElementById("streakBest"),
+      actionEl=document.getElementById("streakAction"),
+      btn=document.getElementById("streakBtn");
+  if(!btn) return;
+
+  function renderTree(count){
+    // a growing tree: more leaves appear as the streak grows (cap visual at 14)
+    var leaves=Math.min(count,14);
+    var svg='<svg viewBox="0 0 160 160" fill="none">';
+    // trunk
+    svg+='<path d="M80 150 L80 95" stroke="#cf924a" stroke-width="5" stroke-linecap="round"/>';
+    svg+='<path d="M80 120 q-18 -8 -26 -22 M80 108 q18 -8 26 -22" stroke="#cf924a" stroke-width="3.5" stroke-linecap="round"/>';
+    // leaves bloom outward
+    var positions=[[80,70],[62,78],[98,78],[70,58],[90,58],[80,48],[54,64],[106,64],[64,44],[96,44],[80,34],[72,72],[88,72],[80,86]];
+    for(var i=0;i<leaves;i++){
+      var p=positions[i],delay=i*0.05;
+      svg+='<circle class="altar-leaf" cx="'+p[0]+'" cy="'+p[1]+'" r="11" fill="#86c79a" opacity="0.9" style="transition-delay:'+delay+'s"/>';
+    }
+    if(count===0){
+      svg='<svg viewBox="0 0 160 160" fill="none"><circle cx="80" cy="120" r="8" fill="#cf924a" opacity="0.5"/><path d="M80 120 L80 100" stroke="#cf924a" stroke-width="3" stroke-linecap="round" opacity="0.6"/><path d="M80 104 q-8 -6 -14 -4 M80 104 q8 -6 14 -4" stroke="#86c79a" stroke-width="3" stroke-linecap="round" opacity="0.7"/></svg>';
+    }
+    svg+='</svg>';
+    tree.innerHTML=svg;
+  }
+  function msgFor(count,doneToday){
+    if(count===0) return "Begin today. One phone-free moment with the people you love.";
+    if(doneToday){
+      if(count===1) return "The first stone is laid. The hardest one. Well done.";
+      if(count<7) return "Day "+count+". A rhythm is forming. Keep going \u2014 gently.";
+      if(count<30) return count+" days of presence. Your family is feeling this.";
+      return count+" days. This is no longer an effort \u2014 it is who your family is becoming.";
+    }
+    return "Welcome back. Ready to keep today's moment?";
+  }
+  function paint(){
+    var s=window.Faith.Store.streak();
+    countEl.textContent=s.count;
+    renderTree(s.count);
+    msgEl.textContent=msgFor(s.count,s.doneToday);
+    bestEl.innerHTML=s.best>0?("Longest run: <b>"+s.best+(s.best===1?" day":" days")+"</b>"):"";
+    if(s.doneToday){
+      actionEl.innerHTML='<span class="streak-done"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg> Today is kept. Rest well.</span>';
+    }
+  }
+  if(!window.Faith.Store.available){
+    msgEl.textContent="Your browser's private mode blocks saving progress \u2014 but the invitation stands: keep one phone-free moment today.";
+    btn.style.display="none";renderTree(0);return;
+  }
+  btn.addEventListener("click",function(){
+    window.Faith.Store.checkIn();paint();
+  });
+  paint();
+})();
+
+/* ============================================================
+   DIGITAL SABBATH COUNTDOWN (to next Friday sundown ~18:00 local)
+   ============================================================ */
+(function(){
+  var dEl=document.getElementById("scDays"),hEl=document.getElementById("scHours"),mEl=document.getElementById("scMins");
+  if(!dEl) return;
+  function nextSundown(){
+    var now=new Date();
+    var d=new Date(now);
+    // Friday = 5; sundown approximated at 18:00 local
+    var day=d.getDay();
+    var daysUntilFri=(5-day+7)%7;
+    d.setDate(d.getDate()+daysUntilFri);d.setHours(18,0,0,0);
+    if(d<=now) d.setDate(d.getDate()+7);
+    return d;
+  }
+  function tick(){
+    var diff=nextSundown()-new Date();
+    if(diff<0)diff=0;
+    var days=Math.floor(diff/86400000);
+    var hrs=Math.floor((diff%86400000)/3600000);
+    var mins=Math.floor((diff%3600000)/60000);
+    dEl.textContent=days;hEl.textContent=hrs;mEl.textContent=mins;
+  }
+  tick();setInterval(tick,30000);
+
+  var unplug=document.getElementById("unplugBtn"),note=document.getElementById("unplugNote");
+  if(unplug){
+    unplug.addEventListener("click",function(){
+      if(!window.Faith) return;
+      var url=window.Faith.Cards.make(
+        "We are putting our devices down to be fully present with each other and with God. Join us.",
+        "Our Family's Digital Sabbath");
+      window.Faith.Cards.download(url,"digital-sabbath.png");
+      note.style.display="block";
+      if(typeof shareText==="function") shareText("Our family is taking a Digital Sabbath \u2014 putting the devices down to be present. Join us.");
+    });
+  }
+})();
+
 </script>
 </body>
 </html>

@@ -68,8 +68,63 @@ document.addEventListener("DOMContentLoaded", function(){
     nav.querySelectorAll("a").forEach(a=>a.addEventListener("click",()=>nav.classList.remove("open")));
   }
 
+  /* scroll-aware header (premium shadow on scroll) */
+  const hdr=document.querySelector("header");
+  if(hdr){
+    let ticking=false;
+    const onScroll=()=>{
+      if(!ticking){
+        requestAnimationFrame(()=>{
+          hdr.classList.toggle("scrolled",window.scrollY>20);
+          ticking=false;
+        });
+        ticking=true;
+      }
+    };
+    window.addEventListener("scroll",onScroll,{passive:true});
+    onScroll();
+  }
+
+  /* animated count-up for elements with data-count */
+  const counters=document.querySelectorAll("[data-count]");
+  if(counters.length && "IntersectionObserver" in window){
+    const cio=new IntersectionObserver((ents)=>{
+      ents.forEach((en)=>{
+        if(en.isIntersecting){
+          const el=en.target, target=parseInt(el.dataset.count,10)||0;
+          const dur=1400, t0=performance.now();
+          const tick=(now)=>{
+            const p=Math.min((now-t0)/dur,1);
+            const eased=1-Math.pow(1-p,3);
+            el.textContent=Math.round(target*eased).toLocaleString();
+            if(p<1)requestAnimationFrame(tick);
+          };
+          requestAnimationFrame(tick);
+          cio.unobserve(el);
+        }
+      });
+    },{threshold:.5});
+    counters.forEach(c=>cio.observe(c));
+  }
+
+  /* cursor-reactive glow on hero (desktop, respects reduced-motion) */
+  const heroGlow=document.querySelector(".hero-glow");
+  if(heroGlow && window.matchMedia("(pointer:fine)").matches &&
+     !window.matchMedia("(prefers-reduced-motion:reduce)").matches){
+    const hero=heroGlow.closest("section");
+    if(hero){
+      hero.addEventListener("pointermove",(e)=>{
+        const r=hero.getBoundingClientRect();
+        const x=((e.clientX-r.left)/r.width-.5)*60;
+        const y=((e.clientY-r.top)/r.height-.5)*60;
+        heroGlow.style.transition="transform .4s cubic-bezier(.22,.61,.36,1)";
+        heroGlow.style.transform=`translate(calc(-50% + ${x}px), calc(-50% + ${y}px))`;
+      });
+    }
+  }
+
   /* scroll reveal */
-  const els=document.querySelectorAll(".reveal");
+  const els=document.querySelectorAll(".reveal,.reveal-scale");
   if("IntersectionObserver" in window){
     const io=new IntersectionObserver((ents)=>{
       ents.forEach((en,i)=>{if(en.isIntersecting){

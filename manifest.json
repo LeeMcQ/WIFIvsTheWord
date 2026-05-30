@@ -6,9 +6,12 @@
   "scope": "./",
   "display": "standalone",
   "orientation": "portrait-primary",
-  "background_color": "#0e1726",
-  "theme_color": "#0e1726",
-  "categories": ["lifestyle", "education"],
+  "background_color": "#070d18",
+  "theme_color": "#0b1322",
+  "categories": [
+    "lifestyle",
+    "education"
+  ],
   "icons": [
     {
       "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='112' fill='%230e1726'/%3E%3Cpath d='M256 120v272M168 200h176' stroke='%23d4a843' stroke-width='38' stroke-linecap='round'/%3E%3C/svg%3E",

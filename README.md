@@ -41,6 +41,39 @@ README.md         This guide
 
 ---
 
+
+## NEW — Interactive Faith Features (v3)
+
+Your site now includes a suite of premium, interactive features. **All progress is
+saved privately on the visitor's own device** (localStorage) — no login, no tracking,
+no backend required. They work the moment the site is live.
+
+- **The Story** (`the-story.html`) — an immersive, award-style scrollytelling journey
+  through the sermon. Custom illustrations draw themselves as you scroll.
+- **The Family Altar Streak** (home page) — a grace-based daily check-in. A tree grows
+  as the streak builds; missing a day is met with grace, never shame.
+- **Reading Plans** (`plans.html`) — three guided Scripture plans (7 Days to a Quieter
+  Home, The Renewed Mind, The Digital Sabbath Reset) with day-by-day progress saved
+  locally. Verses load live from a free Bible API.
+- **Daily Bread** (home page) — Verse of the Day + instant Scripture search, both able
+  to generate a **beautiful shareable verse image** for social media.
+- **Digital Sabbath countdown** (home page) — a live countdown to the next sundown,
+  plus a one-tap "I'm unplugging" shareable card.
+- **Cursor-reactive hero glow** — the light follows the cursor on desktop (a subtle,
+  premium touch).
+
+**The Bible verses and verse-images need no setup** — they use a free public API
+(bible-api.com) offering five public-domain translations: World English Bible, King
+James Version, American Standard Version, Bible in Basic English, and Darby. Visitors
+pick their translation in the "Search the Scriptures" card. Verses are cached on the
+device after first view, and ~30 key verses (every Verse-of-the-Day and reading-plan
+verse) are **bundled for full offline use** — if a visitor loses connection, Scripture
+still appears, quietly marked "offline".
+**The AI reflections** use whichever provider you connect (see `AI-PROVIDER-GUIDE.md`).
+
+New files added: `faith-engine.js` (the shared Bible/progress/card engine),
+`plans-data.js` (the reading-plan content), `the-story.html`, `plans.html`.
+
 ## PART 2 — THE LAUNCH CHECKLIST (do these in order)
 
 ### ☐ Step 1 — Put in your contact details (5 minutes)
@@ -121,6 +154,10 @@ buy a domain.
 ---
 
 ## PART 4 — Switching on the AI features (≈15 minutes, do when ready)
+
+> **Multi-provider:** your site now supports **Groq, DeepSeek, and Claude**, and you
+> can switch between them any time by changing one setting. For the full step-by-step,
+> see the separate guide **`AI-PROVIDER-GUIDE.md`**. The summary below still applies.
 
 The site works without this. When you want the **live** AI companion, devotional,
 and personalised quiz steps, do this.
