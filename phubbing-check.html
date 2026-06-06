@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Phubbing Check — Wi-Fi vs The Word</title>
+<meta name="description" content="Ten honest questions about your phone habits and your relationship. Takes 3 minutes. Tells you something worth knowing.">
+<link rel="canonical" href="https://wifivstheword.org/phubbing-check.html">
+<link rel="stylesheet" href="theme.css">
+<style>
+:root{
+  --bg:#0b1322;--card:#111b2e;--card2:#0f1628;
+  --gold:#e3b465;--gold-dk:#d4a843;--text:#e8dcc8;
+  --dim:#8a7a65;--border:rgba(227,180,101,.18);
+  --sel:rgba(227,180,101,.11);--r:10px;--ease:.2s ease;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:var(--font-body,Georgia,serif);min-height:100vh}
+.shell{max-width:760px;margin:0 auto;padding:52px 22px 88px}
+.eyebrow{font-size:.72rem;letter-spacing:.13em;text-transform:uppercase;color:var(--gold);margin-bottom:14px}
+h1{font-size:clamp(1.6rem,4vw,2.4rem);font-family:var(--font-heading,Georgia,serif);line-height:1.2;margin-bottom:16px}
+.intro{color:var(--dim);font-size:.97rem;line-height:1.7;max-width:580px;margin-bottom:12px}
+.scripture{border-left:2px solid var(--gold);padding:10px 16px;margin-bottom:40px;color:var(--dim);font-style:italic;font-size:.9rem}
+
+/* Progress bar */
+.prog-bar-wrap{margin-bottom:32px}
+.prog-meta{display:flex;justify-content:space-between;font-size:.78rem;color:var(--dim);margin-bottom:8px}
+.prog-track{height:4px;background:var(--border);border-radius:2px;overflow:hidden}
+.prog-fill{height:100%;background:var(--gold);border-radius:2px;transition:width .35s ease;width:0%}
+
+/* Questions */
+.quiz-section{display:none}
+.quiz-section.active{display:block;animation:rise .3s ease}
+@keyframes rise{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+
+.q-block{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:26px;margin-bottom:16px}
+.q-num{font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:10px}
+.q-text{font-family:var(--font-heading,Georgia,serif);font-size:1.05rem;line-height:1.4;margin-bottom:20px}
+.q-options{display:flex;gap:8px;flex-wrap:wrap}
+.q-opt{flex:1;min-width:70px;padding:10px 6px;border:1px solid var(--border);border-radius:6px;cursor:pointer;text-align:center;font-size:.78rem;line-height:1.3;color:var(--dim);transition:var(--ease);background:var(--card2);user-select:none}
+.q-opt:hover{border-color:rgba(227,180,101,.45);color:var(--text)}
+.q-opt.sel{border-color:var(--gold);background:var(--sel);color:var(--gold);font-weight:600}
+.q-opt .opt-val{display:block;font-size:.68rem;opacity:.6;margin-top:2px}
+@media(max-width:480px){.q-options{flex-direction:column}.q-opt{min-width:unset;display:flex;gap:10px;align-items:center;text-align:left}}
+
+/* Nav */
+.nav-row{display:flex;gap:12px;align-items:center;margin-top:28px;flex-wrap:wrap}
+.btn{padding:11px 26px;border-radius:6px;font-size:.88rem;font-weight:600;cursor:pointer;transition:var(--ease);border:none}
+.btn-primary{background:var(--gold);color:var(--bg)}
+.btn-primary:hover:not(:disabled){background:var(--gold-dk)}
+.btn-primary:disabled{opacity:.35;cursor:not-allowed}
+.btn-ghost{background:transparent;border:1px solid var(--border);color:var(--dim)}
+.btn-ghost:hover{border-color:rgba(227,180,101,.5);color:var(--text)}
+.unanswered-note{font-size:.8rem;color:#c05838;margin-left:8px;display:none}
+
+/* Result */
+.result-section{display:none;animation:rise .4s ease}
+.result-section.active{display:block}
+.score-display{text-align:center;padding:44px 24px 36px;margin-bottom:24px;background:var(--card);border-radius:var(--r);border:1px solid var(--border)}
+.score-num{font-size:clamp(3rem,10vw,5rem);font-family:var(--font-heading,Georgia,serif);line-height:1}
+.score-max{font-size:1rem;color:var(--dim);margin-bottom:16px}
+.score-band{display:inline-block;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;padding:5px 14px;border-radius:20px;margin-bottom:16px}
+.result-title{font-family:var(--font-heading,Georgia,serif);font-size:clamp(1.1rem,3vw,1.5rem);line-height:1.3;margin-bottom:8px}
+
+.result-body{background:var(--card);border-radius:var(--r);border:1px solid var(--border);padding:30px;margin-bottom:20px}
+.section-lbl{font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:14px;margin-top:24px}
+.section-lbl:first-child{margin-top:0}
+.result-body p{font-size:.95rem;color:var(--dim);line-height:1.7;margin-bottom:12px}
+.action-list{list-style:none;display:flex;flex-direction:column;gap:10px}
+.action-list li{display:flex;gap:12px;align-items:flex-start;font-size:.92rem;line-height:1.5}
+.aicon{width:22px;height:22px;border-radius:50%;background:var(--gold);color:var(--bg);font-size:.68rem;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px}
+.res-links{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px}
+.res-link{font-size:.82rem;color:var(--gold);text-decoration:none;border:1px solid rgba(227,180,101,.3);border-radius:4px;padding:5px 13px;transition:var(--ease)}
+.res-link:hover{background:var(--sel);border-color:var(--gold)}
+
+.verse-close{border-left:2px solid var(--gold);padding:10px 16px;margin-top:28px;color:var(--dim);font-style:italic;font-size:.9rem}
+.retake-row{text-align:center;margin-top:22px}
+.retake-btn{font-size:.83rem;color:var(--dim);background:none;border:none;cursor:pointer;text-decoration:underline;text-underline-offset:3px}
+.retake-btn:hover{color:var(--text)}
+</style>
+</head>
+<body>
+
+<!-- INTEGRATION: Paste your site nav here -->
+
+<main class="shell">
+
+  <p class="eyebrow">Relationship Tool</p>
+  <h1>The Phubbing Check</h1>
+  <p class="intro">Phubbing — phone-snubbing — is the quiet habit of choosing your screen over the person in the room. Research now links it consistently to lower relationship satisfaction, resentment, and conflict. Ten honest questions. Three minutes.</p>
+  <div class="scripture">"Let each of you look not only to his own interests, but also to the interests of others." — Philippians 2:4 (WEB)</div>
+
+  <!-- Quiz -->
+  <div class="quiz-section active" id="qsection">
+    <div class="prog-bar-wrap">
+      <div class="prog-meta">
+        <span id="prog-text">Question 1 of 10</span>
+        <span id="prog-pct">0% answered</span>
+      </div>
+      <div class="prog-track"><div class="prog-fill" id="prog-fill"></div></div>
+    </div>
+
+    <div id="questions-wrap"></div>
+
+    <div class="nav-row">
+      <button class="btn btn-primary" id="submit-btn" onclick="submitQuiz()" disabled>See My Results</button>
+      <span class="unanswered-note" id="unanswered">Please answer all 10 questions</span>
+    </div>
+  </div>
+
+  <!-- Result -->
+  <div class="result-section" id="rsection">
+    <div class="score-display">
+      <div class="score-num" id="score-num" style="color:var(--gold)">0</div>
+      <div class="score-max">out of 40</div>
+      <div class="score-band" id="score-band"></div>
+      <div class="result-title" id="result-title"></div>
+    </div>
+    <div class="result-body">
+      <p class="section-lbl">What This Means</p>
+      <p id="result-desc"></p>
+      <p class="section-lbl">Steps Worth Taking</p>
+      <ul class="action-list" id="result-steps"></ul>
+      <p class="section-lbl">Resources</p>
+      <div class="res-links" id="result-links"></div>
+    </div>
+    <div class="verse-close" id="verse-close"></div>
+    <div class="retake-row">
+      <button class="retake-btn" onclick="retake()">Retake the quiz</button>
+    </div>
+  </div>
+
+</main>
+
+<!-- INTEGRATION: Paste your site footer here -->
+
+<script src="shared.js"></script>
+<script>
+const QUESTIONS = [
+  "During conversations with my spouse or partner, I find myself checking my phone.",
+  "My partner has mentioned that I use my phone too much when we're together.",
+  "I reach for my phone at the dinner table or during family meals.",
+  "When my partner is talking, I feel the urge to look at my phone.",
+  "I use my phone in the same room as my partner when we could be talking.",
+  "I feel my partner has to compete with my phone for my attention.",
+  "I check my phone before I've properly connected with my partner in the morning.",
+  "My phone is present in our bedroom and affects how we wind down together.",
+  "I pick up my phone to avoid difficult emotions or tension in our relationship.",
+  "If I'm honest, my phone has caused conflict or emotional distance in my marriage."
+];
+const OPTS = [
+  {l:'Never',v:0},{l:'Rarely',v:1},{l:'Sometimes',v:2},{l:'Often',v:3},{l:'Always',v:4}
+];
+const BANDS = [
+  {max:8, color:'#4a9c72', bg:'rgba(74,156,114,.15)', label:'Strong Connection', title:'The Connection Is Holding',
+   desc:"Your phone habits don't appear to be significantly harming your relationship. That's something to protect intentionally — because the patterns that erode presence usually creep in quietly.",
+   steps:["Keep guarding the table and the bedroom. Phone-free time in those spaces is a covenant in miniature.","Check in with your partner once a month: 'Is there anything my phone is getting that should go to you?'","Stay alert — the research shows phubbing patterns often develop gradually and unnoticed."],
+   links:[{l:'Digital Sabbath Challenge',h:'digital-sabbath.html'},{l:'Family Altar Builder',h:'family-altar.html'}],
+   verse:'"Be diligent to present yourself approved to God." — 2 Timothy 2:15 (WEB)'},
+  {max:18, color:'#c4943a', bg:'rgba(196,148,58,.15)', label:'Patterns Developing', title:'Some Patterns Worth Watching',
+   desc:"There are signs that your phone is beginning to compete with your partner for your attention. This score doesn't signal crisis — it signals a moment to pay attention before the patterns deepen.",
+   steps:["Name one specific time of day when your phone consistently wins over your partner's presence. Change that one moment first.","Put your phone face-down — or out of the room — during your next three shared meals.","Ask your partner: 'When do you most feel my phone getting in the way?' Then listen without defending."],
+   links:[{l:'Algorithm Cleanse',h:'algorithm-cleanse.html'},{l:'Digital Sabbath',h:'digital-sabbath.html'},{l:'Family Altar Builder',h:'family-altar.html'}],
+   verse:'"Be swift to hear, slow to speak." — James 1:19 (KJV)'},
+  {max:28, color:'#c07030', bg:'rgba(192,112,48,.15)', label:'Third Party Present', title:'Your Phone May Be a Third Party in Your Relationship',
+   desc:"Research links scores in this range with measurable drops in relationship satisfaction, increased resentment, and more frequent conflict. The phone has likely become a presence between you — quietly but consistently.",
+   steps:["Sit with your partner and share your score honestly. Not to confess — to begin a conversation.","Make one daily agreement: one hour when all devices are away and you are fully present to each other.","Consider whether reaching for your phone has become a way to avoid closeness or emotional discomfort.","The Family Severity Guide can help you assess whether counselling would add value here."],
+   links:[{l:'Family Severity Guide',h:'family-severity-guide.html'},{l:'Parent Audit',h:'parent-audit.html'},{l:'Focus on Family Africa',h:'https://focusafrica.uscreen.io/',t:1}],
+   verse:'"Let love be without hypocrisy." — Romans 12:9 (KJV)'},
+  {max:40, color:'#a03838', bg:'rgba(160,56,56,.15)', label:'Urgent Attention', title:'Relational Urgent Care Is Needed',
+   desc:"Scores in this range suggest the phone has become a consistent barrier to real intimacy in your relationship. The good news is that this is a pattern — and patterns can change. But change will take more than reducing notifications.",
+   steps:["Stop trying to manage this alone. Speak to a pastor, marriage counsellor, or family therapist this month.","Ask your partner for a direct, non-defensive conversation about what they have been experiencing.","Remove your phone from the bedroom tonight. It is one small act of choosing presence over distraction.","Work through the Family Severity Guide together to identify the right level of support."],
+   links:[{l:'Family Severity Guide',h:'family-severity-guide.html'},{l:'Focus on Family Africa',h:'https://focusafrica.uscreen.io/',t:1},{l:'The Chat SA',h:'https://thechat.co.za/',t:1}],
+   verse:'"Husbands, love your wives, even as Christ also loved the church, and gave himself for it." — Ephesians 5:25 (KJV)'}
+];
+
+const answers = new Array(QUESTIONS.length).fill(null);
+
+function buildQuestions(){
+  const wrap = document.getElementById('questions-wrap');
+  wrap.innerHTML = QUESTIONS.map((q,i)=>`
+    <div class="q-block" id="qb${i}">
+      <div class="q-num">Question ${i+1} of ${QUESTIONS.length}</div>
+      <div class="q-text">${q}</div>
+      <div class="q-options">
+        ${OPTS.map(o=>`<div class="q-opt" onclick="answer(${i},${o.v},this)">${o.l}<span class="opt-val">${o.v}</span></div>`).join('')}
+      </div>
+    </div>`).join('');
+}
+
+function answer(qi, val, el){
+  answers[qi] = val;
+  document.querySelectorAll(`#qb${qi} .q-opt`).forEach(e=>e.classList.remove('sel'));
+  el.classList.add('sel');
+  updateProgress();
+}
+
+function updateProgress(){
+  const done = answers.filter(a=>a!==null).length;
+  const pct = Math.round((done/QUESTIONS.length)*100);
+  document.getElementById('prog-fill').style.width = pct+'%';
+  document.getElementById('prog-text').textContent = `Question ${Math.min(done+1, QUESTIONS.length)} of ${QUESTIONS.length}`;
+  document.getElementById('prog-pct').textContent = pct+'% answered';
+  document.getElementById('submit-btn').disabled = (done < QUESTIONS.length);
+}
+
+function submitQuiz(){
+  if(answers.includes(null)){
+    document.getElementById('unanswered').style.display='inline';
+    return;
+  }
+  const total = answers.reduce((s,a)=>s+a,0);
+  const band = BANDS.find(b=>total<=b.max);
+  document.getElementById('score-num').textContent = total;
+  document.getElementById('score-num').style.color = band.color;
+  document.getElementById('score-band').textContent = band.label;
+  document.getElementById('score-band').style.background = band.bg;
+  document.getElementById('score-band').style.color = band.color;
+  document.getElementById('result-title').textContent = band.title;
+  document.getElementById('result-desc').textContent = band.desc;
+  document.getElementById('result-steps').innerHTML = band.steps.map((s,i)=>
+    `<li><span class="aicon">${i+1}</span><span>${s}</span></li>`).join('');
+  document.getElementById('result-links').innerHTML = band.links.map(l=>
+    `<a class="res-link" href="${l.h}"${l.t?' target="_blank"':''}>${l.l}</a>`).join('');
+  document.getElementById('verse-close').textContent = band.verse;
+  document.getElementById('qsection').classList.remove('active');
+  document.getElementById('rsection').classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function retake(){
+  answers.fill(null);
+  document.querySelectorAll('.q-opt').forEach(e=>e.classList.remove('sel'));
+  updateProgress();
+  document.getElementById('rsection').classList.remove('active');
+  document.getElementById('qsection').classList.add('active');
+  document.getElementById('unanswered').style.display='none';
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+buildQuestions();
+</script>
+<!-- TODO: Add phubbing-check.html to sitemap.xml and nav -->
+</body>
+</html>

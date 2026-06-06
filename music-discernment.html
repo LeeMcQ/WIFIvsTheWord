@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Music Discernment Check — Wi-Fi vs The Word</title>
+<meta name="description" content="Ten reflective questions about your music habits, drawn from Christian Berdahl's framework. Have you ever asked what a song is doing to your mind — not just your heart?">
+<link rel="canonical" href="https://wifivstheword.org/music-discernment.html">
+<link rel="stylesheet" href="theme.css">
+<style>
+:root{
+  --bg:#0b1322;--card:#111b2e;--card2:#0f1628;
+  --gold:#e3b465;--gold-dk:#d4a843;--text:#e8dcc8;
+  --dim:#8a7a65;--border:rgba(227,180,101,.18);
+  --sel:rgba(227,180,101,.11);--r:10px;--ease:.2s ease;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:var(--font-body,Georgia,serif);min-height:100vh}
+.shell{max-width:760px;margin:0 auto;padding:52px 22px 88px}
+
+/* Header */
+.eyebrow{font-size:.72rem;letter-spacing:.13em;text-transform:uppercase;color:var(--gold);margin-bottom:14px}
+h1{font-size:clamp(1.6rem,4vw,2.4rem);font-family:var(--font-heading,Georgia,serif);line-height:1.2;margin-bottom:16px}
+.intro{color:var(--dim);font-size:.97rem;line-height:1.7;max-width:580px;margin-bottom:10px}
+
+/* Berdahl attribution card */
+.attribution-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:20px 22px;margin-bottom:12px;display:flex;gap:16px;align-items:flex-start}
+.attr-note{font-size:.83rem;color:var(--dim);line-height:1.55}
+.attr-note strong{color:var(--text)}
+.attr-note a{color:var(--gold)}
+.attr-icon{font-size:1.6rem;flex-shrink:0;margin-top:2px}
+
+/* Key question callout */
+.key-question{border-left:2px solid var(--gold);padding:12px 18px;margin-bottom:40px;color:var(--text);font-family:var(--font-heading,Georgia,serif);font-size:1.05rem;line-height:1.45;font-style:italic}
+
+/* Progress */
+.prog-bar-wrap{margin-bottom:28px}
+.prog-meta{display:flex;justify-content:space-between;font-size:.78rem;color:var(--dim);margin-bottom:8px}
+.prog-track{height:4px;background:var(--border);border-radius:2px;overflow:hidden}
+.prog-fill{height:100%;background:var(--gold);border-radius:2px;transition:width .35s ease;width:0%}
+
+/* Question blocks */
+.quiz-section{display:none}
+.quiz-section.active{display:block;animation:rise .3s ease}
+@keyframes rise{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+
+.q-block{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:24px;margin-bottom:14px;transition:var(--ease)}
+.q-block.answered{border-color:rgba(227,180,101,.3)}
+.q-num{font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:8px}
+.q-text{font-family:var(--font-heading,Georgia,serif);font-size:1.02rem;line-height:1.45;margin-bottom:18px}
+.q-opts{display:flex;gap:7px;flex-wrap:wrap}
+.q-opt{flex:1;min-width:62px;padding:9px 5px;border:1px solid var(--border);border-radius:6px;cursor:pointer;text-align:center;font-size:.75rem;line-height:1.3;color:var(--dim);transition:var(--ease);background:var(--card2);user-select:none}
+.q-opt:hover{border-color:rgba(227,180,101,.45);color:var(--text)}
+.q-opt.sel{border-color:var(--gold);background:var(--sel);color:var(--gold);font-weight:600}
+@media(max-width:420px){.q-opts{display:grid;grid-template-columns:1fr 1fr}.q-opt{min-width:unset;text-align:left;padding:8px 10px}}
+
+/* Framework callout — appears between questions */
+.framework-note{background:rgba(227,180,101,.05);border:1px solid rgba(227,180,101,.12);border-radius:var(--r);padding:16px 18px;margin:0 0 14px;font-size:.83rem;color:var(--dim);line-height:1.55}
+.framework-note em{color:var(--text);font-style:normal}
+
+/* Buttons */
+.nav-row{display:flex;gap:12px;align-items:center;margin-top:28px;flex-wrap:wrap}
+.btn{padding:11px 26px;border-radius:6px;font-size:.88rem;font-weight:600;cursor:pointer;transition:var(--ease);border:none}
+.btn-primary{background:var(--gold);color:var(--bg)}
+.btn-primary:hover:not(:disabled){background:var(--gold-dk)}
+.btn-primary:disabled{opacity:.35;cursor:not-allowed}
+.unanswered-note{font-size:.8rem;color:#c05838;display:none}
+
+/* Results */
+.result-section{display:none;animation:rise .4s ease}
+.result-section.active{display:block}
+
+.score-display{text-align:center;padding:44px 24px 36px;margin-bottom:24px;background:var(--card);border-radius:var(--r);border:1px solid var(--border);position:relative;overflow:hidden}
+.score-display::before{content:'♪';position:absolute;top:16px;right:22px;font-size:3.5rem;opacity:.05;pointer-events:none}
+.score-display::after{content:'♩';position:absolute;bottom:12px;left:18px;font-size:2.5rem;opacity:.05;pointer-events:none}
+.score-num{font-size:clamp(3rem,10vw,5rem);font-family:var(--font-heading,Georgia,serif);line-height:1}
+.score-max{font-size:1rem;color:var(--dim);margin-bottom:16px}
+.score-band{display:inline-block;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;padding:5px 14px;border-radius:20px;margin-bottom:14px}
+.result-title{font-family:var(--font-heading,Georgia,serif);font-size:clamp(1.1rem,3vw,1.5rem);line-height:1.3}
+
+.result-body{background:var(--card);border-radius:var(--r);border:1px solid var(--border);padding:30px;margin-bottom:20px}
+.sec-lbl{font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:12px;margin-top:24px}
+.sec-lbl:first-child{margin-top:0}
+.result-body p{font-size:.93rem;color:var(--dim);line-height:1.7;margin-bottom:10px}
+.result-body p + p{margin-top:0}
+
+.action-list{list-style:none;display:flex;flex-direction:column;gap:10px}
+.action-list li{display:flex;gap:12px;align-items:flex-start;font-size:.9rem;line-height:1.5}
+.aicon{width:22px;height:22px;border-radius:50%;background:var(--gold);color:var(--bg);font-size:.68rem;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px}
+
+/* Frontal lobe test card */
+.test-card{background:rgba(227,180,101,.05);border:1px solid rgba(227,180,101,.18);border-radius:var(--r);padding:20px;margin-bottom:20px}
+.test-card-title{font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:10px}
+.test-card p{font-size:.88rem;color:var(--dim);line-height:1.65}
+
+/* Resource and sermon */
+.sermon-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:22px;margin-bottom:20px;display:flex;gap:16px;align-items:flex-start}
+.sermon-icon{width:40px;height:40px;border-radius:8px;background:rgba(227,180,101,.1);border:1px solid rgba(227,180,101,.25);display:flex;align-items:center;justify-content:center;font-size:1.3rem;flex-shrink:0}
+.sermon-body-title{font-family:var(--font-heading,Georgia,serif);font-size:.95rem;margin-bottom:4px}
+.sermon-body-desc{font-size:.8rem;color:var(--dim);line-height:1.5;margin-bottom:10px}
+.sermon-link{font-size:.82rem;color:var(--gold);text-decoration:none;border:1px solid rgba(227,180,101,.3);border-radius:4px;padding:5px 13px;transition:var(--ease);display:inline-block}
+.sermon-link:hover{background:var(--sel);border-color:var(--gold)}
+
+.res-links{display:flex;flex-wrap:wrap;gap:9px;margin-top:12px}
+.res-link{font-size:.82rem;color:var(--gold);text-decoration:none;border:1px solid rgba(227,180,101,.3);border-radius:4px;padding:5px 13px;transition:var(--ease)}
+.res-link:hover{background:var(--sel);border-color:var(--gold)}
+
+.verse-close{border-left:2px solid var(--gold);padding:10px 16px;margin-top:26px;color:var(--dim);font-style:italic;font-size:.88rem}
+.retake-row{text-align:center;margin-top:20px}
+.retake-btn{font-size:.83rem;color:var(--dim);background:none;border:none;cursor:pointer;text-decoration:underline;text-underline-offset:3px}
+.retake-btn:hover{color:var(--text)}
+</style>
+</head>
+<body>
+
+<!-- INTEGRATION: Paste your site nav here -->
+
+<main class="shell">
+
+  <p class="eyebrow">Music Tool</p>
+  <h1>The Music Discernment Check</h1>
+  <p class="intro">Christian Berdahl has spent decades asking a question most Christians have never thought to ask: what is music doing to your mind — not just your heart? Ten reflective questions drawn from his framework.</p>
+
+  <div class="attribution-card">
+    <span class="attr-icon">🎵</span>
+    <p class="attr-note">This tool is based on the teaching framework of <strong>Christian Berdahl</strong> and his <em>Distraction Dilemma</em> music seminar. His core argument: music is not spiritually neutral. Its structure — melody, harmony, rhythm and their relationship — shapes the mind in ways that either support or undermine the renewing described in Romans 12:2. <a href="berdahl-music.html">Read the full article →</a></p>
+  </div>
+
+  <div class="key-question">"Have you ever asked what a song is doing to your mind — not just your heart?"<br><span style="font-size:.85rem;font-style:normal;color:var(--dim);font-family:var(--font-body,Georgia,serif)">— Christian Berdahl, Distraction Dilemma</span></div>
+
+  <!-- QUIZ -->
+  <div class="quiz-section active" id="qsection">
+    <div class="prog-bar-wrap">
+      <div class="prog-meta">
+        <span id="prog-text">10 questions — answer honestly</span>
+        <span id="prog-pct">0% answered</span>
+      </div>
+      <div class="prog-track"><div class="prog-fill" id="prog-fill"></div></div>
+    </div>
+
+    <div id="questions-wrap"></div>
+
+    <div class="nav-row">
+      <button class="btn btn-primary" id="submit-btn" onclick="submitQuiz()" disabled>See My Results</button>
+      <span class="unanswered-note" id="unanswered">Please answer all 10 questions</span>
+    </div>
+  </div>
+
+  <!-- RESULT -->
+  <div class="result-section" id="rsection">
+    <div class="score-display">
+      <div class="score-num" id="score-num">0</div>
+      <div class="score-max">out of 40</div>
+      <div class="score-band" id="score-band"></div>
+      <div class="result-title" id="result-title" style="max-width:480px;margin:0 auto"></div>
+    </div>
+
+    <div class="result-body">
+      <p class="sec-lbl">What Berdahl Would Say</p>
+      <p id="result-berdahl"></p>
+      <p id="result-desc"></p>
+
+      <p class="sec-lbl">The Frontal Lobe Test</p>
+      <div class="test-card">
+        <div class="test-card-title">Berdahl's Practical Discernment Question</div>
+        <p id="result-frontal"></p>
+      </div>
+
+      <p class="sec-lbl">Practical Steps</p>
+      <ul class="action-list" id="result-steps"></ul>
+    </div>
+
+    <!-- Sermon link card -->
+    <div class="sermon-card">
+      <div class="sermon-icon">▶</div>
+      <div>
+        <div class="sermon-body-title">The Distraction Dilemma — A Music Overview</div>
+        <div class="sermon-body-desc">Berdahl's 90-minute condensed overview: the frontal lobe argument, brain states, the rhythm hierarchy, and the biblical case for discernment. Watch it with your spouse or small group.</div>
+        <a class="sermon-link" href="https://www.youtube.com/watch?v=Ki3-VcoEkfY" target="_blank">Watch on YouTube →</a>
+      </div>
+    </div>
+
+    <p class="sec-lbl" style="margin-top:0">Go Deeper</p>
+    <div class="res-links" id="result-links"></div>
+
+    <div class="verse-close" id="verse-close"></div>
+    <div class="retake-row">
+      <button class="retake-btn" onclick="retake()">Retake the check</button>
+    </div>
+  </div>
+
+</main>
+
+<!-- INTEGRATION: Paste your site footer here -->
+
+<script src="shared.js"></script>
+<script>
+const QUESTIONS = [
+  {
+    text:"I choose music primarily by how it makes me feel, without much thought about what it is communicating.",
+    note:null
+  },
+  {
+    text:"When music is playing, I find it difficult to think clearly, pray deeply, or engage with Scripture.",
+    note:"<em>Berdahl's frontal lobe argument:</em> Certain music pushes the mind from an active, critical beta state into a passive alpha state — bypassing the very faculty we need for discernment, prayer, and Scripture engagement."
+  },
+  {
+    text:"The rhythm and energy of a song matter more to me than its melody or its message.",
+    note:null
+  },
+  {
+    text:"I have music playing as background noise for most of my day, almost without noticing.",
+    note:"<em>Passive consumption</em> is one of Berdahl's core concerns. Music that plays without attention still shapes the mind. What enters becomes the furniture of thought."
+  },
+  {
+    text:"I listen to the same music whether I'm preparing for prayer, working, or going out with friends.",
+    note:null
+  },
+  {
+    text:"I have never seriously considered whether the structure of music — not just the lyrics — might affect my spiritual life.",
+    note:"<em>Berdahl's central claim:</em> Music is not spiritually neutral. The relationship between melody, harmony, and rhythm shapes the mind's state and orientation — regardless of what the words say."
+  },
+  {
+    text:"The music that dominates my playlist most often leaves me feeling restless, stimulated, or emotionally wound up rather than still and focused.",
+    note:null
+  },
+  {
+    text:"If I applied Philippians 4:8 honestly — true, honest, just, pure, lovely, of good report — a significant portion of my regular playlist would not qualify.",
+    note:"<em>The content filter:</em> Philippians 4:8 (KJV) describes not just what we speak but what we dwell on. Berdahl argues this standard applies directly to what we listen to, not only to what we watch or read."
+  },
+  {
+    text:"After a session of my usual music, I feel drawn toward more entertainment and stimulation rather than toward prayer, stillness, or Scripture.",
+    note:null
+  },
+  {
+    text:"When listening to the music that dominates my playlist, I notice a primarily physical response — movement, energy, excitement — more than a spiritual one such as awe, peace, or reverence.",
+    note:"<em>The body-language test:</em> Berdahl teaches that music addressing the body first — through dominant rhythm — tends to activate physical response over spiritual reflection. Neither is inherently sinful; but the question is what is leading."
+  }
+];
+
+const OPTS = ['Never','Rarely','Sometimes','Often','Always'];
+
+const BANDS = [
+  {
+    max:10, color:'#4a9c72', bg:'rgba(74,156,114,.14)', label:'Listening With Discernment', title:'Your Listening Life Shows Real Intentionality',
+    berdahl:"Berdahl would describe this as a melody-led, frontal-lobe-active approach to music. Your answers suggest that music in your life is a servant to your spiritual formation rather than a shaping force operating below your awareness.",
+    desc:"That is worth protecting. The conditions that make discerning listening possible — intentional choices, a willingness to ask what music is doing to you — are habits that can erode quietly if a season of busyness arrives.",
+    frontal:"Can you read Scripture, pray, and think clearly with your music playing? If yes, that is a good sign your music is engaging rather than bypassing your frontal lobe. Keep asking that question regularly.",
+    steps:[
+      "Use the Philippians 4:8 filter as an annual audit, not just a one-time check. Take stock of your playlist every few months.",
+      "Share Berdahl's framework with someone you worship with — the conversation itself deepens discernment.",
+      "Watch Berdahl's overview to deepen your theological framework for music, even if you don't need to change much.",
+      "Consider what your music sounds like during the Digital Sabbath — is it consistent with a day set apart for rest and God?"
+    ],
+    links:[{l:'Digital Sabbath Challenge',h:'digital-sabbath.html'},{l:'Algorithm Cleanse',h:'tools.html'},{l:'Read the Berdahl Article',h:'berdahl-music.html'}],
+    verse:'"Whatsoever things are true, whatsoever things are honest, whatsoever things are just, whatsoever things are pure, whatsoever things are lovely, whatsoever things are of good report… think on these things." — Philippians 4:8 (KJV)'
+  },
+  {
+    max:20, color:'#c4943a', bg:'rgba(196,148,58,.14)', label:'Worth Examining Closely', title:'Some Patterns Deserve a Closer Look',
+    berdahl:"Berdahl would say this score suggests your music diet is forming you in some ways you may not have examined. The patterns are not severe — but the frontal lobe argument is worth sitting with here. Are you choosing your music, or is your music choosing you?",
+    desc:"Most Christians in this range have never had a conversation about music as a spiritual formation issue. That is not failure — it is simply a gap. The good news is the examination itself is transformative.",
+    frontal:"Try this test Berdahl suggests: put on your most-played music and then try to pray or read Scripture alongside it. Does the music serve that moment, or does it compete with it? Your answer tells you something important.",
+    steps:[
+      "This week, listen to your top playlist with the question: 'What is this music doing to my mind right now?'",
+      "Identify one category of music in your regular listening that probably wouldn't pass the Philippians 4:8 filter. Sit with that honestly.",
+      "Try a ten-minute period of prayer in silence — no background music. Notice what that feels like compared to your usual practice.",
+      "Watch Berdahl's overview. Even if you disagree with some of his conclusions, his central question will stay with you."
+    ],
+    links:[{l:'Read the Berdahl Article',h:'berdahl-music.html'},{l:'Algorithm Cleanse',h:'tools.html'},{l:'Digital Sabbath',h:'digital-sabbath.html'}],
+    verse:'"And be not conformed to this world: but be ye transformed by the renewing of your mind." — Romans 12:2 (KJV)'
+  },
+  {
+    max:30, color:'#c07030', bg:'rgba(192,112,48,.14)', label:'Your Music Is Forming You', title:'Your Playlist Is Doing More Shaping Than You Realise',
+    berdahl:"Berdahl would describe the patterns in this score as a rhythm-led, alpha-state-prone listening life. The music is not serving your mind — it is operating on it. That is not a moral verdict; it is a formational observation. What enters the mind shapes the mind.",
+    desc:"The frontal lobe argument applies most directly here: if your usual music makes prayer, stillness, or Scripture feel unnatural or hard to access, the music may be training your mind toward passivity and stimulation rather than toward engaged spiritual attention.",
+    frontal:"This is Berdahl's core test: Can you sustain prayer while your usual music plays? If the honest answer is no — if the music and prayer are fundamentally incompatible — then the music is working against the renewing of the mind that Romans 12:2 describes.",
+    steps:[
+      "Conduct an honest Philippians 4:8 audit of your main playlists this week. Not to condemn — to see clearly.",
+      "For one week, replace your background-noise music with silence, nature sounds, or instrumental sacred music. Notice what changes in your thinking and prayer life.",
+      "Read the full Berdahl article on this site, then watch his sermon. His argument is more nuanced than most summaries suggest.",
+      "Identify music that engages your mind and draws you toward God — hymns, sacred choral, contemplative instrumental — and begin deliberately replacing some of your current listening with it."
+    ],
+    links:[{l:'Read the Berdahl Article',h:'berdahl-music.html'},{l:'Digital Sabbath Challenge',h:'digital-sabbath.html'},{l:'Family Altar Builder',h:'family-altar.html'}],
+    verse:'"Keep thy heart with all diligence; for out of it are the issues of life." — Proverbs 4:23 (KJV)'
+  },
+  {
+    max:40, color:'#a03838', bg:'rgba(160,56,56,.14)', label:'A Conversation Is Overdue', title:'Your Relationship With Music Deserves Prayerful Attention',
+    berdahl:"Berdahl spent decades studying precisely what this score describes: a listening life where rhythm leads, the frontal lobe is habitually bypassed, and music functions not as a servant of spiritual formation but as a shaping force that operates below conscious awareness. He would say this is not about taste — it is about what is forming you.",
+    desc:"This is not a verdict on your faith. It is an invitation to ask a question you may never have been asked to ask: In the same way this ministry asks what your screens are doing to your attention, your family, and your walk with God — what is your music doing to your mind?",
+    frontal:"Take the frontal lobe test seriously: sit with your most-played music and try to pray. If prayer and that music are fundamentally incompatible — if one must stop for the other to begin — you now know something important. That incompatibility is the conversation Berdahl has been inviting for thirty years.",
+    steps:[
+      "Start with one week of intentional listening — not necessarily less music, but chosen music. Apply the Philippians 4:8 filter to every playlist.",
+      "Watch Berdahl's full music overview before making any sweeping changes. Understand the argument before acting on it.",
+      "Replace background-noise listening with silence or sacred instrumental music for two weeks and observe what happens to your prayer life and thinking.",
+      "Bring this conversation to your small group or family. Music is rarely discussed as a spiritual formation issue — naming it often begins the change.",
+      "Read the full Berdahl article on this site and take your questions seriously. He is worth engaging, even where you disagree."
+    ],
+    links:[{l:'Read the Berdahl Article',h:'berdahl-music.html'},{l:'Digital Sabbath Challenge',h:'digital-sabbath.html'},{l:'Algorithm Cleanse',h:'tools.html'}],
+    verse:'"I will behave myself wisely in a perfect way. O when wilt thou come unto me? I will walk within my house with a perfect heart. I will set no wicked thing before mine eyes." — Psalm 101:2–3 (KJV)'
+  }
+];
+
+const answers = new Array(QUESTIONS.length).fill(null);
+
+function buildQuestions() {
+  const wrap = document.getElementById('questions-wrap');
+  wrap.innerHTML = QUESTIONS.map((q,i) => `
+    ${q.note ? `<div class="framework-note">${q.note}</div>` : ''}
+    <div class="q-block" id="qb${i}">
+      <div class="q-num">Question ${i+1} of ${QUESTIONS.length}</div>
+      <div class="q-text">${q.text}</div>
+      <div class="q-opts">
+        ${OPTS.map((o,v) => `<div class="q-opt" onclick="answer(${i},${v},this)">${o}</div>`).join('')}
+      </div>
+    </div>`).join('');
+}
+
+function answer(qi, val, el) {
+  answers[qi] = val;
+  document.querySelectorAll(`#qb${qi} .q-opt`).forEach(e=>e.classList.remove('sel'));
+  el.classList.add('sel');
+  document.getElementById('qb'+qi).classList.add('answered');
+  updateProgress();
+}
+
+function updateProgress() {
+  const done = answers.filter(a=>a!==null).length;
+  const pct = Math.round((done/QUESTIONS.length)*100);
+  document.getElementById('prog-fill').style.width = pct+'%';
+  document.getElementById('prog-pct').textContent = pct+'% answered';
+  document.getElementById('prog-text').textContent = `${done} of ${QUESTIONS.length} questions answered`;
+  document.getElementById('submit-btn').disabled = (done < QUESTIONS.length);
+}
+
+function submitQuiz() {
+  if(answers.includes(null)) { document.getElementById('unanswered').style.display='inline'; return; }
+  const total = answers.reduce((s,a)=>s+a,0);
+  const band = BANDS.find(b=>total<=b.max);
+
+  document.getElementById('score-num').textContent = total;
+  document.getElementById('score-num').style.color = band.color;
+  document.getElementById('score-band').textContent = band.label;
+  document.getElementById('score-band').style.background = band.bg;
+  document.getElementById('score-band').style.color = band.color;
+  document.getElementById('result-title').textContent = band.title;
+  document.getElementById('result-berdahl').textContent = band.berdahl;
+  document.getElementById('result-desc').textContent = band.desc;
+  document.getElementById('result-frontal').textContent = band.frontal;
+  document.getElementById('result-steps').innerHTML = band.steps.map((s,i)=>
+    `<li><span class="aicon">${i+1}</span><span>${s}</span></li>`).join('');
+  document.getElementById('result-links').innerHTML = band.links.map(l=>
+    `<a class="res-link" href="${l.h}"${l.t?' target="_blank"':''}>${l.l}</a>`).join('');
+  document.getElementById('verse-close').textContent = band.verse;
+
+  document.getElementById('qsection').classList.remove('active');
+  document.getElementById('rsection').classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function retake() {
+  answers.fill(null);
+  document.querySelectorAll('.q-opt').forEach(e=>e.classList.remove('sel'));
+  document.querySelectorAll('.q-block').forEach(e=>e.classList.remove('answered'));
+  updateProgress();
+  document.getElementById('rsection').classList.remove('active');
+  document.getElementById('qsection').classList.add('active');
+  document.getElementById('unanswered').style.display='none';
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+buildQuestions();
+</script>
+<!-- TODO: Add music-discernment.html to sitemap.xml and nav (Tools section) -->
+</body>
+</html>

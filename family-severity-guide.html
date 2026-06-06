@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Family Digital Severity Guide — Wi-Fi vs The Word</title>
+<meta name="description" content="Not sure where to start? This short guide helps your family identify the right level of response to your screen habits — from simple digital hygiene to specialist support.">
+<link rel="canonical" href="https://wifivstheword.org/family-severity-guide.html">
+<link rel="stylesheet" href="theme.css">
+<style>
+:root {
+  --bg:      #0b1322;
+  --card:    #111b2e;
+  --card2:   #0f1628;
+  --gold:    #e3b465;
+  --gold-dk: #d4a843;
+  --text:    #e8dcc8;
+  --dim:     #8a7a65;
+  --border:  rgba(227,180,101,.18);
+  --sel-bg:  rgba(227,180,101,.10);
+  --r:       10px;
+  --ease:    .22s ease;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:var(--font-body,Georgia,serif);min-height:100vh;line-height:1.6}
+.tool-shell{max-width:800px;margin:0 auto;padding:52px 24px 88px}
+.eyebrow{font-size:.72rem;letter-spacing:.13em;text-transform:uppercase;color:var(--gold);margin-bottom:14px}
+.tool-title{font-size:clamp(1.65rem,4vw,2.5rem);font-family:var(--font-heading,Georgia,serif);line-height:1.2;margin-bottom:16px}
+.tool-intro{color:var(--dim);font-size:.98rem;line-height:1.7;max-width:600px;margin-bottom:44px}
+
+/* Progress */
+.prog-row{display:flex;align-items:center;gap:8px;margin-bottom:44px}
+.prog-dot{width:11px;height:11px;border-radius:50%;background:var(--border);border:1px solid rgba(227,180,101,.3);transition:var(--ease)}
+.prog-dot.done{background:var(--gold-dk)}
+.prog-dot.active{background:var(--gold);box-shadow:0 0 10px rgba(227,180,101,.45)}
+.prog-line{flex:1;height:1px;background:var(--border)}
+
+/* Steps */
+.step{display:none}
+.step.active{display:block;animation:rise .3s ease}
+@keyframes rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.step-label{font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:14px}
+.step-q{font-family:var(--font-heading,Georgia,serif);font-size:clamp(1.1rem,3vw,1.5rem);line-height:1.35;margin-bottom:32px}
+
+/* Person grid */
+.person-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:36px}
+@media(max-width:480px){.person-grid{grid-template-columns:1fr}}
+.person-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:22px;cursor:pointer;transition:var(--ease);text-align:left}
+.person-card:hover{border-color:rgba(227,180,101,.45);background:var(--card2)}
+.person-card.sel{border-color:var(--gold);background:var(--sel-bg)}
+.card-icon{font-size:1.7rem;margin-bottom:10px;display:block}
+.card-name{font-family:var(--font-heading,Georgia,serif);font-size:1.05rem;margin-bottom:5px}
+.person-card.sel .card-name{color:var(--gold)}
+.card-sub{font-size:.82rem;color:var(--dim);line-height:1.4}
+
+/* Concerns */
+.concern-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:36px}
+@media(max-width:520px){.concern-grid{grid-template-columns:1fr}}
+.concern-item{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:16px;cursor:pointer;display:flex;align-items:flex-start;gap:12px;transition:var(--ease)}
+.concern-item:hover{border-color:rgba(227,180,101,.4)}
+.concern-item.sel{border-color:var(--gold);background:var(--sel-bg)}
+.chk{width:18px;height:18px;border:1px solid rgba(227,180,101,.5);border-radius:4px;flex-shrink:0;margin-top:2px;display:flex;align-items:center;justify-content:center;transition:var(--ease)}
+.concern-item.sel .chk{background:var(--gold);border-color:var(--gold)}
+.concern-item.sel .chk::after{content:'✓';color:var(--bg);font-size:.72rem;font-weight:700}
+.c-title{font-size:.9rem;line-height:1.3;margin-bottom:3px}
+.concern-item.sel .c-title{color:var(--gold)}
+.c-desc{font-size:.77rem;color:var(--dim);line-height:1.4}
+
+/* Nav */
+.nav-row{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.btn{padding:11px 26px;border-radius:6px;font-size:.88rem;font-weight:600;cursor:pointer;transition:var(--ease);border:none}
+.btn-primary{background:var(--gold);color:var(--bg)}
+.btn-primary:hover:not(:disabled){background:var(--gold-dk)}
+.btn-primary:disabled{opacity:.35;cursor:not-allowed}
+.btn-ghost{background:transparent;border:1px solid var(--border);color:var(--dim)}
+.btn-ghost:hover{border-color:rgba(227,180,101,.5);color:var(--text)}
+.hint{font-size:.78rem;color:var(--dim);margin-left:auto}
+
+/* Result */
+.result-card{background:var(--card);border-radius:var(--r);border:1px solid var(--border);padding:36px;margin-bottom:28px}
+.result-bar{height:3px;border-radius:2px;margin-bottom:22px}
+.result-level{font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;margin-bottom:10px}
+.result-title{font-family:var(--font-heading,Georgia,serif);font-size:clamp(1.2rem,3vw,1.65rem);line-height:1.3;margin-bottom:14px}
+.result-desc{font-size:.95rem;color:var(--dim);line-height:1.7;margin-bottom:28px}
+.section-label{font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:14px}
+.result-steps{list-style:none;display:flex;flex-direction:column;gap:12px;margin-bottom:30px}
+.result-steps li{display:flex;align-items:flex-start;gap:12px;font-size:.92rem;line-height:1.5}
+.snum{width:22px;height:22px;border-radius:50%;background:var(--gold);color:var(--bg);font-size:.68rem;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px}
+.res-resources{border-top:1px solid var(--border);padding-top:22px}
+.res-links{display:flex;flex-wrap:wrap;gap:10px;margin-top:10px}
+.res-link{font-size:.82rem;color:var(--gold);text-decoration:none;border:1px solid rgba(227,180,101,.3);border-radius:4px;padding:5px 13px;transition:var(--ease)}
+.res-link:hover{background:var(--sel-bg);border-color:var(--gold)}
+.restart-row{text-align:center;margin-top:18px}
+.restart-btn{font-size:.83rem;color:var(--dim);background:none;border:none;cursor:pointer;text-decoration:underline;text-underline-offset:3px}
+.restart-btn:hover{color:var(--text)}
+</style>
+</head>
+<body>
+
+<!-- INTEGRATION: Replace this comment with your site nav markup -->
+
+<main class="tool-shell">
+
+  <p class="eyebrow">Diagnostic Tool</p>
+  <h1 class="tool-title">Where Does Your Family Start?</h1>
+  <p class="tool-intro">Not every screen struggle needs the same response. This short guide helps you identify the right level of action — from practical daily habits to specialist support — based on what you're actually seeing in your home.</p>
+
+  <div class="prog-row">
+    <div class="prog-dot active" id="dot1"></div>
+    <div class="prog-line"></div>
+    <div class="prog-dot" id="dot2"></div>
+    <div class="prog-line"></div>
+    <div class="prog-dot" id="dot3"></div>
+  </div>
+
+  <!-- STEP 1 -->
+  <div class="step active" id="step1">
+    <p class="step-label">Step 1 of 3</p>
+    <h2 class="step-q">Who are you thinking about as you answer?</h2>
+    <div class="person-grid">
+      <div class="person-card" id="p-child" onclick="pick('child')">
+        <span class="card-icon">👦</span>
+        <div class="card-name">A child or teenager</div>
+        <div class="card-sub">You're concerned about your son or daughter's device habits.</div>
+      </div>
+      <div class="person-card" id="p-partner" onclick="pick('partner')">
+        <span class="card-icon">💑</span>
+        <div class="card-name">My marriage or partner</div>
+        <div class="card-sub">Screens are affecting your relationship or closeness.</div>
+      </div>
+      <div class="person-card" id="p-self" onclick="pick('self')">
+        <span class="card-icon">🪞</span>
+        <div class="card-name">Myself</div>
+        <div class="card-sub">You're aware of patterns in your own device use.</div>
+      </div>
+      <div class="person-card" id="p-family" onclick="pick('family')">
+        <span class="card-icon">🏠</span>
+        <div class="card-name">Our whole family</div>
+        <div class="card-sub">The concern is about how screens affect everyone at home.</div>
+      </div>
+    </div>
+    <div class="nav-row">
+      <button class="btn btn-primary" id="s1next" onclick="goTo(2)" disabled>Continue</button>
+      <span class="hint" id="h1">Select one to continue</span>
+    </div>
+  </div>
+
+  <!-- STEP 2 -->
+  <div class="step" id="step2">
+    <p class="step-label">Step 2 of 3</p>
+    <h2 class="step-q">Which of these do you recognise? Select all that apply.</h2>
+    <div class="concern-grid">
+      <div class="concern-item" id="ci-sleep" onclick="tog('sleep')">
+        <div class="chk"></div>
+        <div><div class="c-title">Sleep is being disrupted</div><div class="c-desc">Late nights, devices in the bedroom, difficulty winding down</div></div>
+      </div>
+      <div class="concern-item" id="ci-withdrawal" onclick="tog('withdrawal')">
+        <div class="chk"></div>
+        <div><div class="c-title">Upset when devices are taken away</div><div class="c-desc">Anger, anxiety, or distress when screens are limited</div></div>
+      </div>
+      <div class="concern-item" id="ci-secrecy" onclick="tog('secrecy')">
+        <div class="chk"></div>
+        <div><div class="c-title">Hiding use or being secretive</div><div class="c-desc">Private apps, deleted history, evasiveness about what they're viewing</div></div>
+      </div>
+      <div class="concern-item" id="ci-mood" onclick="tog('mood')">
+        <div class="chk"></div>
+        <div><div class="c-title">Mood or emotional changes</div><div class="c-desc">More anxious, irritable, withdrawn, or low since screen habits increased</div></div>
+      </div>
+      <div class="concern-item" id="ci-relationships" onclick="tog('relationships')">
+        <div class="chk"></div>
+        <div><div class="c-title">Family relationships are suffering</div><div class="c-desc">Less real conversation, felt absence even when someone is present</div></div>
+      </div>
+      <div class="concern-item" id="ci-pornography" onclick="tog('pornography')">
+        <div class="chk"></div>
+        <div><div class="c-title">Pornography or harmful content</div><div class="c-desc">Known or suspected exposure to pornographic or sexualised material</div></div>
+      </div>
+      <div class="concern-item" id="ci-school" onclick="tog('school')">
+        <div class="chk"></div>
+        <div><div class="c-title">School or work is being affected</div><div class="c-desc">Homework undone, performance dropping, missing responsibilities</div></div>
+      </div>
+      <div class="concern-item" id="ci-physical" onclick="tog('physical')">
+        <div class="chk"></div>
+        <div><div class="c-title">Physical signs</div><div class="c-desc">Fatigue, headaches, eye strain linked to screen use</div></div>
+      </div>
+    </div>
+    <div class="nav-row">
+      <button class="btn btn-ghost" onclick="goTo(1)">Back</button>
+      <button class="btn btn-primary" onclick="showResult()">See My Guide</button>
+      <span class="hint" id="h2">Select any that apply, or none</span>
+    </div>
+  </div>
+
+  <!-- STEP 3: Result -->
+  <div class="step" id="step3">
+    <p class="step-label">Step 3 of 3 — Your Guide</p>
+    <div class="result-card">
+      <div class="result-bar" id="rbar"></div>
+      <div class="result-level" id="rlevel"></div>
+      <h2 class="result-title" id="rtitle"></h2>
+      <p class="result-desc" id="rdesc"></p>
+      <p class="section-label">Where to Begin</p>
+      <ul class="result-steps" id="rsteps"></ul>
+      <div class="res-resources">
+        <p class="section-label">Helpful Resources</p>
+        <div class="res-links" id="rlinks"></div>
+      </div>
+    </div>
+    <div class="nav-row">
+      <button class="btn btn-ghost" onclick="goTo(2)">Back</button>
+    </div>
+    <div class="restart-row">
+      <button class="restart-btn" onclick="restart()">Start over with someone else</button>
+    </div>
+  </div>
+
+</main>
+
+<!-- INTEGRATION: Replace this comment with your site footer markup -->
+
+<script src="shared.js"></script>
+<script>
+const S = { step:1, person:null, concerns:new Set() };
+
+const RESULTS = {
+  digital_hygiene:{
+    color:'#4a9c72', level:'Starting Point',
+    title:'Begin With Digital Hygiene',
+    desc:"The patterns you're noticing are on the milder end — and that is good news. Practical, daily changes to how your family manages devices can make a real difference. Start small, stay consistent.",
+    steps:[
+      'Reduce notifications this week — go into settings and turn off every non-essential one.',
+      'Make meals and bedtimes device-free zones. The table and the bedroom are worth protecting.',
+      'Try one Digital Sabbath hour this week — a set time when everyone puts screens away.',
+      'Model the change. Children and partners follow presence, not rules.'
+    ],
+    links:[
+      {l:'Digital Sabbath Challenge',h:'digital-sabbath.html'},
+      {l:'Algorithm Cleanse',h:'algorithm-cleanse.html'},
+      {l:'Family Altar Builder',h:'family-altar.html'}
+    ]
+  },
+  rhythm_reset:{
+    color:'#c4943a', level:'Family Rhythm',
+    title:"Your Family's Rhythm Needs Resetting",
+    desc:"You're seeing enough signals to know that device habits have begun reshaping your family's daily life. This calls for intentional restructuring of your household rhythm, not just reducing individual use.",
+    steps:[
+      'Sit together and name the problem honestly and kindly — not as accusation, but as a family taking stock.',
+      'Build a Family Media Plan: agreed times, places, and limits everyone has a voice in.',
+      'Designate sacred spaces — the dinner table, bedrooms, and the first and last hour of the day.',
+      'Use the Digital Sabbath as your weekly anchor. One day the rhythm stops and rest begins.'
+    ],
+    links:[
+      {l:'Family Altar Builder',h:'family-altar.html'},
+      {l:'Digital Sabbath Challenge',h:'digital-sabbath.html'},
+      {l:'For Churches & Small Groups',h:'church.html'}
+    ]
+  },
+  relational:{
+    color:'#c07030', level:'Relational Recovery',
+    title:'This Is a Relational Issue, Not Just a Screen Issue',
+    desc:"The device habits you're describing are affecting the bonds between people in your home. Screen rules alone won't repair what's been quietly eroded. Start with the relationship, not the rulebook.",
+    steps:[
+      'Name what has been lost — the conversations, the eye contact, the felt presence — and say it to each other.',
+      'Take the Phubbing Check together. Naming a pattern honestly is the first step to changing it.',
+      'Make one daily agreement: one time when all devices are away and you are fully present to each other.',
+      'Consider speaking to a pastor, marriage counsellor, or family therapist. This is worth investing in.'
+    ],
+    links:[
+      {l:'Phubbing Check',h:'phubbing-check.html'},
+      {l:'Family Altar Builder',h:'family-altar.html'},
+      {l:'Focus on Family Africa',h:'https://focusafrica.uscreen.io/',t:1}
+    ]
+  },
+  mental_health:{
+    color:'#c05838', level:'Mental Health Support',
+    title:'Real Support Is Needed Alongside Screen Changes',
+    desc:"The combination you're describing goes beyond habit — it touches emotional wellbeing. Removing or limiting screens is still important, but it isn't enough on its own here. The person needs real human support too.",
+    steps:[
+      "Don't lead with the phone — lead with the person. Ask how they're feeling before you talk about devices.",
+      'Speak to your GP, a counsellor, or a mental health practitioner. Anxiety and depression are treatable.',
+      'Involve your pastor alongside clinical care — both matter and neither replaces the other.',
+      'Research shows CBT-based approaches are particularly effective when compulsive screen use and mood symptoms are both present.'
+    ],
+    links:[
+      {l:'SADAG (SA helpline)',h:'https://www.sadag.org/',t:1},
+      {l:'The Chat SA',h:'https://thechat.co.za/',t:1},
+      {l:'Focus on Family Africa',h:'https://focusafrica.uscreen.io/',t:1}
+    ]
+  },
+  specialized:{
+    color:'#a03838', level:'Specialised Support',
+    title:'Specialised Support Is the Right Next Step',
+    desc:"Pornography or harmful content carries its own weight — for the person who encountered it and for every relationship around them. This is not something to manage alone, and not something to manage with willpower alone. Real, qualified support exists.",
+    steps:[
+      'Approach this with calm and compassion, not shame. Shame drives secrecy; grace opens doors.',
+      'Seek a counsellor who understands compulsive sexual behaviour and, where relevant, betrayal trauma.',
+      'Use accountability tools as a complement to — never a substitute for — real therapeutic support.',
+      'If this involves a child: approach age-appropriately, protect them from shame, and get professional guidance on next steps.'
+    ],
+    links:[
+      {l:'GraceOnline SA',h:'https://graceonline.co.za/',t:1},
+      {l:'Pure Desire',h:'https://puredesire.org/',t:1},
+      {l:'The Freedom Fight',h:'https://thefreedomfight.org/',t:1},
+      {l:'The Chat SA',h:'https://thechat.co.za/',t:1}
+    ]
+  }
+};
+
+function goTo(n){
+  document.querySelectorAll('.step').forEach(e=>e.classList.remove('active'));
+  document.getElementById('step'+n).classList.add('active');
+  S.step=n;
+  [1,2,3].forEach(i=>{
+    const d=document.getElementById('dot'+i);
+    d.classList.remove('active','done');
+    if(i<n) d.classList.add('done');
+    else if(i===n) d.classList.add('active');
+  });
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function pick(p){
+  S.person=p;
+  document.querySelectorAll('.person-card').forEach(c=>c.classList.remove('sel'));
+  document.getElementById('p-'+p).classList.add('sel');
+  document.getElementById('s1next').disabled=false;
+  document.getElementById('h1').textContent='✓ Selected';
+}
+
+function tog(c){
+  const el=document.getElementById('ci-'+c);
+  S.concerns.has(c)?(S.concerns.delete(c),el.classList.remove('sel')):(S.concerns.add(c),el.classList.add('sel'));
+  const n=S.concerns.size;
+  document.getElementById('h2').textContent=n?n+' selected':'Select any that apply, or none';
+}
+
+function computeResult(){
+  const c=S.concerns;
+  if(c.has('pornography')) return 'specialized';
+  if(c.has('mood')||c.has('secrecy')) return 'mental_health';
+  if(c.has('relationships')||c.has('withdrawal')) return 'relational';
+  if(c.size>=2) return 'rhythm_reset';
+  return 'digital_hygiene';
+}
+
+function showResult(){
+  const r=RESULTS[computeResult()];
+  document.getElementById('rbar').style.background=r.color;
+  document.getElementById('rlevel').style.color=r.color;
+  document.getElementById('rlevel').textContent=r.level;
+  document.getElementById('rtitle').textContent=r.title;
+  document.getElementById('rdesc').textContent=r.desc;
+  document.getElementById('rsteps').innerHTML=r.steps.map((s,i)=>
+    `<li><span class="snum">${i+1}</span><span>${s}</span></li>`).join('');
+  document.getElementById('rlinks').innerHTML=r.links.map(l=>
+    `<a class="res-link" href="${l.h}"${l.t?' target="_blank"':''}>${l.l}</a>`).join('');
+  goTo(3);
+}
+
+function restart(){
+  S.person=null; S.concerns=new Set();
+  document.querySelectorAll('.person-card').forEach(c=>c.classList.remove('sel'));
+  document.querySelectorAll('.concern-item').forEach(c=>c.classList.remove('sel'));
+  document.getElementById('s1next').disabled=true;
+  document.getElementById('h1').textContent='Select one to continue';
+  document.getElementById('h2').textContent='Select any that apply, or none';
+  goTo(1);
+}
+</script>
+<!-- TODO: Add family-severity-guide.html to sitemap.xml and nav -->
+</body>
+</html>

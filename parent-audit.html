@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Parent Presence Audit — Wi-Fi vs The Word</title>
+<meta name="description" content="Eight questions on how your phone habits affect your children. Honest, brief, and worth knowing before another year passes.">
+<link rel="canonical" href="https://wifivstheword.org/parent-audit.html">
+<link rel="stylesheet" href="theme.css">
+<style>
+:root{
+  --bg:#0b1322;--card:#111b2e;--card2:#0f1628;
+  --gold:#e3b465;--gold-dk:#d4a843;--text:#e8dcc8;
+  --dim:#8a7a65;--border:rgba(227,180,101,.18);
+  --sel:rgba(227,180,101,.11);--r:10px;--ease:.2s ease;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:var(--font-body,Georgia,serif);min-height:100vh}
+.shell{max-width:760px;margin:0 auto;padding:52px 22px 88px}
+.eyebrow{font-size:.72rem;letter-spacing:.13em;text-transform:uppercase;color:var(--gold);margin-bottom:14px}
+h1{font-size:clamp(1.6rem,4vw,2.4rem);font-family:var(--font-heading,Georgia,serif);line-height:1.2;margin-bottom:16px}
+.intro{color:var(--dim);font-size:.97rem;line-height:1.7;max-width:580px;margin-bottom:12px}
+.stat-callout{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:20px 24px;margin-bottom:40px;display:flex;gap:18px;align-items:flex-start}
+.stat-num{font-family:var(--font-heading,Georgia,serif);font-size:2.2rem;color:var(--gold);flex-shrink:0;line-height:1}
+.stat-text{font-size:.88rem;color:var(--dim);line-height:1.5}
+.stat-text strong{color:var(--text)}
+
+/* Progress */
+.prog-bar-wrap{margin-bottom:32px}
+.prog-meta{display:flex;justify-content:space-between;font-size:.78rem;color:var(--dim);margin-bottom:8px}
+.prog-track{height:4px;background:var(--border);border-radius:2px;overflow:hidden}
+.prog-fill{height:100%;background:var(--gold);border-radius:2px;transition:width .35s ease;width:0%}
+
+/* Questions */
+.quiz-section{display:none}
+.quiz-section.active{display:block;animation:rise .3s ease}
+@keyframes rise{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+
+.q-block{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:26px;margin-bottom:16px}
+.q-num{font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:10px}
+.q-text{font-family:var(--font-heading,Georgia,serif);font-size:1.05rem;line-height:1.4;margin-bottom:20px}
+.q-options{display:flex;gap:8px;flex-wrap:wrap}
+.q-opt{flex:1;min-width:70px;padding:10px 6px;border:1px solid var(--border);border-radius:6px;cursor:pointer;text-align:center;font-size:.78rem;line-height:1.3;color:var(--dim);transition:var(--ease);background:var(--card2);user-select:none}
+.q-opt:hover{border-color:rgba(227,180,101,.45);color:var(--text)}
+.q-opt.sel{border-color:var(--gold);background:var(--sel);color:var(--gold);font-weight:600}
+@media(max-width:480px){.q-options{flex-direction:column}.q-opt{min-width:unset;display:flex;gap:10px;align-items:center;text-align:left}}
+
+.nav-row{display:flex;gap:12px;align-items:center;margin-top:28px;flex-wrap:wrap}
+.btn{padding:11px 26px;border-radius:6px;font-size:.88rem;font-weight:600;cursor:pointer;transition:var(--ease);border:none}
+.btn-primary{background:var(--gold);color:var(--bg)}
+.btn-primary:hover:not(:disabled){background:var(--gold-dk)}
+.btn-primary:disabled{opacity:.35;cursor:not-allowed}
+.unanswered-note{font-size:.8rem;color:#c05838;margin-left:8px;display:none}
+
+/* Result */
+.result-section{display:none;animation:rise .4s ease}
+.result-section.active{display:block}
+.score-display{text-align:center;padding:44px 24px 36px;margin-bottom:24px;background:var(--card);border-radius:var(--r);border:1px solid var(--border)}
+.score-num{font-size:clamp(3rem,10vw,5rem);font-family:var(--font-heading,Georgia,serif);line-height:1}
+.score-max{font-size:1rem;color:var(--dim);margin-bottom:16px}
+.score-band{display:inline-block;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;padding:5px 14px;border-radius:20px;margin-bottom:16px}
+.result-title{font-family:var(--font-heading,Georgia,serif);font-size:clamp(1.1rem,3vw,1.5rem);line-height:1.3}
+
+.result-body{background:var(--card);border-radius:var(--r);border:1px solid var(--border);padding:30px;margin-bottom:20px}
+.sec-lbl{font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:14px;margin-top:24px}
+.sec-lbl:first-child{margin-top:0}
+.result-body p{font-size:.95rem;color:var(--dim);line-height:1.7;margin-bottom:12px}
+.action-list{list-style:none;display:flex;flex-direction:column;gap:10px}
+.action-list li{display:flex;gap:12px;align-items:flex-start;font-size:.92rem;line-height:1.5}
+.aicon{width:22px;height:22px;border-radius:50%;background:var(--gold);color:var(--bg);font-size:.68rem;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px}
+.res-links{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px}
+.res-link{font-size:.82rem;color:var(--gold);text-decoration:none;border:1px solid rgba(227,180,101,.3);border-radius:4px;padding:5px 13px;transition:var(--ease)}
+.res-link:hover{background:var(--sel);border-color:var(--gold)}
+
+/* Reflection card */
+.reflection-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:26px;margin-bottom:20px}
+.reflection-card p{font-size:.9rem;color:var(--dim);line-height:1.7}
+.reflection-card blockquote{border-left:2px solid var(--gold);padding-left:14px;font-style:italic;margin-top:16px;font-size:.9rem;color:var(--dim)}
+
+.retake-row{text-align:center;margin-top:22px}
+.retake-btn{font-size:.83rem;color:var(--dim);background:none;border:none;cursor:pointer;text-decoration:underline;text-underline-offset:3px}
+.retake-btn:hover{color:var(--text)}
+</style>
+</head>
+<body>
+
+<!-- INTEGRATION: Paste your site nav here -->
+
+<main class="shell">
+
+  <p class="eyebrow">Parenting Tool</p>
+  <h1>The Parent Presence Audit</h1>
+  <p class="intro">Parental technoference — technology interrupting parent-child interaction — is now one of the most studied dynamics in family research. A 2025 meta-analysis found a robust link between parental phone distraction and children's own problematic media use. Eight questions. Honest answers only.</p>
+  <div class="stat-callout">
+    <div class="stat-num">237</div>
+    <div class="stat-text"><strong>Notifications a day</strong> is the median for teenagers aged 11–17. Many of those arrive when a parent is also on their own device. Distraction compounds distraction. <em>(Common Sense Media, 2023)</em></div>
+  </div>
+
+  <div class="quiz-section active" id="qsection">
+    <div class="prog-bar-wrap">
+      <div class="prog-meta">
+        <span id="prog-text">Question 1 of 8</span>
+        <span id="prog-pct">0% answered</span>
+      </div>
+      <div class="prog-track"><div class="prog-fill" id="prog-fill"></div></div>
+    </div>
+
+    <div id="questions-wrap"></div>
+
+    <div class="nav-row">
+      <button class="btn btn-primary" id="submit-btn" onclick="submitQuiz()" disabled>See My Results</button>
+      <span class="unanswered-note" id="unanswered">Please answer all 8 questions</span>
+    </div>
+  </div>
+
+  <!-- Result -->
+  <div class="result-section" id="rsection">
+    <div class="score-display">
+      <div class="score-num" id="score-num">0</div>
+      <div class="score-max">out of 32</div>
+      <div class="score-band" id="score-band"></div>
+      <div class="result-title" id="result-title"></div>
+    </div>
+    <div class="result-body">
+      <p class="sec-lbl">What This Shows</p>
+      <p id="result-desc"></p>
+      <p class="sec-lbl">What to Do Next</p>
+      <ul class="action-list" id="result-steps"></ul>
+      <p class="sec-lbl">Resources</p>
+      <div class="res-links" id="result-links"></div>
+    </div>
+    <div class="reflection-card">
+      <p>Discipleship is ordinarily transmitted through patterned presence — not rule-setting. Children absorb what they live alongside, not what they're told. The most powerful device boundary you can set is the one your children watch you set.</p>
+      <blockquote id="result-verse"></blockquote>
+    </div>
+    <div class="retake-row">
+      <button class="retake-btn" onclick="retake()">Retake the audit</button>
+    </div>
+  </div>
+
+</main>
+
+<!-- INTEGRATION: Paste your site footer here -->
+
+<script src="shared.js"></script>
+<script>
+const QUESTIONS = [
+  "I reach for my phone when I feel stressed, bored, or overwhelmed as a parent.",
+  "My child has had to repeat themselves or ask me to put my phone away to get my attention.",
+  "I check my phone during conversations with my child.",
+  "My phone is present during bedtime routines, stories, or prayers with my child.",
+  "During family time, I am mentally somewhere else — on my phone or thinking about it.",
+  "I use my phone at mealtimes when my children are present.",
+  "I feel guilty about the amount of time I spend on my phone around my children.",
+  "I would not want my children to use their devices as much as I use mine."
+];
+const OPTS = [
+  {l:'Never',v:0},{l:'Rarely',v:1},{l:'Sometimes',v:2},{l:'Often',v:3},{l:'Always',v:4}
+];
+const BANDS = [
+  {max:7, color:'#4a9c72', bg:'rgba(74,156,114,.15)', label:'Strong Presence', title:'Strong Parental Presence',
+   desc:"Your phone habits don't appear to be significantly interrupting your parenting presence. This is worth protecting deliberately — technoference patterns tend to creep in during stressful seasons.",
+   steps:["Keep the bedtime ritual phone-free. That space is irreplaceable as your child grows.","Ask your children occasionally: 'Do you ever feel like my phone gets more attention than you?' Their answer matters.","Stay consistent — the research shows even mild technoference has measurable effects on children's own media habits."],
+   links:[{l:'Digital Sabbath Challenge',h:'digital-sabbath.html'},{l:'Family Altar Builder',h:'family-altar.html'}],
+   verse:'"Train up a child in the way he should go: and when he is old, he will not depart from it." — Proverbs 22:6 (KJV)'},
+  {max:15, color:'#c4943a', bg:'rgba(196,148,58,.15)', label:'Patterns Developing', title:'Technoference Is Beginning to Take Hold',
+   desc:"You're noticing patterns that, left unaddressed, tend to deepen. The good news is you're seeing them early. Children at this stage are still more shaped by what you model than by what the algorithm shows them.",
+   steps:["Identify the one moment in your day when your phone most competes with your child. Change that one moment first.","Put your phone out of reach during the first and last 30 minutes of your child's day.","Tell your child: 'I'm working on being more present. Please tell me when you need me.' Then honour it."],
+   links:[{l:'Algorithm Cleanse',h:'algorithm-cleanse.html'},{l:'Smartphone Readiness Check',h:'smartphone-readiness.html'},{l:'Digital Sabbath',h:'digital-sabbath.html'}],
+   verse:'"And these words, which I command thee this day, shall be in thine heart: And thou shalt teach them diligently unto thy children." — Deuteronomy 6:6–7 (KJV)'},
+  {max:23, color:'#c07030', bg:'rgba(192,112,48,.15)', label:'Presence at Risk', title:'Your Presence Is Being Consistently Interrupted',
+   desc:"Scores in this range suggest your phone has become a regular barrier between you and your children. A 2025 study found that more frequent parental smartphone use during conversations with children was directly associated with children's anger and sadness. This is worth taking seriously this week.",
+   steps:["Name what you want to change — specifically and out loud — to your child. Accountability with them matters.","Remove your phone from the bedroom tonight. Reclaim that space as a screen-free zone for good.","Work through the Family Severity Guide to assess whether this connects to broader family patterns.","Consider a weekly Digital Sabbath as a reset — one day where screens are off and you are fully available."],
+   links:[{l:'Family Severity Guide',h:'family-severity-guide.html'},{l:'Family Altar Builder',h:'family-altar.html'},{l:'The Chat SA',h:'https://thechat.co.za/',t:1}],
+   verse:'"Behold, I will send you Elijah the prophet… and he shall turn the heart of the fathers to the children." — Malachi 4:5–6 (KJV)'},
+  {max:32, color:'#a03838', bg:'rgba(160,56,56,.15)', label:'Critical Technoference', title:'This Pattern Is Affecting Your Parent-Child Bond',
+   desc:"This score suggests your device habits have become a significant and persistent interruption to your relationship with your children. The research is clear: when parents are physically present but attentionally absent, children experience it — and carry it. You can change this, but it will take deliberate effort and support.",
+   steps:["Do not try to manage this alone. Speak to a pastor, family counsellor, or a trusted mentor this week.","Start with one radical change: for the next seven days, your phone does not enter your child's bedroom for any reason.","Use the Family Severity Guide to map the full picture — this may connect to stress, marriage strain, or your own wellbeing.","Speak to your children. Tell them you're working on this. Children are more forgiving than we fear, and more perceptive than we hope."],
+   links:[{l:'Family Severity Guide',h:'family-severity-guide.html'},{l:'Focus on Family Africa',h:'https://focusafrica.uscreen.io/',t:1},{l:'The Chat SA',h:'https://thechat.co.za/',t:1}],
+   verse:'"Lo, children are an heritage of the LORD: and the fruit of the womb is his reward." — Psalm 127:3 (KJV)'}
+];
+
+const answers = new Array(QUESTIONS.length).fill(null);
+
+function buildQuestions(){
+  document.getElementById('questions-wrap').innerHTML = QUESTIONS.map((q,i)=>`
+    <div class="q-block" id="qb${i}">
+      <div class="q-num">Question ${i+1} of ${QUESTIONS.length}</div>
+      <div class="q-text">${q}</div>
+      <div class="q-options">
+        ${OPTS.map(o=>`<div class="q-opt" onclick="answer(${i},${o.v},this)">${o.l}</div>`).join('')}
+      </div>
+    </div>`).join('');
+}
+
+function answer(qi,val,el){
+  answers[qi]=val;
+  document.querySelectorAll(`#qb${qi} .q-opt`).forEach(e=>e.classList.remove('sel'));
+  el.classList.add('sel');
+  updateProgress();
+}
+
+function updateProgress(){
+  const done=answers.filter(a=>a!==null).length;
+  const pct=Math.round((done/QUESTIONS.length)*100);
+  document.getElementById('prog-fill').style.width=pct+'%';
+  document.getElementById('prog-text').textContent=`Question ${Math.min(done+1,QUESTIONS.length)} of ${QUESTIONS.length}`;
+  document.getElementById('prog-pct').textContent=pct+'% answered';
+  document.getElementById('submit-btn').disabled=(done<QUESTIONS.length);
+}
+
+function submitQuiz(){
+  if(answers.includes(null)){document.getElementById('unanswered').style.display='inline';return;}
+  const total=answers.reduce((s,a)=>s+a,0);
+  const band=BANDS.find(b=>total<=b.max);
+  document.getElementById('score-num').textContent=total;
+  document.getElementById('score-num').style.color=band.color;
+  document.getElementById('score-band').textContent=band.label;
+  document.getElementById('score-band').style.background=band.bg;
+  document.getElementById('score-band').style.color=band.color;
+  document.getElementById('result-title').textContent=band.title;
+  document.getElementById('result-desc').textContent=band.desc;
+  document.getElementById('result-steps').innerHTML=band.steps.map((s,i)=>
+    `<li><span class="aicon">${i+1}</span><span>${s}</span></li>`).join('');
+  document.getElementById('result-links').innerHTML=band.links.map(l=>
+    `<a class="res-link" href="${l.h}"${l.t?' target="_blank"':''}>${l.l}</a>`).join('');
+  document.getElementById('result-verse').textContent=band.verse;
+  document.getElementById('qsection').classList.remove('active');
+  document.getElementById('rsection').classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function retake(){
+  answers.fill(null);
+  document.querySelectorAll('.q-opt').forEach(e=>e.classList.remove('sel'));
+  updateProgress();
+  document.getElementById('rsection').classList.remove('active');
+  document.getElementById('qsection').classList.add('active');
+  document.getElementById('unanswered').style.display='none';
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+buildQuestions();
+</script>
+<!-- TODO: Add parent-audit.html to sitemap.xml and nav -->
+</body>
+</html>

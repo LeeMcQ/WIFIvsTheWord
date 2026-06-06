@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Household Digital Health Check — Wi-Fi vs The Word</title>
+<meta name="description" content="Two scored assessments in one: how your phone habits affect your marriage, and how they affect your children. Complete the sections that apply to your household.">
+<link rel="canonical" href="https://wifivstheword.org/household-digital-health.html">
+<link rel="stylesheet" href="theme.css">
+<style>
+:root{
+  --bg:#0b1322;--card:#111b2e;--card2:#0f1628;
+  --gold:#e3b465;--gold-dk:#d4a843;--text:#e8dcc8;
+  --dim:#8a7a65;--border:rgba(227,180,101,.18);
+  --sel:rgba(227,180,101,.11);--r:10px;--ease:.2s ease;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:var(--font-body,Georgia,serif);min-height:100vh}
+.shell{max-width:800px;margin:0 auto;padding:52px 22px 88px}
+.eyebrow{font-size:.72rem;letter-spacing:.13em;text-transform:uppercase;color:var(--gold);margin-bottom:14px}
+h1{font-size:clamp(1.6rem,4vw,2.4rem);font-family:var(--font-heading,Georgia,serif);line-height:1.2;margin-bottom:16px}
+.intro{color:var(--dim);font-size:.97rem;line-height:1.7;max-width:620px;margin-bottom:10px}
+.scripture{border-left:2px solid var(--gold);padding:10px 16px;margin-bottom:40px;color:var(--dim);font-style:italic;font-size:.88rem}
+
+/* Setup cards */
+.setup-wrap{display:none;animation:rise .3s ease}
+.setup-wrap.active{display:block}
+.setup-label{font-family:var(--font-heading,Georgia,serif);font-size:1.15rem;margin-bottom:20px}
+.household-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:28px}
+@media(max-width:480px){.household-grid{grid-template-columns:1fr}}
+.hh-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:22px;cursor:pointer;transition:var(--ease);user-select:none}
+.hh-card:hover{border-color:rgba(227,180,101,.4)}
+.hh-card.sel{border-color:var(--gold);background:var(--sel)}
+.hh-card input[type=checkbox]{display:none}
+.hh-icon{font-size:1.8rem;margin-bottom:10px;display:block}
+.hh-name{font-family:var(--font-heading,Georgia,serif);font-size:1rem;margin-bottom:5px}
+.hh-card.sel .hh-name{color:var(--gold)}
+.hh-sub{font-size:.82rem;color:var(--dim);line-height:1.4}
+.hh-check{width:18px;height:18px;border:1px solid rgba(227,180,101,.5);border-radius:4px;display:inline-flex;align-items:center;justify-content:center;margin-bottom:8px;transition:var(--ease)}
+.hh-card.sel .hh-check{background:var(--gold);border-color:var(--gold)}
+.hh-card.sel .hh-check::after{content:'✓';color:var(--bg);font-size:.7rem;font-weight:700}
+.setup-note{font-size:.82rem;color:var(--dim);margin-bottom:24px;font-style:italic}
+
+/* Section headers */
+.section-header{display:flex;align-items:center;gap:14px;padding:20px 0 14px;border-top:1px solid var(--border);margin-top:36px}
+.section-header:first-of-type{margin-top:0;border-top:none}
+.section-icon{width:40px;height:40px;border-radius:50%;background:rgba(227,180,101,.1);border:1px solid rgba(227,180,101,.3);display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0}
+.section-title{font-family:var(--font-heading,Georgia,serif);font-size:1.1rem}
+.section-desc{font-size:.82rem;color:var(--dim)}
+
+/* Questions */
+.q-block{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:22px;margin-bottom:12px}
+.q-num{font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:8px}
+.q-text{font-family:var(--font-heading,Georgia,serif);font-size:.98rem;line-height:1.4;margin-bottom:16px}
+.q-opts{display:flex;gap:7px;flex-wrap:wrap}
+.q-opt{flex:1;min-width:60px;padding:9px 5px;border:1px solid var(--border);border-radius:6px;cursor:pointer;text-align:center;font-size:.75rem;line-height:1.3;color:var(--dim);transition:var(--ease);background:var(--card2);user-select:none}
+.q-opt:hover{border-color:rgba(227,180,101,.45);color:var(--text)}
+.q-opt.sel{border-color:var(--gold);background:var(--sel);color:var(--gold);font-weight:600}
+@media(max-width:420px){.q-opts{display:grid;grid-template-columns:1fr 1fr}.q-opt{min-width:unset}}
+
+/* Progress */
+.prog-meta{display:flex;justify-content:space-between;font-size:.77rem;color:var(--dim);margin:8px 0}
+.prog-track{height:3px;background:var(--border);border-radius:2px;margin-bottom:28px}
+.prog-fill{height:100%;background:var(--gold);border-radius:2px;transition:width .35s ease}
+
+/* No-household message */
+.no-hh-msg{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:28px;text-align:center;display:none}
+.no-hh-msg p{color:var(--dim);font-size:.92rem;line-height:1.65;margin-bottom:14px}
+.no-hh-msg a{color:var(--gold)}
+
+/* Buttons */
+.btn{padding:11px 26px;border-radius:6px;font-size:.88rem;font-weight:600;cursor:pointer;transition:var(--ease);border:none}
+.btn-primary{background:var(--gold);color:var(--bg)}
+.btn-primary:hover:not(:disabled){background:var(--gold-dk)}
+.btn-primary:disabled{opacity:.35;cursor:not-allowed}
+.btn-ghost{background:transparent;border:1px solid var(--border);color:var(--dim)}
+.btn-ghost:hover{border-color:rgba(227,180,101,.5);color:var(--text)}
+.nav-row{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-top:28px}
+.unanswered{font-size:.8rem;color:#c05838;display:none}
+
+/* Results */
+.results-wrap{display:none;animation:rise .4s ease}
+.results-wrap.active{display:block}
+.results-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:28px}
+@media(max-width:600px){.results-grid{grid-template-columns:1fr}}
+.result-card{background:var(--card);border-radius:var(--r);border:1px solid var(--border);padding:28px}
+.result-bar{height:3px;border-radius:2px;margin-bottom:18px}
+.result-section-label{font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);margin-bottom:6px}
+.result-level{font-size:.72rem;letter-spacing:.09em;text-transform:uppercase;margin-bottom:8px}
+.result-score{font-family:var(--font-heading,Georgia,serif);font-size:2.2rem;line-height:1;margin-bottom:4px}
+.result-max{font-size:.78rem;color:var(--dim);margin-bottom:12px}
+.result-title{font-family:var(--font-heading,Georgia,serif);font-size:1.05rem;line-height:1.35;margin-bottom:12px}
+.result-desc{font-size:.85rem;color:var(--dim);line-height:1.65;margin-bottom:18px}
+.sec-lbl{font-size:.68rem;letter-spacing:.09em;text-transform:uppercase;color:var(--gold);margin-bottom:10px;margin-top:16px}
+.sec-lbl:first-child{margin-top:0}
+.step-list{list-style:none;display:flex;flex-direction:column;gap:8px}
+.step-list li{display:flex;gap:10px;font-size:.82rem;line-height:1.5;align-items:flex-start}
+.snum{width:20px;height:20px;border-radius:50%;background:var(--gold);color:var(--bg);font-size:.62rem;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.res-links{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.res-link{font-size:.78rem;color:var(--gold);text-decoration:none;border:1px solid rgba(227,180,101,.3);border-radius:4px;padding:4px 10px;transition:var(--ease)}
+.res-link:hover{background:var(--sel);border-color:var(--gold)}
+
+.verse-footer{border-left:2px solid var(--gold);padding:10px 16px;margin-top:24px;color:var(--dim);font-style:italic;font-size:.88rem}
+.retake-row{text-align:center;margin-top:20px}
+.retake-btn{font-size:.82rem;color:var(--dim);background:none;border:none;cursor:pointer;text-decoration:underline;text-underline-offset:3px}
+.retake-btn:hover{color:var(--text)}
+
+@keyframes rise{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+
+<!-- INTEGRATION: Paste your site nav here -->
+
+<main class="shell">
+
+  <p class="eyebrow">Household Tool</p>
+  <h1>Household Digital Health Check</h1>
+  <p class="intro">Two scored assessments in one. How your phone habits affect your marriage or partnership. How they affect your children. Complete the sections that apply to your household — and let the picture be honest.</p>
+  <div class="scripture">"Husbands, love your wives, even as Christ also loved the church, and gave himself for it… Fathers, provoke not your children to wrath: but bring them up in the nurture and admonition of the Lord." — Ephesians 5:25, 6:4 (KJV)</div>
+
+  <!-- SETUP -->
+  <div class="setup-wrap active" id="setup-wrap">
+    <p class="setup-label">Tell me about your household</p>
+    <p class="setup-note">Only the sections that apply to you will be shown. If neither applies, the tool will point you elsewhere.</p>
+    <div class="household-grid">
+      <div class="hh-card" id="hh-partner" onclick="toggleHH('partner')">
+        <div class="hh-check" id="chk-partner"></div>
+        <span class="hh-icon">💑</span>
+        <div class="hh-name">I have a spouse or partner</div>
+        <div class="hh-sub">Include this section to assess how phone habits affect your relationship.</div>
+      </div>
+      <div class="hh-card" id="hh-children" onclick="toggleHH('children')">
+        <div class="hh-check" id="chk-children"></div>
+        <span class="hh-icon">👨‍👩‍👧</span>
+        <div class="hh-name">I have children at home</div>
+        <div class="hh-sub">Include this section to assess how phone habits affect your parenting presence.</div>
+      </div>
+    </div>
+    <div id="no-hh-msg" class="no-hh-msg">
+      <p>This tool is designed for households with a spouse/partner and/or children. For a personal digital habits profile, try the <a href="tools.html">Distraction Profile</a>.</p>
+    </div>
+    <div class="nav-row">
+      <button class="btn btn-primary" id="begin-btn" onclick="beginAssessment()" disabled>Begin Assessment</button>
+    </div>
+  </div>
+
+  <!-- ASSESSMENT -->
+  <div id="assessment-wrap" style="display:none;animation:rise .35s ease">
+    <div class="prog-meta">
+      <span id="prog-label">Answering questions…</span>
+      <span id="prog-pct">0% answered</span>
+    </div>
+    <div class="prog-track"><div class="prog-fill" id="prog-fill" style="width:0%"></div></div>
+
+    <!-- Section A: Marriage -->
+    <div id="section-marriage" style="display:none">
+      <div class="section-header">
+        <div class="section-icon">💑</div>
+        <div>
+          <div class="section-title">Section A — Your Phone & Your Partner</div>
+          <div class="section-desc">8 questions about how your phone habits affect your marriage or relationship</div>
+        </div>
+      </div>
+      <div id="marriage-questions"></div>
+    </div>
+
+    <!-- Section B: Parenting -->
+    <div id="section-parenting" style="display:none">
+      <div class="section-header">
+        <div class="section-icon">👨‍👩‍👧</div>
+        <div>
+          <div class="section-title">Section B — Your Phone & Your Children</div>
+          <div class="section-desc">8 questions about how your phone habits affect your parenting presence</div>
+        </div>
+      </div>
+      <div id="parenting-questions"></div>
+    </div>
+
+    <div class="nav-row">
+      <button class="btn btn-primary" id="submit-btn" onclick="submitAssessment()" disabled>See My Results</button>
+      <span class="unanswered" id="unanswered-msg">Please answer all visible questions first</span>
+    </div>
+  </div>
+
+  <!-- RESULTS -->
+  <div class="results-wrap" id="results-wrap">
+    <div class="results-grid" id="results-grid"></div>
+    <div class="verse-footer" id="verse-footer"></div>
+    <div class="retake-row">
+      <button class="retake-btn" onclick="retake()">Start over</button>
+    </div>
+  </div>
+
+</main>
+
+<!-- INTEGRATION: Paste your site footer here -->
+
+<script src="shared.js"></script>
+<script>
+// ─── Data ──────────────────────────────────────────────────────────
+const MARRIAGE_QS = [
+  "During conversations with my spouse or partner, I find myself checking my phone.",
+  "My partner has mentioned that I use my phone too much when we're together.",
+  "I reach for my phone at the dinner table or during family meals.",
+  "When my partner is talking, I feel the urge to look at my phone.",
+  "I feel my partner has to compete with my phone for my attention.",
+  "My phone is present in our bedroom and affects how we wind down together.",
+  "I pick up my phone to avoid difficult emotions or tension in our relationship.",
+  "If I'm honest, my phone has caused conflict or emotional distance in my marriage."
+];
+
+const PARENTING_QS = [
+  "I reach for my phone when I feel stressed, bored, or overwhelmed as a parent.",
+  "My child has had to repeat themselves, or ask me to put my phone away, to get my attention.",
+  "I check my phone during conversations with my child.",
+  "My phone is present during bedtime routines, stories, or prayers with my child.",
+  "I use my phone at mealtimes when my children are present.",
+  "I feel guilty about the amount of time I spend on my phone around my children.",
+  "I would not want my children to use their devices as much as I use mine.",
+  "If I'm honest, my phone use has created distance between me and my child."
+];
+
+const OPTS = ['Never','Rarely','Sometimes','Often','Always'];
+
+const MARRIAGE_BANDS = [
+  {max:7, color:'#4a9c72', bg:'rgba(74,156,114,.12)', level:'Covenant Presence Strong', title:'The Bond Is Holding',
+   desc:"Your phone habits don't appear to be significantly harming your relationship. That's worth protecting deliberately — phubbing patterns usually creep in during stressful seasons, not all at once.",
+   steps:["Keep guarding the table and the bedroom as phone-free spaces.","Check in with your partner monthly: 'Is there anything my phone is getting that should go to you?'","Pray together at the same time each day — make presence a daily practice, not just an occasional one."],
+   links:[{l:'Digital Sabbath',h:'digital-sabbath.html'},{l:'Family Altar Builder',h:'family-altar.html'}],
+   verse:'"Let love be without hypocrisy." — Romans 12:9 (KJV)'},
+  {max:15, color:'#c4943a', bg:'rgba(196,148,58,.12)', level:'Patterns Developing', title:'Some Patterns Worth Watching',
+   desc:"Your phone is beginning to compete with your partner for your attention. This score doesn't signal crisis — it signals a moment to pay attention before the patterns deepen.",
+   steps:["Name the one time of day when your phone most consistently wins. Change that one moment first.","Put your phone face-down — or out of the room — during your next three shared meals.","Ask your partner: 'When do you most feel my phone getting in the way?' Listen without defending."],
+   links:[{l:'Digital Sabbath',h:'digital-sabbath.html'},{l:'Algorithm Cleanse',h:'tools.html'}],
+   verse:'"Be swift to hear, slow to speak." — James 1:19 (KJV)'},
+  {max:23, color:'#c07030', bg:'rgba(192,112,48,.12)', level:'Third Party Present', title:'Your Phone May Be a Third Party',
+   desc:"Research links patterns like these with measurable drops in relationship satisfaction and increased resentment and conflict. The phone has become a presence between you — quietly but consistently.",
+   steps:["Share your score with your partner honestly. Not to confess — to begin a real conversation.","Make one daily covenant: one hour when all devices are away and you are fully present to each other.","Ask whether reaching for your phone has become a way to avoid closeness or emotional discomfort.","Consider speaking to a pastor or marriage counsellor if patterns persist."],
+   links:[{l:'Family Severity Guide',h:'family-severity-guide.html'},{l:'Focus on Family Africa',h:'https://focusafrica.uscreen.io/',t:1}],
+   verse:'"Can two walk together, except they be agreed?" — Amos 3:3 (KJV)'},
+  {max:32, color:'#a03838', bg:'rgba(160,56,56,.12)', level:'Relational Urgent Care', title:'This Needs Attention This Week',
+   desc:"Your score suggests the phone has become a consistent barrier to real intimacy. The good news: this is a pattern, and patterns can change. But it will take more than reducing notifications.",
+   steps:["Stop trying to manage this alone. Speak to a pastor or marriage counsellor this month.","Ask your partner for a direct, non-defensive conversation about what they have been experiencing.","Remove your phone from the bedroom tonight. One small act of choosing presence.","Work through the Family Severity Guide together to map the right level of support."],
+   links:[{l:'Family Severity Guide',h:'family-severity-guide.html'},{l:'Focus on Family Africa',h:'https://focusafrica.uscreen.io/',t:1}],
+   verse:'"Love suffers long, and is kind." — 1 Corinthians 13:4 (WEB)'}
+];
+
+const PARENTING_BANDS = [
+  {max:7, color:'#4a9c72', bg:'rgba(74,156,114,.12)', level:'Strong Parental Presence', title:'Your Presence Is Largely Intact',
+   desc:"Your phone habits don't appear to be significantly interrupting your parenting presence. Research shows even mild technoference compounds over time — keep protecting this intentionally.",
+   steps:["Keep bedtime phone-free. That space is irreplaceable as your child grows.","Ask your children occasionally: 'Do you ever feel like my phone gets more attention than you?' Their answer matters.","Model the screen habits you want your children to carry into adulthood."],
+   links:[{l:'Smartphone Readiness Check',h:'tools.html'},{l:'Family Altar Builder',h:'family-altar.html'}],
+   verse:'"Train up a child in the way he should go." — Proverbs 22:6 (KJV)'},
+  {max:15, color:'#c4943a', bg:'rgba(196,148,58,.12)', level:'Technoference Developing', title:'Your Presence Has Competition',
+   desc:"You're noticing patterns that tend to deepen if left unaddressed. Children at this stage are still more shaped by what you model than by what the algorithm shows them. Now is a good time.",
+   steps:["Identify the one daily moment when your phone most competes with your child. Change that one moment.","Put your phone out of reach during the first and last 30 minutes of your child's day.","Tell your child you're working on being more present — and mean it."],
+   links:[{l:'Digital Sabbath',h:'digital-sabbath.html'},{l:'Algorithm Cleanse',h:'tools.html'}],
+   verse:'"These words shall be in thine heart: and thou shalt teach them diligently unto thy children." — Deuteronomy 6:6–7 (KJV)'},
+  {max:23, color:'#c07030', bg:'rgba(192,112,48,.12)', level:'Presence at Risk', title:'Your Presence Is Being Consistently Interrupted',
+   desc:"A 2025 study found that more frequent parental smartphone use during conversations with children was directly associated with children's anger and sadness. This pattern is worth taking seriously this week.",
+   steps:["Remove your phone from the bedroom tonight. Reclaim that space as a screen-free zone for good.","Work through the Family Severity Guide to see whether this connects to broader patterns.","Name what you want to change, out loud, to your child. Accountability with them matters.","Consider a weekly Digital Sabbath as a family reset — one day where screens are off and you are fully available."],
+   links:[{l:'Family Severity Guide',h:'family-severity-guide.html'},{l:'The Chat SA',h:'https://thechat.co.za/',t:1}],
+   verse:'"He shall turn the heart of the fathers to the children." — Malachi 4:6 (KJV)'},
+  {max:32, color:'#a03838', bg:'rgba(160,56,56,.12)', level:'Critical Technoference', title:'This Pattern Is Affecting Your Parent-Child Bond',
+   desc:"Children are more perceptive than we hope and more forgiving than we fear — but the patterns you describe are significant. Research links parental technoference to children's own problematic media use. This is a loop worth breaking now.",
+   steps:["Speak to a pastor, family counsellor, or a trusted mentor this week. Don't try to manage this alone.","For the next seven days: your phone does not enter your child's bedroom. Not once.","Talk to your children. Tell them you're working on this. Start there.","Use the Family Severity Guide to map whether this connects to stress, marriage strain, or your own wellbeing."],
+   links:[{l:'Family Severity Guide',h:'family-severity-guide.html'},{l:'Focus on Family Africa',h:'https://focusafrica.uscreen.io/',t:1}],
+   verse:'"Children are a heritage of the LORD: and the fruit of the womb is his reward." — Psalm 127:3 (KJV)'}
+];
+
+// ─── State ─────────────────────────────────────────────────────────
+const hh = { partner:false, children:false };
+const mAnswers = new Array(8).fill(null);
+const pAnswers = new Array(8).fill(null);
+
+// ─── Setup ─────────────────────────────────────────────────────────
+function toggleHH(type) {
+  hh[type] = !hh[type];
+  document.getElementById('hh-'+type).classList.toggle('sel', hh[type]);
+  document.getElementById('chk-'+type).style.background = hh[type] ? 'var(--gold)' : '';
+  if(hh[type]) {
+    document.getElementById('chk-'+type).textContent = '✓';
+    document.getElementById('chk-'+type).style.color = 'var(--bg)';
+  } else {
+    document.getElementById('chk-'+type).textContent = '';
+  }
+  const neither = !hh.partner && !hh.children;
+  document.getElementById('no-hh-msg').style.display = neither ? 'block' : 'none';
+  document.getElementById('begin-btn').disabled = neither;
+}
+
+function beginAssessment() {
+  document.getElementById('setup-wrap').classList.remove('active');
+  document.getElementById('setup-wrap').style.display = 'none';
+  buildQuestions();
+  document.getElementById('assessment-wrap').style.display = 'block';
+  updateProgress();
+}
+
+// ─── Build questions ────────────────────────────────────────────────
+function buildQuestions() {
+  if(hh.partner) {
+    document.getElementById('section-marriage').style.display = 'block';
+    document.getElementById('marriage-questions').innerHTML = buildQHtml(MARRIAGE_QS, 'm', mAnswers);
+  }
+  if(hh.children) {
+    document.getElementById('section-parenting').style.display = 'block';
+    document.getElementById('parenting-questions').innerHTML = buildQHtml(PARENTING_QS, 'p', pAnswers);
+  }
+}
+
+function buildQHtml(qs, prefix, answers) {
+  return qs.map((q,i) => `
+    <div class="q-block" id="qb-${prefix}${i}">
+      <div class="q-num">${prefix === 'm' ? 'Section A' : 'Section B'} — Question ${i+1} of ${qs.length}</div>
+      <div class="q-text">${q}</div>
+      <div class="q-opts">
+        ${OPTS.map((o,v) => `<div class="q-opt" onclick="setAnswer('${prefix}',${i},${v},this)">${o}</div>`).join('')}
+      </div>
+    </div>`).join('');
+}
+
+function setAnswer(prefix, qi, val, el) {
+  if(prefix === 'm') mAnswers[qi] = val;
+  else pAnswers[qi] = val;
+  document.querySelectorAll(`#qb-${prefix}${qi} .q-opt`).forEach(e=>e.classList.remove('sel'));
+  el.classList.add('sel');
+  updateProgress();
+}
+
+function updateProgress() {
+  const needed = (hh.partner ? 8 : 0) + (hh.children ? 8 : 0);
+  const done = (hh.partner ? mAnswers.filter(a=>a!==null).length : 0) +
+               (hh.children ? pAnswers.filter(a=>a!==null).length : 0);
+  const pct = needed ? Math.round((done/needed)*100) : 100;
+  document.getElementById('prog-fill').style.width = pct+'%';
+  document.getElementById('prog-pct').textContent = pct+'% answered';
+  document.getElementById('prog-label').textContent = `${done} of ${needed} questions answered`;
+  document.getElementById('submit-btn').disabled = (done < needed);
+}
+
+function submitAssessment() {
+  const mMissing = hh.partner && mAnswers.includes(null);
+  const pMissing = hh.children && pAnswers.includes(null);
+  if(mMissing || pMissing) { document.getElementById('unanswered-msg').style.display='inline'; return; }
+
+  const grid = document.getElementById('results-grid');
+  let cards = '';
+  let verse = '';
+
+  if(hh.partner) {
+    const score = mAnswers.reduce((s,a)=>s+a,0);
+    const band = MARRIAGE_BANDS.find(b=>score<=b.max);
+    cards += buildResultCard('💑', 'Marriage & Partnership', score, 32, band);
+    verse = band.verse;
+  }
+  if(hh.children) {
+    const score = pAnswers.reduce((s,a)=>s+a,0);
+    const band = PARENTING_BANDS.find(b=>score<=b.max);
+    cards += buildResultCard('👨‍👩‍👧', 'Parenting & Presence', score, 32, band);
+    if(!verse) verse = band.verse;
+  }
+
+  grid.innerHTML = cards;
+  document.getElementById('verse-footer').textContent = verse;
+  document.getElementById('assessment-wrap').style.display = 'none';
+  document.getElementById('results-wrap').classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function buildResultCard(icon, label, score, max, band) {
+  return `
+    <div class="result-card">
+      <div class="result-bar" style="background:${band.color}"></div>
+      <div class="result-section-label">${icon} ${label}</div>
+      <div class="result-level" style="color:${band.color}">${band.level}</div>
+      <div class="result-score" style="color:${band.color}">${score}</div>
+      <div class="result-max">out of ${max}</div>
+      <div class="result-title">${band.title}</div>
+      <div class="result-desc">${band.desc}</div>
+      <p class="sec-lbl">Where to Begin</p>
+      <ul class="step-list">
+        ${band.steps.map((s,i)=>`<li><span class="snum">${i+1}</span><span>${s}</span></li>`).join('')}
+      </ul>
+      <p class="sec-lbl">Resources</p>
+      <div class="res-links">
+        ${band.links.map(l=>`<a class="res-link" href="${l.h}"${l.t?' target="_blank"':''}>${l.l}</a>`).join('')}
+      </div>
+    </div>`;
+}
+
+function retake() {
+  mAnswers.fill(null); pAnswers.fill(null);
+  hh.partner = false; hh.children = false;
+  ['partner','children'].forEach(t=>{
+    document.getElementById('hh-'+t).classList.remove('sel');
+    const chk = document.getElementById('chk-'+t);
+    chk.style.background=''; chk.style.color=''; chk.textContent='';
+  });
+  document.getElementById('no-hh-msg').style.display='none';
+  document.getElementById('begin-btn').disabled=true;
+  document.getElementById('results-wrap').classList.remove('active');
+  document.getElementById('assessment-wrap').style.display='none';
+  document.getElementById('setup-wrap').style.display='block';
+  document.getElementById('setup-wrap').classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+</script>
+<!-- TODO: Add household-digital-health.html to sitemap.xml and nav. This replaces phubbing-check.html and parent-audit.html -->
+</body>
+</html>
