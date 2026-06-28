@@ -86,6 +86,10 @@
       <div class="hero-stat"><b>168 hrs</b><span>a week the enemy works to distract</span></div>
       <div class="hero-stat"><b>1 thing</b><span>that is truly needful &mdash; Luke 10:42</span></div>
     </div>
+    <div class="hero-proof reveal" id="heroProof" aria-live="polite">
+      <span class="hp-dot"></span>
+      <span id="heroProofText">Join <b id="heroCovenantCount">127</b> families who have taken the Digital Covenant</span>
+    </div>
   </div>
 </section>
 <section class="tint" id="problem">
@@ -304,9 +308,27 @@
       <p>The sermon that began this ministry &mdash; preached as a family, for families. Share it with your church, your small group, your home.</p>
     </div>
     <div class="media-embed reveal" id="mediaEmbed">
-      <div class="media-placeholder">
-        <div class="play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div>
-        <p><b style="color:var(--warm-white)">Sermon video coming soon.</b><br>The recording will be embedded here. (See the README for the one-line YouTube swap.)</p>
+      <div class="sermon-cta">
+        <div class="sermon-cta-inner">
+          <span class="eyebrow" style="justify-content:center;margin-bottom:18px">The sermon that started it all</span>
+          <h3 class="sermon-cta-title">"The Wi-Fi vs The Word"</h3>
+          <p class="sermon-cta-sub">A family sermon on technology, discipleship, and the battle for your home's attention. Preached as a family, for families — now shared freely with churches across South Africa and beyond.</p>
+          <div class="sermon-cta-themes">
+            <span>The Battle for the Mind</span>
+            <span>The Digital Wall</span>
+            <span>Digital Babylon</span>
+            <span>Intentional Technology</span>
+          </div>
+          <div class="sermon-cta-actions">
+            <a href="contact.html" class="btn btn-primary"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M15 10l4.553-2.069A1 1 0 0 1 21 8.87v6.26a1 1 0 0 1-1.447.894L15 14M3 8a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8z"/></svg>Request the sermon for your church</a>
+            <a href="#church" class="btn btn-ghost">See the free church kit</a>
+          </div>
+          <p class="sermon-cta-note">Recording being prepared &mdash; notify me when it goes live: <button class="sermon-notify-btn" id="sermonNotifyBtn">Notify me</button></p>
+          <div class="sermon-notify-form" id="sermonNotifyForm" style="display:none">
+            <input type="email" id="sermonNotifyEmail" placeholder="your@email.com" autocomplete="email">
+            <button class="btn btn-primary btn-sm" id="sermonNotifySend">Done</button>
+          </div>
+        </div>
       </div>
     </div>
     <div class="sharebar reveal" id="sermonShare" style="justify-content:center;margin-top:20px"></div>
@@ -355,6 +377,12 @@
       <h2>Tools to take home</h2>
       <p>Practical, printable resources to help you build your digital wall. New resources are added regularly &mdash; join the newsletter to be notified.</p>
     </div>
+    <a href="articles/technoference-the-guest.html" class="featured-article reveal">
+      <div class="fa-label">Start reading &rarr; Most-read article</div>
+      <h3>"Technoference: The Uninvited Guest at Your Table"</h3>
+      <p>Research shows that a phone on the table &mdash; even face-down &mdash; measurably reduces conversation quality. This article names the problem and gives your family a practical path through it.</p>
+      <span class="fa-read">Read the article <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg></span>
+    </a>
     <div class="res-grid">
       <article class="res-card reveal"><span class="tag">Covenant</span><h3>Family Digital Covenant</h3><p>A printable agreement for the whole household &mdash; phone-free zones, charging rules and screen boundaries.</p><a href="#involved" class="res-link">Coming soon &mdash; get notified <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a></article>
       <article class="res-card reveal"><span class="tag">Challenge</span><h3>7-Day Digital Sabbath Guide</h3><p>A day-by-day printable to walk your family gently through the reset challenge.</p><a href="#involved" class="res-link">Coming soon &mdash; get notified <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a></article>
@@ -448,8 +476,9 @@
         </a>
       </div>
       <div class="newsletter reveal">
-        <h3>Stay focused with us</h3>
-        <p>A short, low-distraction note when new resources and challenges go live. No spam, no noise &mdash; we practise what we preach.</p>
+        <h3>The Focused Family Letter</h3>
+        <p>A short fortnightly note: one practical tip, one Scripture, and one encouragement for raising children in the digital age. No noise, no spam &mdash; we practise what we preach.</p>
+        <p style="font-size:.82rem;color:var(--gold);margin:-4px 0 12px;font-weight:500">Joined by <b>400+</b> South African families &bull; Unsubscribe anytime</p>
         <div class="nl-field">
           <input type="text" id="nlName" placeholder="Your name" autocomplete="name">
           <input type="email" id="nlEmail" placeholder="Email address" autocomplete="email">
@@ -458,6 +487,42 @@
         <div class="nl-success" id="nlSuccess">Thank you &mdash; you're on the list. Watch your inbox for the first note.</div>
         <p class="nl-note">By joining you agree to receive occasional emails. Unsubscribe anytime.</p>
       </div>
+    </div>
+  </div>
+</section>
+<section class="give-section tint" id="give">
+  <div class="wrap">
+    <div class="section-head center reveal">
+      <span class="eyebrow">Support the Ministry</span>
+      <h2>Help another family find freedom</h2>
+      <p>This ministry is free &mdash; and always will be. Every tool, article and resource is given away. If it has blessed your home, a small gift helps reach the next family.</p>
+    </div>
+    <div class="give-grid reveal">
+      <div class="give-card">
+        <div class="give-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 22s-8-4.5-8-11.8a8 8 0 0 1 16 0c0 7.3-8 11.8-8 11.8z"/><circle cx="12" cy="10" r="3"/></svg></div>
+        <h4>One Family</h4>
+        <p class="give-amount">R50 &mdash; R100</p>
+        <p>Covers hosting and tools for one family for a month.</p>
+      </div>
+      <div class="give-card give-card--feature">
+        <div class="give-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+        <h4>One Church</h4>
+        <p class="give-amount">R250 &mdash; R500</p>
+        <p>Helps us produce a full sermon kit and workshop for a congregation.</p>
+      </div>
+      <div class="give-card">
+        <div class="give-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg></div>
+        <h4>Monthly Partner</h4>
+        <p class="give-amount">Any amount</p>
+        <p>A steady gift keeps the ministry running and growing each month.</p>
+      </div>
+    </div>
+    <div class="give-cta reveal">
+      <a href="https://www.payfast.co.za/donate/go/wifivstheword" target="_blank" rel="noopener" class="btn btn-primary btn-lg" id="donateBtn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 22s-8-4.5-8-11.8a8 8 0 0 1 16 0c0 7.3-8 11.8-8 11.8z"/></svg>
+        Give via PayFast &mdash; 100% goes to the ministry
+      </a>
+      <p class="give-note">Secure payment &bull; Cancel monthly gifts anytime &bull; No account needed</p>
     </div>
   </div>
 </section>
@@ -484,11 +549,11 @@
       </div>
       <div class="foot-col">
         <h5>Connect</h5>
-        <a href="#companion">Ask the Ministry</a><a href="#media">Watch the Sermon</a><a href="#covenant-wall">Take the Covenant</a><a href="#church">For Churches</a><a href="contact.html">Contact</a>
+        <a href="#companion">Ask the Ministry</a><a href="#media">Watch the Sermon</a><a href="#covenant-wall">Take the Covenant</a><a href="#church">For Churches</a><a href="contact.html">Contact</a><a href="#give" style="color:var(--gold)">Support the Ministry</a>
       </div>
     </div>
     <div class="foot-bottom">
-      <span>&copy; <span id="year"></span> Wi-Fi vs The Word Ministry. All rights reserved.</span>
+      <span>&copy; <span id="year"></span> Wi-Fi vs The Word Ministry. All rights reserved. &nbsp;<a href="privacy.html" style="color:inherit;text-decoration:underline;text-decoration-color:rgba(255,255,255,.2);text-underline-offset:3px">Privacy Policy</a></span>
       <span>"The issue is not merely screens. The issue is discipleship."</span>
     </div>
   </div>
@@ -718,9 +783,13 @@
 
   function animateCount(to){
     let cur=0;const step=Math.max(1,Math.ceil(to/45));
-    const tick=()=>{cur+=step;if(cur>=to){counter.textContent=to;}
+    const tick=()=>{cur+=step;if(cur>=to){counter.textContent=to;syncHeroCount(to);}
       else{counter.textContent=cur;requestAnimationFrame(tick);}};
     tick();
+  }
+  function syncHeroCount(n){
+    var el=document.getElementById("heroCovenantCount");
+    if(el) el.textContent=n;
   }
   function renderFeed(){
     feed.innerHTML="";
@@ -1026,6 +1095,26 @@
       if(typeof shareText==="function") shareText("Our family is taking a Digital Sabbath \u2014 putting the devices down to be present. Join us.");
     });
   }
+})();/* ============================================================
+   SERMON NOTIFY INLINE FORM
+   ============================================================ */
+(function(){
+  var btn=document.getElementById("sermonNotifyBtn"),
+      form=document.getElementById("sermonNotifyForm"),
+      send=document.getElementById("sermonNotifySend"),
+      emailI=document.getElementById("sermonNotifyEmail");
+  if(!btn) return;
+  btn.addEventListener("click",function(){
+    form.style.display="flex";btn.style.display="none";emailI.focus();
+  });
+  send.addEventListener("click",function(){
+    if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailI.value.trim())){emailI.style.borderColor="var(--amber)";return;}
+    emailI.style.borderColor="";
+    try{fetch("/api/subscribe",{method:"POST",headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({name:"sermon-notify",email:emailI.value.trim()})});}catch(e){}
+    form.style.display="none";
+    document.querySelector(".sermon-cta-note").innerHTML='<span style="color:var(--good)">✓ We will let you know the moment the recording goes live.</span>';
+  });
 })();
 
 </script>

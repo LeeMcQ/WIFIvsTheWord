@@ -46,6 +46,11 @@ a{color:inherit;text-decoration:none}
 button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
 input,textarea,select{font-family:inherit}
 ::selection{background:var(--gold);color:var(--navy-deep)}
+/* ── Modern text refinements ── */
+h1,h2,h3,h4{text-wrap:balance}
+p{text-wrap:pretty}
+/* ── Tabular figures for stats, dates, counters ── */
+[data-count],[class*="count"],[class*="stat"],[class*="score"],.ed-day,.sc-unit{font-variant-numeric:tabular-nums;font-feature-settings:"tnum"}
 ::-webkit-scrollbar{width:11px;height:11px}
 ::-webkit-scrollbar-track{background:var(--navy-deep)}
 ::-webkit-scrollbar-thumb{background:var(--line-strong);border-radius:10px;border:3px solid var(--navy-deep)}
@@ -112,9 +117,10 @@ header.scrolled::before{background:color-mix(in srgb,var(--navy) 88%,transparent
 .btn-primary::before{content:"";position:absolute;inset:0;background:linear-gradient(110deg,transparent 30%,rgba(255,255,255,.5) 50%,transparent 70%);transform:translateX(-120%);transition:transform .6s var(--ease);z-index:1}
 .btn-primary:hover{transform:translateY(-3px) scale(1.02);box-shadow:0 20px 50px -14px rgba(224,181,82,.6)}
 .btn-primary:hover::before{transform:translateX(120%)}
-.btn-primary:active{transform:translateY(-1px) scale(.99)}
+.btn-primary:active{transform:translateY(-1px) scale(.985)}
 .btn-ghost{border:1px solid var(--line-strong);background:var(--grad-card);backdrop-filter:blur(10px);color:var(--warm-white)}
 .btn-ghost:hover{border-color:var(--gold);transform:translateY(-3px);box-shadow:var(--shadow)}
+.btn-ghost:active{transform:translateY(-1px) scale(.985)}
 .btn-sm{padding:11px 20px;font-size:.88rem}
 .btn-lg{padding:18px 36px;font-size:1.05rem}
 
@@ -131,7 +137,12 @@ header.scrolled::before{background:color-mix(in srgb,var(--navy) 88%,transparent
    ============================================================ */
 .card{position:relative;background:var(--grad-card);backdrop-filter:blur(12px);border:1px solid var(--line);border-radius:var(--r);padding:28px;transition:transform .4s var(--ease),border-color .4s,box-shadow .4s;overflow:hidden}
 .card::before{content:"";position:absolute;inset:0;border-radius:var(--r);padding:1px;background:linear-gradient(140deg,rgba(224,181,82,.4),transparent 40%);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;opacity:0;transition:opacity .4s}
+/* ── Spotlight border on cards (driven by shared.js mousemove) ── */
+.card[data-spotlight]{--sx:50%;--sy:50%}
+.card[data-spotlight]::after{content:"";position:absolute;inset:0;border-radius:var(--r);background:radial-gradient(200px circle at var(--sx) var(--sy),rgba(224,181,82,.12),transparent 70%);pointer-events:none;opacity:0;transition:opacity .3s}
+.card[data-spotlight]:hover::after{opacity:1}
 .card:hover{transform:translateY(-6px);box-shadow:var(--shadow-lg)}
+.card:active{transform:translateY(-2px) scale(.99)}
 .card:hover::before{opacity:1}
 .card .tag{display:inline-block;font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);font-weight:700;margin-bottom:10px}
 .card h3{font-size:1.22rem;margin:4px 0 8px;letter-spacing:-.01em}
@@ -625,7 +636,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,
 /* ============================================================
    SCROLLYTELLING — "The Story" immersive sermon page
    ============================================================ */
-.story-intro{min-height:92vh;display:grid;place-items:center;text-align:center;position:relative;overflow:hidden}
+.story-intro{min-height:92vh;min-height:92dvh;display:grid;place-items:center;text-align:center;position:relative;overflow:hidden}
 .story-intro .si-inner{max-width:760px;padding:0 24px;position:relative;z-index:2}
 .story-intro .si-eyebrow{justify-content:center;margin-bottom:20px}
 .story-intro h1{font-size:clamp(2.6rem,8vw,5.5rem);line-height:1;letter-spacing:-.04em;margin-bottom:24px}
@@ -636,7 +647,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,
 
 /* each chapter is a tall scene; sticky visual + scrolling text */
 .scene{position:relative;min-height:170vh;padding:0}
-.scene-sticky{position:sticky;top:0;height:100vh;display:grid;place-items:center;overflow:hidden}
+.scene-sticky{position:sticky;top:0;height:100vh;height:100dvh;display:grid;place-items:center;overflow:hidden}
 .scene-visual{position:absolute;inset:0;display:grid;place-items:center;opacity:.5;pointer-events:none}
 .scene-visual svg{width:min(70vw,560px);height:auto;opacity:.85}
 .scene-text{position:relative;z-index:3;max-width:640px;padding:40px 28px;text-align:center}
@@ -666,3 +677,55 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,
 @keyframes draw{to{stroke-dashoffset:0}}
 .story-end{min-height:80vh;display:grid;place-items:center;text-align:center;position:relative}
 .story-end .se-inner{max-width:620px;padding:0 24px}
+
+/* ============================================================
+   HERO PROOF STRIP
+   ============================================================ */
+.hero-proof{display:inline-flex;align-items:center;gap:10px;margin-top:16px;font-size:.88rem;color:var(--warm-mute);background:rgba(255,255,255,.04);border:1px solid var(--line);border-radius:50px;padding:8px 18px}
+.hp-dot{width:8px;height:8px;border-radius:50%;background:var(--good);flex-shrink:0;animation:pulse 2.6s ease-out infinite}
+.hero-proof b{color:var(--warm-white)}
+
+/* ============================================================
+   SERMON CTA (replaces placeholder embed)
+   ============================================================ */
+.sermon-cta{background:var(--grad-card);backdrop-filter:blur(14px);border:1px solid var(--line-strong);border-radius:var(--r-lg);padding:clamp(32px,5vw,56px);text-align:center;position:relative;overflow:hidden}
+.sermon-cta::before{content:"";position:absolute;top:-80px;right:-80px;width:380px;height:380px;background:radial-gradient(circle,rgba(224,181,82,.1),transparent 65%);pointer-events:none}
+.sermon-cta-title{font-size:clamp(1.6rem,4vw,2.4rem);margin:0 0 14px;letter-spacing:-.02em}
+.sermon-cta-sub{color:var(--warm-mute);font-size:1rem;max-width:560px;margin:0 auto 24px;line-height:1.65}
+.sermon-cta-themes{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-bottom:28px}
+.sermon-cta-themes span{font-size:.76rem;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);background:rgba(224,181,82,.08);border:1px solid rgba(224,181,82,.2);padding:5px 13px;border-radius:50px}
+.sermon-cta-actions{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-bottom:20px}
+.sermon-cta-note{font-size:.82rem;color:var(--text-dim)}
+.sermon-notify-btn{background:none;border:none;color:var(--gold);text-decoration:underline;text-underline-offset:3px;cursor:pointer;font-size:.82rem;padding:0}
+.sermon-notify-form{display:flex;gap:8px;justify-content:center;margin-top:10px;flex-wrap:wrap}
+.sermon-notify-form input{background:var(--navy-soft);border:1px solid var(--line-strong);border-radius:50px;padding:10px 18px;color:var(--warm-white);font-size:.88rem;outline:none;width:260px}
+.sermon-notify-form input:focus{border-color:var(--gold)}
+
+/* ============================================================
+   FEATURED ARTICLE CARD
+   ============================================================ */
+.featured-article{display:block;position:relative;background:linear-gradient(140deg,rgba(224,181,82,.08),rgba(207,146,74,.04));border:1px solid rgba(224,181,82,.25);border-radius:var(--r-lg);padding:clamp(24px,4vw,40px);margin-bottom:24px;transition:transform .4s var(--ease),box-shadow .4s,border-color .4s;overflow:hidden}
+.featured-article::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:var(--grad-gold);border-radius:var(--r-lg) var(--r-lg) 0 0}
+.featured-article:hover{transform:translateY(-4px);box-shadow:var(--shadow-gold);border-color:rgba(224,181,82,.45)}
+.fa-label{font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);font-weight:700;margin-bottom:12px}
+.featured-article h3{font-size:clamp(1.2rem,3vw,1.8rem);margin:0 0 10px;letter-spacing:-.02em}
+.featured-article p{color:var(--warm-mute);font-size:.96rem;line-height:1.6;max-width:640px;margin:0}
+.fa-read{display:inline-flex;align-items:center;gap:7px;color:var(--gold);font-size:.88rem;font-weight:600;margin-top:16px}
+.fa-read svg{width:14px;height:14px;transition:transform .3s var(--ease)}
+.featured-article:hover .fa-read svg{transform:translateX(4px)}
+
+/* ============================================================
+   DONATION / GIVE SECTION
+   ============================================================ */
+.give-section{padding-block:clamp(64px,9vw,120px)}
+.give-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px;margin-bottom:36px}
+.give-card{background:var(--grad-card);backdrop-filter:blur(12px);border:1px solid var(--line);border-radius:var(--r);padding:28px 24px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:10px;transition:transform .4s var(--ease),border-color .4s,box-shadow .4s}
+.give-card:hover{transform:translateY(-4px);box-shadow:var(--shadow)}
+.give-card--feature{border-color:rgba(224,181,82,.3);background:linear-gradient(160deg,rgba(224,181,82,.07),rgba(207,146,74,.03))}
+.give-ico{width:48px;height:48px;border-radius:14px;background:rgba(224,181,82,.1);border:1px solid rgba(224,181,82,.2);display:grid;place-items:center;color:var(--gold)}
+.give-ico svg{width:22px;height:22px}
+.give-card h4{font-size:1.1rem;font-family:var(--font-display)}
+.give-amount{font-size:1rem;color:var(--gold);font-weight:600}
+.give-card p{font-size:.88rem;color:var(--warm-mute);line-height:1.55;margin:0}
+.give-cta{text-align:center;display:flex;flex-direction:column;align-items:center;gap:12px}
+.give-note{font-size:.78rem;color:var(--text-dim)}

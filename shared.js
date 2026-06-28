@@ -68,6 +68,16 @@ document.addEventListener("DOMContentLoaded", function(){
     nav.querySelectorAll("a").forEach(a=>a.addEventListener("click",()=>nav.classList.remove("open")));
   }
 
+  /* auto-set active nav link from current URL (fallback if not set in HTML) */
+  const alreadyActive=document.querySelector(".nav-links a.active");
+  if(!alreadyActive){
+    const path=location.pathname.replace(/\/$/,"").split("/").pop()||"index.html";
+    document.querySelectorAll(".nav-links a").forEach(a=>{
+      const href=(a.getAttribute("href")||"").replace(/\/$/,"").split("/").pop();
+      if(href===path||(path===""&&href==="index.html")) a.classList.add("active");
+    });
+  }
+
   /* scroll-aware header (premium shadow on scroll) */
   const hdr=document.querySelector("header");
   if(hdr){
@@ -123,15 +133,31 @@ document.addEventListener("DOMContentLoaded", function(){
     }
   }
 
-  /* scroll reveal */
+  /* scroll reveal — stagger siblings together, not globally */
   const els=document.querySelectorAll(".reveal,.reveal-scale");
   if("IntersectionObserver" in window){
     const io=new IntersectionObserver((ents)=>{
-      ents.forEach((en,i)=>{if(en.isIntersecting){
-        setTimeout(()=>en.target.classList.add("in"),(i%4)*70);io.unobserve(en.target);}});
-    },{threshold:.12});
+      // group by parent so siblings stagger relative to each other
+      const seenParents=new Map();
+      ents.forEach((en)=>{if(en.isIntersecting){
+        const parent=en.target.parentElement;
+        const idx=(seenParents.get(parent)||0);
+        seenParents.set(parent,idx+1);
+        setTimeout(()=>en.target.classList.add("in"),idx*80);
+        io.unobserve(en.target);
+      }});
+    },{threshold:0.08,rootMargin:"0px 0px -40px 0px"});
     els.forEach(e=>io.observe(e));
   }else{ els.forEach(e=>e.classList.add("in")); }
+
+  /* spotlight cards — track cursor inside cards with data-spotlight */
+  document.querySelectorAll(".card[data-spotlight],.article-card[data-spotlight]").forEach(card=>{
+    card.addEventListener("mousemove",e=>{
+      const r=card.getBoundingClientRect();
+      card.style.setProperty("--sx",(e.clientX-r.left)+"px");
+      card.style.setProperty("--sy",(e.clientY-r.top)+"px");
+    });
+  });
 
   /* register service worker */
   if("serviceWorker" in navigator){
